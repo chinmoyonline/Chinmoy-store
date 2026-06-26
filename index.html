@@ -340,10 +340,10 @@
     }
   </script>
 
-  <!-- ==================== CLOUD DATABASE ENGINE ==================== -->
+  <!-- ==================== CLOUD DATABASE ENGINE (INSTALLED WITH USER FIREBASE CONFIG) ==================== -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-    import { getAuth, signInWithCustomToken, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+    import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
     import { getFirestore, collection, doc, setDoc, deleteDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
     window.fbAPI = { doc, setDoc, deleteDoc, onSnapshot };
@@ -388,33 +388,34 @@
     async function initCloudStorage() {
         await window.loadLocalState();
         
-        if (typeof __firebase_config !== 'undefined' && __firebase_config) {
-            try {
-                const app = initializeApp(JSON.parse(__firebase_config));
-                const auth = getAuth(app);
-                window.db = getFirestore(app);
-                window.appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        // Installed User Firebase Config directly to ensure instant global synchronizations
+        const firebaseConfig = {
+          apiKey: "AIzaSyA5ZTa1WWu-iTFehM1FA2Qu0YpxstSUFOU",
+          authDomain: "ecommerce-20261.firebaseapp.com",
+          projectId: "ecommerce-20261",
+          storageBucket: "ecommerce-20261.firebasestorage.app",
+          messagingSenderId: "587410806087",
+          appId: "1:587410806087:web:d58d78d6c7a65604ab6862"
+        };
 
-                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                    await signInWithCustomToken(auth, __initial_auth_token);
-                } else {
-                    await signInAnonymously(auth);
+        try {
+            const app = initializeApp(firebaseConfig);
+            const auth = getAuth(app);
+            window.db = getFirestore(app);
+            window.appId = "ecommerce-20261"; // Linked securely with project ID
+
+            // RULE 3 - Authenticate FIRST before sending queries
+            await signInAnonymously(auth);
+
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    window.userId = user.uid;
+                    isCloudActive = true;
+                    attachCloudListeners();
                 }
-
-                onAuthStateChanged(auth, (user) => {
-                    if (user) {
-                        window.userId = user.uid;
-                        isCloudActive = true;
-                        attachCloudListeners();
-                    }
-                });
-            } catch (e) {
-                console.error("Firebase Auth Failed:", e);
-                removeLoader();
-                if(typeof window.renderApp === 'function') window.renderApp(); 
-            }
-        } else {
-            console.warn("No cloud config found. Running locally with unlimited IndexedDB database layers.");
+            });
+        } catch (e) {
+            console.error("Firebase Database Authentication Failed:", e);
             removeLoader();
             if(typeof window.renderApp === 'function') window.renderApp(); 
         }
@@ -424,6 +425,7 @@
         const { doc, onSnapshot } = window.fbAPI;
         const db = window.db; const appId = window.appId; const userId = window.userId;
 
+        // RULE 1 - Public sync matches artifacts/{appId}/public/data/storeData/{docName}
         const syncPublicDoc = (docName, stateKey, defaultData, saveLocalFn) => {
             onSnapshot(doc(db, 'artifacts', appId, 'public', 'data', 'storeData', docName), {
                 next: (snap) => {
@@ -437,10 +439,11 @@
                     window.renderApp();
                     removeLoader();
                 },
-                error: (e) => console.error(`Error syncing ${docName}:`, e)
+                error: (e) => console.error(`Error syncing public dataset [${docName}]:`, e)
             });
         };
 
+        // RULE 1 - Private sync matches artifacts/{appId}/users/{userId}/privateData/{docName}
         const syncPrivateDoc = (docName, stateKey, defaultData, iDBCacheKey) => {
             onSnapshot(doc(db, 'artifacts', appId, 'users', userId, 'privateData', docName), {
                 next: (snap) => {
@@ -452,7 +455,7 @@
                     saveIDBData(iDBCacheKey, 'list', window.state[stateKey]);
                     window.updateGlobalBadges();
                 },
-                error: (e) => console.error(`Error syncing private ${docName}:`, e)
+                error: (e) => console.error(`Error syncing private dataset [${docName}]:`, e)
             });
         };
 
@@ -480,13 +483,13 @@
             }
         } catch(e) { console.warn("IndexedDB write error:", e); }
 
-        if (!isCloudActive || !window.db) return;
+        if (!isCloudActive || !window.db || !window.userId) return;
         const { doc, setDoc } = window.fbAPI;
         const path = isPrivate 
             ? ['artifacts', window.appId, 'users', window.userId, 'privateData', docName]
             : ['artifacts', window.appId, 'public', 'data', 'storeData', docName];
         
-        setDoc(doc(window.db, ...path), { list: listData }).catch(e => console.error("Write error:", e));
+        setDoc(doc(window.db, ...path), { list: listData }).catch(e => console.error("Database cloud write error:", e));
     }
 
     function removeLoader() {
@@ -816,11 +819,7 @@
     // HOME VIEW (REDESIGNED: Shows ALL Products & Features Quick-Buy visual widget at top hero section)
     function renderHome() {
       const main = document.getElementById('main-content');
-      
-      // Upgrade: Show ALL products currently added in the database
       const allProducts = state.products;
-      
-      // Retrieve the first/featured item to show inside the Quick-Buy Interactive Box in the Hero
       const featuredProduct = allProducts.length > 0 ? allProducts[0] : null;
 
       let quickBuyWidgetHtml = '';
@@ -866,7 +865,6 @@
           </div>
         `;
       } else {
-        // Fallback banner if database contains no products
         quickBuyWidgetHtml = `
           <div class="relative flex justify-center items-center h-[400px] md:h-[600px]">
             <div class="absolute inset-0 bg-gradient-to-tr from-indigo-500/20 to-transparent rounded-full blur-3xl animate-pulse-subtle"></div>
@@ -1268,7 +1266,6 @@
       if (product.image3) galleryImages.push(product.image3);
       let currentImgIndex = 0;
 
-      // Extract alternate products to generate bottom navigation catalog
       const alternateProducts = state.products.filter(p => String(p.id) !== String(product.id)).slice(0, 4);
       let alternateProductsHtml = '';
       if (alternateProducts.length > 0) {
@@ -1925,7 +1922,6 @@
             }
           });
 
-          // Capture cart contents before emptying so we can display them on the success board
           const purchasedItems = [...state.cart];
 
           state.cart = [];
