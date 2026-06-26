@@ -1,0 +1,3161 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chinmoy Shoes Store - Premium Indian Footwear Store</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              light: '#6366f1',
+              DEFAULT: '#4f46e5',
+              dark: '#4338ca',
+            }
+          },
+          animation: {
+            'spin-slow': 'spin 10s linear infinite',
+            'pulse-subtle': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Custom Styles -->
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .glassmorphism {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    .dark .glassmorphism {
+      background: rgba(15, 23, 42, 0.45);
+      border-color: rgba(255, 255, 255, 0.08);
+    }
+    /* Smooth transition */
+    .view-transition {
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #4f46e5;
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #3730a3;
+    }
+    #cloud-loader {
+      transition: opacity 0.5s ease;
+    }
+    /* Main gallery slider animation styles */
+    .slide-active {
+      transform: translateX(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .slide-left {
+      transform: translateX(-100%);
+      opacity: 0;
+      pointer-events: none;
+    }
+    .slide-right {
+      transform: translateX(100%);
+      opacity: 0;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 dark:bg-[#09090b] text-gray-900 dark:text-gray-100 min-h-screen flex flex-col transition-colors duration-300 relative">
+
+  <!-- INITIAL CLOUD LOADING SCREEN -->
+  <div id="cloud-loader" class="fixed inset-0 z-[100] bg-white dark:bg-[#09090b] flex flex-col items-center justify-center">
+    <div class="w-16 h-16 border-4 border-indigo-200 border-t-indigo-600 rounded-full animate-spin mb-4"></div>
+    <h2 class="text-xl font-black tracking-widest uppercase text-gray-900 dark:text-white animate-pulse">Syncing Database Engine...</h2>
+  </div>
+
+  <!-- ==================== HEADER / NAVIGATION ==================== -->
+  <header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-[#09090b]/85 backdrop-blur-xl border-b border-gray-200 dark:border-gray-800 transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-20">
+        
+        <!-- Logo -->
+        <div class="flex items-center cursor-pointer group" onclick="navigate('home')">
+          <div class="w-10 h-10 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-xl flex items-center justify-center mr-3 group-hover:rotate-12 transition-transform">
+            <span class="text-white font-black text-xl">C</span>
+          </div>
+          <span class="text-2xl font-black bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400">
+            CHINMOY
+          </span>
+        </div>
+
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex space-x-8 text-sm font-semibold tracking-wide text-gray-600 dark:text-gray-300" id="desktop-nav-links">
+          <!-- Populated dynamically -->
+        </nav>
+
+        <!-- Utility Icons -->
+        <div class="flex items-center space-x-4">
+          <!-- Search Switch -->
+          <div class="relative flex items-center">
+            <input type="text" id="global-search" placeholder="Search sneakers..." class="hidden sm:block w-0 focus:w-48 lg:focus:w-64 px-4 py-2 rounded-full bg-gray-100 dark:bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:text-white transition-all opacity-0 focus:opacity-100 duration-300" onkeyup="handleGlobalSearch(event)">
+            <button onclick="toggleSearchBar()" class="p-2 text-gray-600 dark:text-gray-300 hover:text-indigo-500 transition-colors">
+              <i data-lucide="search" class="w-5 h-5"></i>
+            </button>
+          </div>
+
+          <!-- Light/Dark Mode Toggle -->
+          <button onclick="toggleTheme()" class="p-2 text-gray-600 dark:text-gray-300 hover:text-indigo-500 transition-colors">
+            <i id="theme-icon" data-lucide="sun" class="w-5 h-5"></i>
+          </button>
+
+          <!-- User Account -->
+          <button onclick="navigate('auth')" class="p-2 text-gray-600 dark:text-gray-300 hover:text-indigo-500 transition-colors relative">
+            <i data-lucide="user" class="w-5 h-5"></i>
+            <span id="user-badge" class="hidden absolute top-1 right-1 w-2.5 h-2.5 bg-green-500 rounded-full border border-white dark:border-gray-900"></span>
+          </button>
+
+          <!-- Wishlist -->
+          <button onclick="navigate('dashboard', 'wishlist')" class="p-2 text-gray-600 dark:text-gray-300 hover:text-indigo-500 transition-colors relative">
+            <i data-lucide="heart" class="w-5 h-5"></i>
+            <span id="wishlist-badge" class="hidden absolute -top-1 -right-1 bg-rose-500 text-white text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center">0</span>
+          </button>
+
+          <!-- Shopping Cart -->
+          <button onclick="navigate('cart')" class="p-2 text-gray-600 dark:text-gray-300 hover:text-indigo-500 transition-colors relative">
+            <i data-lucide="shopping-cart" class="w-5 h-5"></i>
+            <span id="cart-badge" class="hidden absolute -top-1 -right-1 bg-indigo-600 text-white text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center">0</span>
+          </button>
+
+          <!-- Mobile Menu Button -->
+          <button onclick="toggleMobileMenu()" class="md:hidden p-2 text-gray-600 dark:text-gray-300">
+            <i data-lucide="menu" id="mobile-menu-icon" class="w-6 h-6"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-[#09090b] border-t border-gray-200 dark:border-gray-800 p-4 space-y-4">
+      <nav class="flex flex-col space-y-3 font-semibold text-gray-600 dark:text-gray-300" id="mobile-nav-links">
+         <!-- Populated dynamically -->
+      </nav>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN CONTENT CONTAINER ==================== -->
+  <main id="main-content" class="flex-grow pt-20">
+    <!-- Active view content loaded dynamically -->
+  </main>
+
+  <!-- ==================== NOTIFICATION SYSTEM ==================== -->
+  <div id="notification-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-3 pointer-events-none"></div>
+
+  <!-- ==================== CUSTOM MODAL DIALOGS ==================== -->
+  <div id="custom-dialog-backdrop" class="fixed inset-0 z-[110] bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-[#0e0e11] border border-gray-200 dark:border-gray-800 w-full max-w-md rounded-2xl overflow-hidden shadow-2xl p-6 space-y-4">
+      <h3 id="dialog-title" class="text-lg font-extrabold text-gray-900 dark:text-white">Dialog Header</h3>
+      <p id="dialog-message" class="text-xs text-gray-600 dark:text-gray-400">Confirmation request text message.</p>
+      
+      <div id="dialog-inputs-container" class="space-y-3 hidden">
+        <!-- Dynamic Form Fields -->
+      </div>
+
+      <div class="flex justify-end gap-3 pt-2">
+        <button id="dialog-cancel-btn" onclick="closeCustomDialog(false)" class="px-4 py-2 rounded-xl text-xs font-bold bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">Cancel</button>
+        <button id="dialog-confirm-btn" onclick="closeCustomDialog(true)" class="px-4 py-2 rounded-xl text-xs font-bold bg-indigo-600 text-white hover:bg-indigo-700 transition-colors shadow">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="bg-gray-100 dark:bg-black pt-16 pb-10 border-t border-gray-200 dark:border-gray-800 transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+        <div class="col-span-1 md:col-span-2 space-y-6">
+          <div class="flex items-center">
+            <div class="w-10 h-10 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-xl flex items-center justify-center mr-3">
+              <span class="text-white font-black text-xl">C</span>
+            </div>
+            <span class="text-2xl font-black text-gray-900 dark:text-white">CHINMOY</span>
+          </div>
+          <p class="text-gray-600 dark:text-gray-400 max-w-sm">
+            Elevate your stride. Experience premium high-performance running shoes and luxury streetwear sneakers handcrafted for comfort and prestige. Designed for India.
+          </p>
+          <div class="flex space-x-4">
+            <a href="#" class="w-10 h-10 rounded-full bg-white dark:bg-gray-900 flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-indigo-600 hover:text-white transition-all shadow-sm">
+              <i data-lucide="facebook" class="w-5 h-5"></i>
+            </a>
+            <a href="#" class="w-10 h-10 rounded-full bg-white dark:bg-gray-900 flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-indigo-600 hover:text-white transition-all shadow-sm">
+              <i data-lucide="instagram" class="w-5 h-5"></i>
+            </a>
+            <a href="#" class="w-10 h-10 rounded-full bg-white dark:bg-gray-900 flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-indigo-600 hover:text-white transition-all shadow-sm">
+              <i data-lucide="twitter" class="w-5 h-5"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="text-sm font-bold tracking-wider uppercase text-gray-900 dark:text-white mb-6">Explore</h4>
+          <ul class="space-y-3 text-sm text-gray-600 dark:text-gray-400">
+            <li><button onclick="navigate('shop')" class="hover:text-indigo-500">All Collections</button></li>
+            <li><button onclick="navigate('shop', 'Sneakers')" class="hover:text-indigo-500">Trending Sneakers</button></li>
+            <li><button onclick="navigate('shop', 'Running')" class="hover:text-indigo-500">Athletic Performance</button></li>
+            <li><button onclick="navigate('faq')" class="hover:text-indigo-500">Customer Support</button></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-sm font-bold tracking-wider uppercase text-gray-900 dark:text-white mb-6">Trust & Safety</h4>
+          <ul class="space-y-3 text-sm text-gray-600 dark:text-gray-400">
+            <li><button onclick="navigate('privacy')" class="hover:text-indigo-500">Privacy Policy</button></li>
+            <li><button onclick="navigate('terms')" class="hover:text-indigo-500">Terms & Conditions</button></li>
+            <li><button onclick="navigate('shipping')" class="hover:text-indigo-500">Shipping Information</button></li>
+            <li><button onclick="navigate('returns')" class="hover:text-indigo-500">Refunds & Returns</button></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-200 dark:border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+        <p class="text-gray-500 dark:text-gray-400 text-xs">
+          © 2026 Chinmoy Shoes Store. Built with supreme performance & premium luxury style. All Rights Reserved.
+        </p>
+        <div class="flex items-center gap-3">
+          <span class="text-xs text-gray-500 font-semibold tracking-wide">Payments:</span>
+          <span class="px-2 py-1 bg-white dark:bg-gray-900 text-[10px] font-bold tracking-wider border border-gray-200 dark:border-gray-800 rounded">CASH ON DELIVERY</span>
+          <span class="px-2 py-1 bg-white dark:bg-gray-900 text-[10px] font-bold tracking-wider border border-gray-200 dark:border-gray-800 rounded">PAY ON DELIVERY</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== WHATSAPP QUICK CHAT BUTTON ==================== -->
+  <a id="whatsapp-floating-btn" href="https://wa.me/919876543210" target="_blank" class="fixed bottom-6 left-6 z-40 bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 hover:scale-110 active:scale-95 transition-all flex items-center justify-center">
+    <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+      <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.438 2.5 1.177 3.464l-.772 2.817 2.883-.755c.928.568 2.008.894 3.16.894 3.181 0 5.767-2.586 5.768-5.766 0-3.181-2.587-5.767-5.768-5.767zm3.811 8.23c-.194.545-1.121 1.01-1.542 1.054-.383.04-.881.082-2.502-.574-2.073-.838-3.414-2.946-3.518-3.084-.104-.138-.838-1.111-.838-2.115 0-1.004.524-1.499.711-1.704.187-.205.412-.258.55-.258s.275-.003.393.003c.122.006.287-.046.45.342.169.4.58 1.412.63 1.512.05.1.082.217.017.348-.066.13-.1.217-.197.332-.097.114-.204.256-.29.345-.1.1-.205.21-.088.411.117.201.521.859 1.119 1.391.77.687 1.42.9 1.623.999.203.1.322.083.442-.055.12-.138.524-.61.666-.818.14-.208.28-.175.474-.104.193.071 1.226.578 1.439.684.212.106.353.159.405.248.053.089.053.517-.141 1.062z"/>
+    </svg>
+  </a>
+
+  <!-- ==================== STORAGE ENGINE (INDEXEDDB) ==================== -->
+  <script>
+    const DB_NAME = 'ChinmoyShoesDB';
+    const DB_VERSION = 1;
+    let indexedDbInstance = null;
+
+    function openIndexedDB() {
+      return new Promise((resolve, reject) => {
+        const request = indexedDB.open(DB_NAME, DB_VERSION);
+        
+        request.onupgradeneeded = (event) => {
+          const db = event.target.result;
+          if (!db.objectStoreNames.contains('products')) db.createObjectStore('products', { keyPath: 'id' });
+          if (!db.objectStoreNames.contains('orders')) db.createObjectStore('orders', { keyPath: 'id' });
+          if (!db.objectStoreNames.contains('categories')) db.createObjectStore('categories');
+          if (!db.objectStoreNames.contains('coupons')) db.createObjectStore('coupons');
+          if (!db.objectStoreNames.contains('storeSettings')) db.createObjectStore('storeSettings');
+          if (!db.objectStoreNames.contains('cart')) db.createObjectStore('cart');
+          if (!db.objectStoreNames.contains('wishlist')) db.createObjectStore('wishlist');
+          if (!db.objectStoreNames.contains('shippingInfo')) db.createObjectStore('shippingInfo');
+        };
+
+        request.onsuccess = (event) => {
+          indexedDbInstance = event.target.result;
+          resolve(indexedDbInstance);
+        };
+
+        request.onerror = (event) => reject(event.target.error);
+      });
+    }
+
+    function getIDBData(storeName, key) {
+      return new Promise((resolve, reject) => {
+        if (!indexedDbInstance) { resolve(null); return; }
+        const transaction = indexedDbInstance.transaction([storeName], 'readonly');
+        const store = transaction.objectStore(storeName);
+        const request = key ? store.get(key) : store.getAll();
+
+        request.onsuccess = () => resolve(request.result);
+        request.onerror = () => reject(request.error);
+      });
+    }
+
+    function saveIDBData(storeName, key, value) {
+      return new Promise((resolve, reject) => {
+        if (!indexedDbInstance) { resolve(false); return; }
+        const transaction = indexedDbInstance.transaction([storeName], 'readwrite');
+        const store = transaction.objectStore(storeName);
+        const request = key ? store.put(value, key) : store.put(value);
+
+        request.onsuccess = () => resolve(true);
+        request.onerror = () => reject(request.error);
+      });
+    }
+
+    function saveIDBProductsBatch(productsArray) {
+      return new Promise((resolve, reject) => {
+        if (!indexedDbInstance) { resolve(false); return; }
+        const transaction = indexedDbInstance.transaction(['products'], 'readwrite');
+        const store = transaction.objectStore('products');
+        store.clear();
+        productsArray.forEach(p => store.put(p));
+        transaction.oncomplete = () => resolve(true);
+        transaction.onerror = (e) => reject(e.target.error);
+      });
+    }
+
+    function saveIDBOrdersBatch(ordersArray) {
+      return new Promise((resolve, reject) => {
+        if (!indexedDbInstance) { resolve(false); return; }
+        const transaction = indexedDbInstance.transaction(['orders'], 'readwrite');
+        const store = transaction.objectStore('orders');
+        store.clear();
+        ordersArray.forEach(o => store.put(o));
+        transaction.oncomplete = () => resolve(true);
+        transaction.onerror = (e) => reject(e.target.error);
+      });
+    }
+  </script>
+
+  <!-- ==================== CLOUD DATABASE ENGINE ==================== -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import { getAuth, signInWithCustomToken, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+    import { getFirestore, collection, doc, setDoc, deleteDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+    window.fbAPI = { doc, setDoc, deleteDoc, onSnapshot };
+    let isCloudActive = false;
+
+    // Default Seed Data
+    const defaultProducts = [
+        { id: 1, name: 'Chinmoy Hyperion-X V2', brand: 'Chinmoy Elite', price: 14999, originalPrice: 18999, category: 'Running', image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80', image2: 'https://images.unsplash.com/photo-1608231387042-66d1773070a5?auto=format&fit=crop&w=800&q=80', image3: 'https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?auto=format&fit=crop&w=800&q=80', description: 'Experience pure unadulterated luxury and mechanical cushion propulsion. Designed specifically for elite Indian athletes.', benefits: 'Propulsive carbon-fiber launch plate; Dual-density nitrogen injected response foam; Laser weave engineered hyper-breathable shell.', rating: 4.9, reviewsList: [{ id: 1, author: 'Aarav Kumar', rating: 5, comment: 'Phenomenal cushion tech!' }], sizes: [7, 8, 9, 10, 11], colors: ['Indigo Burst', 'Stealth Black'], isNew: true, inStock: true, specs: { Upper: 'Seamless engineered mesh', Midsole: 'Carbon-fiber infused foam', Outsole: 'Traction rubber matrix' } },
+        { id: 2, name: 'Apex Nitro Runner', brand: 'Apex', price: 9999, originalPrice: 12999, category: 'Running', image: 'https://images.unsplash.com/photo-1608231387042-66d1773070a5?auto=format&fit=crop&w=800&q=80', image2: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80', image3: 'https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?auto=format&fit=crop&w=800&q=80', description: 'Engineered with premium lightweight high-wear rubber and high-grade responsive nitrogen cushion matrix.', benefits: 'High responsive bounce tech; High-wear durable compound grid; Seamless inner compression glove.', rating: 4.7, reviewsList: [{ id: 1, author: 'Sneha Patel', rating: 4, comment: 'Highly comfortable and bouncy.' }], sizes: [6, 7, 8, 9, 10], colors: ['Neon Green', 'Glacier White'], isNew: false, inStock: true, specs: { Upper: 'Knit fabric', Midsole: 'Nitrogen infused cushion', Outsole: 'High wear rubber' } },
+        { id: 3, name: 'Classic Retro Court', brand: 'Vantage', price: 7999, originalPrice: 9999, category: 'Casual', image: 'https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?auto=format&fit=crop&w=800&q=80', image2: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80', image3: 'https://images.unsplash.com/photo-1608231387042-66d1773070a5?auto=format&fit=crop&w=800&q=80', description: 'A masterpiece vintage revival handcrafted from full-grain luxury leather. Ideal for clean street aesthetics.', benefits: 'Plush leather that molds to your feet; Retro siped non-slip traction soles; Luxury cork cushioned insoles.', rating: 4.5, reviewsList: [{ id: 1, author: 'Arjun Sen', rating: 5, comment: 'Perfect match with linen trousers.' }], sizes: [8, 9, 10], colors: ['Tan Leather', 'Monochrome Black'], isNew: false, inStock: true, specs: { Upper: 'Full-grain leather', Midsole: 'EVA core', Outsole: 'Siped gum sole' } },
+        { id: 4, name: 'Streetwise Low Sneakers', brand: 'Horizon', price: 5999, originalPrice: 7499, category: 'Sneakers', image: 'https://images.unsplash.com/photo-1560769629-975ec94e6a86?auto=format&fit=crop&w=800&q=80', image2: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80', image3: 'https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?auto=format&fit=crop&w=800&q=80', description: 'Suede street classics optimized with vulcanized flexibility wrappers. Authentic prestige lifestyle upgrade.', benefits: 'Italian hand-brushed premium suede shell; All-day shock absorbing cushion padding; Iconic street traction.', rating: 4.6, reviewsList: [{ id: 1, author: 'Pooja Iyer', rating: 4, comment: 'Suede looks highly classy.' }], sizes: [6, 7, 8, 9, 10, 11], colors: ['Suede Grey', 'Cream Canvas'], isNew: true, inStock: true, specs: { Upper: 'Italian suede', Midsole: 'Vulcanized rubber wrapper', Outsole: 'Flex grip outsole' } }
+    ];
+
+    window.loadLocalState = async function() {
+        if (!window.state) return;
+        await openIndexedDB();
+
+        const storedProducts = await getIDBData('products');
+        window.state.products = (storedProducts && storedProducts.length > 0) ? storedProducts : defaultProducts;
+
+        if (!storedProducts || storedProducts.length === 0) {
+          await saveIDBProductsBatch(defaultProducts);
+        }
+
+        const storedOrders = await getIDBData('orders');
+        window.state.orders = storedOrders || [];
+
+        window.state.categories = await getIDBData('categories', 'list') || ['Running', 'Sneakers', 'Casual', 'Basketball', 'Formals'];
+        window.state.coupons = await getIDBData('coupons', 'list') || [
+            { code: 'CHINMOY20', type: 'percent', value: 20, description: 'Get 20% off your purchase' },
+            { code: 'FIRSTSTEP', type: 'fixed', value: 1500, description: 'Flat ₹1500 off order above ₹9999' }
+        ];
+        
+        window.state.storeSettings = await getIDBData('storeSettings', 'config') || { whatsappNumber: '919876543210' };
+        window.state.cart = await getIDBData('cart', 'list') || [];
+        window.state.wishlist = await getIDBData('wishlist', 'list') || [];
+        window.state.shippingInfo = await getIDBData('shippingInfo', 'list') || [];
+        
+        if (typeof window.updateGlobalBadges === 'function') window.updateGlobalBadges();
+    };
+
+    async function initCloudStorage() {
+        await window.loadLocalState();
+        
+        if (typeof __firebase_config !== 'undefined' && __firebase_config) {
+            try {
+                const app = initializeApp(JSON.parse(__firebase_config));
+                const auth = getAuth(app);
+                window.db = getFirestore(app);
+                window.appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                } else {
+                    await signInAnonymously(auth);
+                }
+
+                onAuthStateChanged(auth, (user) => {
+                    if (user) {
+                        window.userId = user.uid;
+                        isCloudActive = true;
+                        attachCloudListeners();
+                    }
+                });
+            } catch (e) {
+                console.error("Firebase Auth Failed:", e);
+                removeLoader();
+                if(typeof window.renderApp === 'function') window.renderApp(); 
+            }
+        } else {
+            console.warn("No cloud config found. Running locally with unlimited IndexedDB database layers.");
+            removeLoader();
+            if(typeof window.renderApp === 'function') window.renderApp(); 
+        }
+    }
+
+    function attachCloudListeners() {
+        const { doc, onSnapshot } = window.fbAPI;
+        const db = window.db; const appId = window.appId; const userId = window.userId;
+
+        const syncPublicDoc = (docName, stateKey, defaultData, saveLocalFn) => {
+            onSnapshot(doc(db, 'artifacts', appId, 'public', 'data', 'storeData', docName), {
+                next: (snap) => {
+                    if(snap.exists()) {
+                        window.state[stateKey] = snap.data().list;
+                    } else {
+                        window.state[stateKey] = defaultData;
+                        window.syncToCloud(docName, defaultData, false);
+                    }
+                    if (saveLocalFn) saveLocalFn(window.state[stateKey]);
+                    window.renderApp();
+                    removeLoader();
+                },
+                error: (e) => console.error(`Error syncing ${docName}:`, e)
+            });
+        };
+
+        const syncPrivateDoc = (docName, stateKey, defaultData, iDBCacheKey) => {
+            onSnapshot(doc(db, 'artifacts', appId, 'users', userId, 'privateData', docName), {
+                next: (snap) => {
+                    if(snap.exists()) window.state[stateKey] = snap.data().list;
+                    else {
+                        window.state[stateKey] = defaultData;
+                        window.syncToCloud(docName, defaultData, true);
+                    }
+                    saveIDBData(iDBCacheKey, 'list', window.state[stateKey]);
+                    window.updateGlobalBadges();
+                },
+                error: (e) => console.error(`Error syncing private ${docName}:`, e)
+            });
+        };
+
+        syncPublicDoc('products', 'products', defaultProducts, (data) => saveIDBProductsBatch(data));
+        syncPublicDoc('orders', 'orders', [], (data) => saveIDBOrdersBatch(data)); 
+        syncPublicDoc('categories', 'categories', ['Running', 'Sneakers', 'Casual', 'Basketball', 'Formals'], (data) => saveIDBData('categories', 'list', data));
+        syncPublicDoc('storeSettings', 'storeSettings', { whatsappNumber: '919876543210' }, (data) => saveIDBData('storeSettings', 'config', data));
+        syncPublicDoc('coupons', 'coupons', [
+            { code: 'CHINMOY20', type: 'percent', value: 20, description: 'Get 20% off your purchase' },
+            { code: 'FIRSTSTEP', type: 'fixed', value: 1500, description: 'Flat ₹1500 off order above ₹9999' }
+        ], (data) => saveIDBData('coupons', 'list', data));
+
+        syncPrivateDoc('cart', 'cart', [], 'cart');
+        syncPrivateDoc('wishlist', 'wishlist', [], 'wishlist');
+        syncPrivateDoc('shippingInfo', 'shippingInfo', [], 'shippingInfo');
+    }
+
+    window.syncToCloud = function(docName, listData, isPrivate = false) {
+        try {
+            if (docName === 'products') saveIDBProductsBatch(listData);
+            else if (docName === 'orders') saveIDBOrdersBatch(listData);
+            else if (docName === 'storeSettings') saveIDBData('storeSettings', 'config', listData);
+            else {
+              saveIDBData(docName, 'list', listData);
+            }
+        } catch(e) { console.warn("IndexedDB write error:", e); }
+
+        if (!isCloudActive || !window.db) return;
+        const { doc, setDoc } = window.fbAPI;
+        const path = isPrivate 
+            ? ['artifacts', window.appId, 'users', window.userId, 'privateData', docName]
+            : ['artifacts', window.appId, 'public', 'data', 'storeData', docName];
+        
+        setDoc(doc(window.db, ...path), { list: listData }).catch(e => console.error("Write error:", e));
+    }
+
+    function removeLoader() {
+        const loader = document.getElementById('cloud-loader');
+        if(loader) {
+            loader.style.opacity = '0';
+            setTimeout(() => loader.remove(), 500);
+        }
+    }
+
+    window.addEventListener('load', initCloudStorage);
+  </script>
+
+  <!-- ==================== CONTROLLER SCRIPT (V-SPA CORE) ==================== -->
+  <script>
+    window.state = {
+      view: 'home', 
+      viewParam: null,
+      theme: 'dark',
+      user: null,
+      searchQuery: '',
+      isFiltersVisible: false, 
+      wishlist: [],
+      cart: [],
+      shippingInfo: [], 
+      products: [],
+      orders: [], 
+      categories: [],
+      coupons: [],
+      storeSettings: { whatsappNumber: '919876543210' }, 
+      appliedCoupon: null,
+      shopPage: 1,
+      shopPageSize: 12,
+      adminProductsPage: 1,
+      adminProductsPageSize: 15
+    };
+
+    function saveCart() { window.syncToCloud('cart', state.cart, true); updateGlobalBadges(); }
+    function saveWishlist() { window.syncToCloud('wishlist', state.wishlist, true); updateGlobalBadges(); }
+    function saveOrders() { window.syncToCloud('orders', state.orders, false); }
+    function saveProducts() { window.syncToCloud('products', state.products, false); }
+    function saveCategories() { window.syncToCloud('categories', state.categories, false); }
+    function saveCoupons() { window.syncToCloud('coupons', state.coupons, false); }
+    function saveStoreSettings() { window.syncToCloud('storeSettings', state.storeSettings, false); }
+    function saveShippingInfo() { window.syncToCloud('shippingInfo', state.shippingInfo, true); }
+
+    let activeDialogPromise = null;
+
+    window.showCustomDialog = function({ title, message, showCancel = true, inputs = [] }) {
+      return new Promise((resolve) => {
+        const backdrop = document.getElementById('custom-dialog-backdrop');
+        const titleEl = document.getElementById('dialog-title');
+        const msgEl = document.getElementById('dialog-message');
+        const cancelBtn = document.getElementById('dialog-cancel-btn');
+        const confirmBtn = document.getElementById('dialog-confirm-btn');
+        const container = document.getElementById('dialog-inputs-container');
+
+        titleEl.innerText = title;
+        msgEl.innerText = message;
+        
+        if (showCancel) {
+          cancelBtn.classList.remove('hidden');
+        } else {
+          cancelBtn.classList.add('hidden');
+        }
+
+        container.innerHTML = '';
+        if (inputs.length > 0) {
+          container.classList.remove('hidden');
+          inputs.forEach(input => {
+            const wrap = document.createElement('div');
+            wrap.className = 'space-y-1';
+            wrap.innerHTML = `
+              <label class="text-[10px] font-extrabold uppercase tracking-wider text-gray-400 block">${input.label}</label>
+              <input type="${input.type || 'text'}" id="dialog-input-${input.id}" value="${input.value || ''}" placeholder="${input.placeholder || ''}" class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl outline-none text-xs focus:ring-1 focus:ring-indigo-500 dark:text-white">
+            `;
+            container.appendChild(wrap);
+          });
+        } else {
+          container.classList.add('hidden');
+        }
+
+        backdrop.classList.remove('hidden');
+        backdrop.classList.add('flex');
+
+        activeDialogPromise = { resolve, inputs };
+      });
+    };
+
+    window.closeCustomDialog = function(confirmed) {
+      const backdrop = document.getElementById('custom-dialog-backdrop');
+      backdrop.classList.add('hidden');
+      backdrop.classList.remove('flex');
+
+      if (activeDialogPromise) {
+        if (!confirmed) {
+          activeDialogPromise.resolve(null);
+        } else {
+          const results = {};
+          activeDialogPromise.inputs.forEach(inp => {
+            const el = document.getElementById(`dialog-input-${inp.id}`);
+            if (el) results[inp.id] = el.value.trim();
+          });
+          activeDialogPromise.resolve(results);
+        }
+        activeDialogPromise = null;
+      }
+    };
+
+    window.customConfirm = async function(title, message) {
+      const res = await showCustomDialog({ title, message, showCancel: true });
+      return res !== null;
+    };
+
+    window.customPrompt = async function(title, message, inputsConfig) {
+      return await showCustomDialog({ title, message, showCancel: true, inputs: inputsConfig });
+    };
+
+    window.customAlert = async function(title, message) {
+      await showCustomDialog({ title, message, showCancel: false });
+    };
+
+    function initUserSession() {
+      const savedUser = localStorage.getItem('chinmoy_user');
+      if (savedUser) {
+        state.user = JSON.parse(savedUser);
+        updateUserUI();
+      }
+    }
+    window.addEventListener('load', initUserSession);
+
+    window.navigate = function(viewName, param = null) {
+      state.view = viewName;
+      state.viewParam = param;
+      if (viewName === 'shop') {
+        state.shopPage = 1;
+      }
+      renderApp();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.toggleTheme = function() {
+      const html = document.documentElement;
+      const themeIcon = document.getElementById('theme-icon');
+      if (html.classList.contains('dark')) {
+        html.classList.remove('dark');
+        themeIcon.setAttribute('data-lucide', 'moon');
+        state.theme = 'light';
+      } else {
+        html.classList.add('dark');
+        themeIcon.setAttribute('data-lucide', 'sun');
+        state.theme = 'dark';
+      }
+      lucide.createIcons();
+    }
+
+    window.notify = function(message, type = 'success') {
+      const container = document.getElementById('notification-container');
+      const card = document.createElement('div');
+      card.className = `p-4 rounded-2xl shadow-lg border text-sm font-semibold flex items-center gap-3 animate-bounce-in max-w-sm pointer-events-auto transition-all ${
+        type === 'success' 
+          ? 'bg-emerald-50 dark:bg-emerald-950/80 border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-200' 
+          : 'bg-rose-50 dark:bg-rose-950/80 border-rose-200 dark:border-rose-800 text-rose-800 dark:text-rose-200'
+      }`;
+      
+      const icon = type === 'success' ? 'check-circle' : 'alert-circle';
+      card.innerHTML = `<i data-lucide="${icon}" class="w-5 h-5 flex-shrink-0"></i> <span>${message}</span>`;
+      container.appendChild(card);
+      lucide.createIcons();
+
+      setTimeout(() => {
+        card.classList.add('opacity-0', 'translate-y-2');
+        setTimeout(() => card.remove(), 300);
+      }, 3000);
+    }
+
+    window.formatINR = function(number) {
+      return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(number);
+    }
+
+    window.toggleSearchBar = function() {
+      const searchInput = document.getElementById('global-search');
+      if (searchInput.classList.contains('hidden')) {
+        searchInput.classList.remove('hidden');
+        searchInput.focus();
+      } else {
+        searchInput.classList.add('hidden');
+      }
+    }
+
+    window.handleGlobalSearch = function(event) {
+      state.searchQuery = event.target.value;
+      if (state.view !== 'shop') navigate('shop');
+      else {
+        state.shopPage = 1;
+        renderShop();
+      }
+    }
+
+    window.toggleMobileMenu = function() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+    }
+
+    window.toggleFilters = function() {
+      state.isFiltersVisible = !state.isFiltersVisible;
+      const sidebar = document.getElementById('shop-filters-sidebar');
+      const toggleText = document.getElementById('filter-toggle-text');
+      
+      if (sidebar && toggleText) {
+        if (state.isFiltersVisible) {
+          sidebar.classList.remove('hidden');
+          sidebar.classList.add('block');
+          toggleText.innerText = 'Hide Filters';
+        } else {
+          sidebar.classList.remove('block');
+          sidebar.classList.add('hidden');
+          toggleText.innerText = 'Show Filters';
+        }
+      }
+    }
+
+    window.updateGlobalBadges = function() {
+      const cartBadge = document.getElementById('cart-badge');
+      const cartCount = state.cart.reduce((total, item) => total + item.quantity, 0);
+      if (cartCount > 0) {
+        cartBadge.innerText = cartCount;
+        cartBadge.classList.remove('hidden');
+      } else {
+        cartBadge.classList.add('hidden');
+      }
+
+      const wishlistBadge = document.getElementById('wishlist-badge');
+      if (state.wishlist.length > 0) {
+        wishlistBadge.innerText = state.wishlist.length;
+        wishlistBadge.classList.remove('hidden');
+      } else {
+        wishlistBadge.classList.add('hidden');
+      }
+    }
+
+    window.updateUserUI = function() {
+      const userBadge = document.getElementById('user-badge');
+      const adminNavBtn = document.getElementById('admin-nav-btn');
+      const adminMobileBtn = document.getElementById('admin-mobile-btn');
+
+      if (state.user) {
+        userBadge.classList.remove('hidden');
+        if (state.user.role === 'admin') {
+          if(adminNavBtn) adminNavBtn.classList.remove('hidden');
+          if(adminMobileBtn) adminMobileBtn.classList.remove('hidden');
+        } else {
+          if(adminNavBtn) adminNavBtn.classList.add('hidden');
+          if(adminMobileBtn) adminMobileBtn.classList.add('hidden');
+        }
+      } else {
+        userBadge.classList.add('hidden');
+        if(adminNavBtn) adminNavBtn.classList.add('hidden');
+        if(adminMobileBtn) adminMobileBtn.classList.add('hidden');
+      }
+    }
+
+    window.populateDynamicNavLinks = function() {
+      const deskNav = document.getElementById('desktop-nav-links');
+      const mobNav = document.getElementById('mobile-nav-links');
+      if(!deskNav || !mobNav) return;
+
+      const dynamicLinks = state.categories.slice(0, 3).map(cat => 
+        `<button onclick="navigate('shop', '${cat}')" class="nav-link hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">${cat}</button>`
+      ).join('');
+
+      deskNav.innerHTML = `
+        <button onclick="navigate('home')" class="nav-link hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Home</button>
+        <button onclick="navigate('shop')" class="nav-link hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Shop All</button>
+        ${dynamicLinks}
+        <button onclick="navigate('faq')" class="nav-link hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">FAQ</button>
+        <button onclick="navigate('admin')" id="admin-nav-btn" class="hidden nav-link text-red-500 hover:text-red-600 dark:hover:text-red-400 transition-colors flex items-center gap-1 font-bold">
+          <i data-lucide="shield-check" class="w-4 h-4"></i> Admin Panel
+        </button>
+      `;
+
+      mobNav.innerHTML = `
+        <button onclick="navigate('home'); toggleMobileMenu()" class="text-left py-2 border-b border-gray-100 dark:border-gray-800">Home</button>
+        <button onclick="navigate('shop'); toggleMobileMenu()" class="text-left py-2 border-b border-gray-100 dark:border-gray-800">Shop All</button>
+        ${state.categories.map(cat => `<button onclick="navigate('shop', '${cat}'); toggleMobileMenu()" class="text-left py-2 border-b border-gray-100 dark:border-gray-800">${cat}</button>`).join('')}
+        <button onclick="navigate('faq'); toggleMobileMenu()" class="text-left py-2 border-b border-gray-100 dark:border-gray-800">FAQs</button>
+        <button onclick="navigate('admin'); toggleMobileMenu()" id="admin-mobile-btn" class="hidden text-left py-2 text-red-500 font-bold">Admin Panel</button>
+      `;
+      updateUserUI(); 
+    }
+  </script>
+
+  <!-- ==================== MAIN COMPONENT VIEWS (JS RENDERING) ==================== -->
+  <script>
+    window.renderApp = function() {
+      const main = document.getElementById('main-content');
+      populateDynamicNavLinks(); 
+      
+      const waBtn = document.getElementById('whatsapp-floating-btn');
+      if (waBtn && state.storeSettings && state.storeSettings.whatsappNumber) {
+          waBtn.href = `https://wa.me/${state.storeSettings.whatsappNumber}`;
+      }
+
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.remove('text-indigo-600', 'dark:text-indigo-400');
+      });
+
+      switch (state.view) {
+        case 'home': renderHome(); break;
+        case 'shop': renderShop(); break;
+        case 'product': renderProductDetail(); break;
+        case 'cart': renderCart(); break;
+        case 'checkout': renderCheckout(); break;
+        case 'auth': renderAuth(); break;
+        case 'dashboard': renderDashboard(); break;
+        case 'admin': renderAdmin(); break;
+        case 'faq': renderFAQ(); break;
+        case 'privacy': renderStaticPolicy('Privacy Policy', 'We take your privacy highly seriously. Rest assured your transactions and shopping data with Chinmoy Shoes Store are processed over highly encrypted gateways with military-grade standards. We do not sell your personal attributes to any third-party marketing firms.'); break;
+        case 'terms': renderStaticPolicy('Terms & Conditions', 'By accessing and purchasing from Chinmoy Shoes Store, you agree to comply with our commercial terms. All catalog pricing is transparently presented including GST calculations. Unauthorized usage of trademarked designs is strictly prohibited.'); break;
+        case 'shipping': renderStaticPolicy('Shipping Policy', 'We provide express shipping across entire India. Deliveries to Tier 1 cities typically takes 2-4 business days. Tier 2 and Tier 3 cities may take up to 5-7 business days. All orders above ₹5,000 qualify for free delivery.'); break;
+        case 'returns': renderStaticPolicy('Returns & Refunds', 'We offer a seamless 30-day return policy. Items must be unworn, undamaged, with original tags intact. Refund will be credited directly to your original source of payment within 5 working days upon successful quality check inspection.'); break;
+        default: renderHome();
+      }
+      lucide.createIcons();
+    }
+
+    // HOME VIEW (REDESIGNED: Shows ALL Products & Features Quick-Buy visual widget at top hero section)
+    function renderHome() {
+      const main = document.getElementById('main-content');
+      
+      // Upgrade: Show ALL products currently added in the database
+      const allProducts = state.products;
+      
+      // Retrieve the first/featured item to show inside the Quick-Buy Interactive Box in the Hero
+      const featuredProduct = allProducts.length > 0 ? allProducts[0] : null;
+
+      let quickBuyWidgetHtml = '';
+      if (featuredProduct) {
+        quickBuyWidgetHtml = `
+          <div class="relative flex justify-center items-center h-[450px] md:h-[600px] w-full max-w-lg mx-auto">
+            <!-- Radiant back glow -->
+            <div class="absolute inset-0 bg-gradient-to-tr from-indigo-500/20 to-transparent rounded-full blur-3xl animate-pulse-subtle"></div>
+            
+            <!-- Floating Interactive Quick-Buy Box -->
+            <div onclick="navigate('product', '${featuredProduct.id}')" class="relative z-10 w-full bg-white/10 dark:bg-black/45 border border-gray-200/20 dark:border-gray-800/80 rounded-[2.5rem] p-6 shadow-2xl backdrop-blur-xl hover:scale-105 transition-all duration-500 cursor-pointer group flex flex-col justify-between">
+              
+              <!-- Tag -->
+              <div class="flex justify-between items-center mb-4">
+                <span class="text-[10px] bg-indigo-600 text-white font-extrabold px-3 py-1 rounded-full uppercase tracking-wider">Top Featured Drop</span>
+                <span class="text-xs text-indigo-500 font-bold dark:text-indigo-400 hover:underline">Inspect Details</span>
+              </div>
+
+              <!-- Main Floating Product Image -->
+              <div class="relative aspect-[4/3] flex items-center justify-center overflow-hidden rounded-2xl bg-gray-50/5 dark:bg-white/5 mb-4">
+                <img src="${featuredProduct.image}" alt="${featuredProduct.name}" class="max-h-[220px] object-contain drop-shadow-[0_20px_30px_rgba(0,0,0,0.5)] transform -rotate-12 group-hover:rotate-0 group-hover:scale-115 transition-all duration-700">
+              </div>
+
+              <!-- Bottom Buy bar -->
+              <div class="space-y-4">
+                <div>
+                  <p class="text-xs text-indigo-600 dark:text-indigo-400 font-extrabold uppercase tracking-widest">${featuredProduct.brand}</p>
+                  <h3 class="text-xl font-bold text-gray-900 dark:text-white mt-1 line-clamp-1">${featuredProduct.name}</h3>
+                </div>
+
+                <div class="flex items-center justify-between pt-4 border-t border-gray-200/30 dark:border-gray-800/30">
+                  <div>
+                    <span class="text-2xl font-black text-gray-900 dark:text-white">${formatINR(featuredProduct.price)}</span>
+                    ${featuredProduct.originalPrice > featuredProduct.price ? `<span class="text-xs text-gray-500 line-through ml-2">${formatINR(featuredProduct.originalPrice)}</span>` : ''}
+                  </div>
+                  <button onclick="event.stopPropagation(); window.handleQuickBuyAddToCart(${featuredProduct.id})" class="bg-indigo-600 hover:bg-indigo-700 text-white font-black py-3 px-6 rounded-2xl text-xs transition-all flex items-center gap-2 shadow-lg shadow-indigo-500/20 hover:scale-105 active:scale-95 transform">
+                    <i data-lucide="shopping-cart" class="w-4 h-4"></i> Buy Now
+                  </button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        `;
+      } else {
+        // Fallback banner if database contains no products
+        quickBuyWidgetHtml = `
+          <div class="relative flex justify-center items-center h-[400px] md:h-[600px]">
+            <div class="absolute inset-0 bg-gradient-to-tr from-indigo-500/20 to-transparent rounded-full blur-3xl animate-pulse-subtle"></div>
+            <p class="text-gray-400 italic">Configure inventory drops in the Admin Panel to feature shoes.</p>
+          </div>
+        `;
+      }
+
+      main.innerHTML = `
+        <div class="animate-fade-in">
+          <!-- Hero Section -->
+          <section class="relative min-h-[90vh] flex items-center overflow-hidden py-12">
+            <div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-bl from-indigo-500/20 to-purple-500/10 blur-3xl -z-10 rounded-bl-full pointer-events-none"></div>
+            <div class="absolute bottom-0 left-0 w-1/3 h-1/2 bg-gradient-to-tr from-indigo-500/10 to-transparent blur-3xl -z-10 pointer-events-none"></div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full grid md:grid-cols-2 gap-12 items-center">
+              <div class="space-y-8 z-10">
+                <div class="inline-flex px-4 py-1.5 rounded-full bg-indigo-100 dark:bg-indigo-900/30 border border-indigo-200 dark:border-indigo-800 text-indigo-700 dark:text-indigo-300 font-bold text-xs uppercase tracking-widest animate-pulse">
+                  Unmatched Indian Craftsmanship
+                </div>
+                <h1 class="text-5xl md:text-7xl font-extrabold text-gray-900 dark:text-white leading-tight">
+                  Step Into <br/>
+                  <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">Pure Prestige.</span>
+                </h1>
+                <p class="text-lg text-gray-600 dark:text-gray-400 max-w-lg leading-relaxed">
+                  Discover luxury footwear engineered for absolute comfort and elite styling. Handcrafted for performance, perfected for daily streetwear.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                  <button onclick="navigate('shop')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 px-8 rounded-full shadow-lg shadow-indigo-500/30 flex items-center justify-center gap-2 transform active:scale-95 transition-all">
+                    Shop All drops <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                  </button>
+                  ${state.categories.length > 0 ? `<button onclick="navigate('shop', '${state.categories[0]}')" class="border border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white hover:border-indigo-500 hover:text-indigo-500 dark:hover:text-indigo-400 font-semibold py-4 px-8 rounded-full flex items-center justify-center transition-all">Explore ${state.categories[0]}</button>` : ''}
+                </div>
+                
+                <div class="flex items-center gap-12 pt-8 border-t border-gray-200 dark:border-gray-800">
+                  <div>
+                    <h4 class="text-3xl font-black text-gray-900 dark:text-white">50k+</h4>
+                    <p class="text-xs text-gray-500 uppercase tracking-wider font-semibold mt-1">Happy Customers</p>
+                  </div>
+                  <div>
+                    <h4 class="text-3xl font-black text-gray-900 dark:text-white">100%</h4>
+                    <p class="text-xs text-gray-500 uppercase tracking-wider font-semibold mt-1">Genuine Premium Quality</p>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Quick buy visual card widget right at the top -->
+              ${quickBuyWidgetHtml}
+            </div>
+          </section>
+
+          <!-- Complete Store Catalog Collection Grid -->
+          <section class="py-24 bg-gray-100 dark:bg-black/40 border-t border-b border-gray-200 dark:border-gray-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-4">
+                <div>
+                  <h2 class="text-3xl md:text-4xl font-black text-gray-900 dark:text-white mb-3">All Live Launches</h2>
+                  <p class="text-gray-600 dark:text-gray-400">Instantly buy any added model directly from our fully operational home marketplace.</p>
+                </div>
+                <button onclick="navigate('shop')" class="text-indigo-600 dark:text-indigo-400 font-bold hover:underline flex items-center gap-2">
+                  Use advanced filters <i data-lucide="sliders" class="w-4 h-4"></i>
+                </button>
+              </div>
+              
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                ${allProducts.length > 0 ? allProducts.map(p => generateProductCardHtml(p)).join('') : '<p class="text-gray-500">No products configured inside the admin panel database yet.</p>'}
+              </div>
+            </div>
+          </section>
+
+          <!-- Brand Philosophy / Story -->
+          <section class="py-24">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-16 items-center">
+              <div class="relative rounded-3xl overflow-hidden aspect-[4/3] group shadow-2xl">
+                <img src="https://images.unsplash.com/photo-1556906781-9a412961c28c?auto=format&fit=crop&w=1200&q=80" alt="Craftsmanship" class="w-full h-full object-cover transform group-hover:scale-105 transition-all duration-700">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-8">
+                  <div>
+                    <span class="text-xs text-indigo-400 font-bold uppercase tracking-widest">Handcrafted Heritage</span>
+                    <h3 class="text-2xl font-black text-white mt-1">Designed with precision for modern luxury.</h3>
+                  </div>
+                </div>
+              </div>
+              <div class="space-y-6">
+                <h2 class="text-3xl md:text-4xl font-black text-gray-900 dark:text-white">Our Heritage & Promise</h2>
+                <p class="text-gray-600 dark:text-gray-400 leading-relaxed text-lg">
+                  At Chinmoy Shoes, we challenge traditional norms. We build top-tier premium running shoes and design iconic streetwear. We integrate supreme carbon plate technology alongside ethically sourced components. 
+                </p>
+                <div class="grid grid-cols-2 gap-6 pt-4">
+                  <div class="space-y-2">
+                    <i data-lucide="shield-check" class="w-8 h-8 text-indigo-600"></i>
+                    <h4 class="font-bold text-gray-900 dark:text-white">1 Year Warranty</h4>
+                    <p class="text-sm text-gray-500">Every stitching covered against wear.</p>
+                  </div>
+                  <div class="space-y-2">
+                    <i data-lucide="zap" class="w-8 h-8 text-indigo-600"></i>
+                    <h4 class="font-bold text-gray-900 dark:text-white">Eco Tech Footprint</h4>
+                    <p class="text-sm text-gray-500">Integrating plant-based midsole compound.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Elegant Promotional Banner / Newsletter -->
+          <section class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20">
+            <div class="relative rounded-3xl overflow-hidden bg-indigo-600 dark:bg-indigo-950 p-8 md:p-16 flex flex-col md:flex-row items-center justify-between gap-12">
+              <div class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-purple-500/30 via-transparent to-transparent pointer-events-none"></div>
+              <div class="z-10 max-w-xl text-center md:text-left space-y-4">
+                <span class="text-indigo-200 text-xs font-bold uppercase tracking-widest">Subscriber Privileges</span>
+                <h2 class="text-3xl md:text-5xl font-black text-white">Save 15% Off Your First Acquisition</h2>
+                <p class="text-indigo-100 text-base md:text-lg">Receive early access passes to ultra-premium collaborations and sneaker drops.</p>
+              </div>
+              <div class="z-10 w-full max-w-md bg-white/10 dark:bg-black/20 backdrop-blur-md p-2 rounded-2xl border border-white/20 flex flex-col sm:flex-row gap-2">
+                <input type="email" id="newsletter-email" placeholder="Your premium email Address" class="flex-1 px-4 py-3 bg-transparent text-white placeholder-indigo-200 outline-none focus:ring-0 text-sm">
+                <button onclick="window.handleNewsletter()" class="bg-white text-indigo-900 hover:bg-gray-100 font-bold px-6 py-3 rounded-xl text-sm transition-all shadow">Join Club</button>
+              </div>
+            </div>
+          </section>
+        </div>
+      `;
+    }
+
+    // Helper to immediately buy the featured item with standard sizes directly from the home view quick-buy card
+    window.handleQuickBuyAddToCart = function(productId) {
+      const product = state.products.find(p => String(p.id) === String(productId));
+      if (!product) return;
+
+      const size = (product.sizes && product.sizes.length > 0) ? product.sizes[0] : 'Standard';
+      const color = (product.colors && product.colors.length > 0) ? product.colors[0] : 'Default';
+
+      const cartItem = {
+        id: product.id,
+        name: product.name,
+        brand: product.brand,
+        price: product.price,
+        image: product.image,
+        size: size,
+        color: color,
+        quantity: 1
+      };
+      
+      const existingIdx = state.cart.findIndex(i => String(i.id) === String(product.id) && i.size === size && i.color === color);
+      if (existingIdx !== -1) {
+        state.cart[existingIdx].quantity += 1;
+      } else {
+        state.cart.push(cartItem);
+      }
+      
+      saveCart();
+      notify(`Quick Buy: Added ${product.name} (UK ${size}) to bag.`, 'success');
+      navigate('cart');
+    };
+
+    window.handleNewsletter = function() {
+      const emailInput = document.getElementById('newsletter-email');
+      if (emailInput && emailInput.value) {
+        customAlert('Club Registered', `Premium access confirmed for ${emailInput.value}. Check your inbox for dynamic gift coupon credentials.`);
+        emailInput.value = '';
+      } else {
+        customAlert('Error', 'Please input a valid email address to join the elite newsletter list.');
+      }
+    };
+
+    function generateProductCardHtml(product) {
+      const isWishlisted = state.wishlist.some(p => p.id === product.id || String(p.id) === String(product.id));
+      const revCount = product.reviewsList ? product.reviewsList.length : 0;
+      return `
+        <div onclick="navigate('product', '${product.id}')" class="group bg-white dark:bg-gray-900/50 backdrop-blur-md rounded-3xl border border-gray-200 dark:border-gray-800/80 overflow-hidden cursor-pointer hover:shadow-2xl hover:shadow-indigo-500/10 transition-all duration-500 flex flex-col">
+          <div class="relative aspect-square overflow-hidden bg-gray-50 dark:bg-[#121214]">
+            <img src="${product.image}" onerror="this.src='https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80'" alt="${product.name}" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+            ${product.isNew ? `<span class="absolute top-4 left-4 bg-indigo-600 text-white text-[10px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider shadow">New Entry</span>` : ''}
+            <button onclick="event.stopPropagation(); window.toggleWishlist(${product.id})" class="absolute top-4 right-4 p-2 rounded-full bg-white/60 dark:bg-black/60 backdrop-blur-md hover:bg-white dark:hover:bg-black text-gray-900 dark:text-white transition-colors z-20">
+              <i data-lucide="heart" class="w-4 h-4 ${isWishlisted ? 'fill-rose-500 text-rose-500' : ''}"></i>
+            </button>
+          </div>
+          <div class="p-6 flex flex-col flex-grow justify-between">
+            <div>
+              <p class="text-xs text-indigo-600 dark:text-indigo-400 font-bold uppercase tracking-widest mb-1">${product.brand}</p>
+              <h3 class="text-base font-bold text-gray-900 dark:text-white mb-2 line-clamp-1">${product.name}</h3>
+              <div class="flex items-center gap-1.5 mb-4">
+                <i data-lucide="star" class="w-3.5 h-3.5 fill-yellow-400 text-yellow-400"></i>
+                <span class="text-xs text-gray-600 dark:text-gray-400 font-semibold">${product.rating || 4.5} (${revCount} reviews)</span>
+              </div>
+            </div>
+            <div class="flex items-center justify-between mt-auto pt-2">
+              <div>
+                <span class="text-lg font-black text-gray-900 dark:text-white">${formatINR(product.price)}</span>
+                ${product.originalPrice > product.price ? `<span class="text-xs text-gray-500 line-through ml-2">${formatINR(product.originalPrice)}</span>` : ''}
+              </div>
+              <div class="w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center group-hover:bg-indigo-600 group-hover:text-white transition-all shadow-sm">
+                <i data-lucide="shopping-cart" class="w-4 h-4"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // SHOP VIEW WITH PAGINATION
+    function renderShop() {
+      const main = document.getElementById('main-content');
+      const activeFilterCategory = typeof state.viewParam === 'string' ? state.viewParam : 'All';
+      
+      const uniqueBrands = ['All', ...new Set(state.products.map(p => p.brand))];
+      const categoryList = ['All', ...state.categories];
+
+      main.innerHTML = `
+        <div class="pt-10 pb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 animate-fade-in min-h-screen">
+          <div class="mb-10 flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+            <div>
+              <h1 class="text-4xl font-black text-gray-900 dark:text-white mb-2">Prestige Collection</h1>
+              <p class="text-gray-600 dark:text-gray-400">Step up your aesthetics with performance-grade technology.</p>
+            </div>
+            
+            <div class="flex flex-wrap items-center gap-4 w-full md:w-auto">
+              <button onclick="window.toggleFilters()" class="flex items-center justify-center gap-2 text-sm font-bold text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-800 px-4 py-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors flex-1 md:flex-none shadow-sm">
+                <i data-lucide="filter" class="w-4 h-4"></i>
+                <span id="filter-toggle-text">${state.isFiltersVisible ? 'Hide Filters' : 'Show Filters'}</span>
+              </button>
+              
+              <div class="flex items-center gap-2 flex-1 md:flex-none justify-between">
+                <span class="text-xs font-bold text-gray-500 uppercase tracking-widest hidden md:inline">Sort:</span>
+                <select id="shop-sorting" onchange="window.filterShopProducts()" class="text-sm bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-800 px-4 py-2.5 rounded-xl font-bold text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none w-full md:w-auto shadow-sm">
+                  <option value="popular">Most Popular</option>
+                  <option value="low-high">Price: Low to High</option>
+                  <option value="high-low">Price: High to Low</option>
+                  <option value="rating">Top Rated</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex flex-col lg:flex-row gap-10">
+            <!-- Sidebar Filters -->
+            <div id="shop-filters-sidebar" class="${state.isFiltersVisible ? 'block' : 'hidden'} w-full lg:w-64 flex-shrink-0 space-y-6 animate-fade-in">
+              <div class="bg-white dark:bg-gray-900 p-6 rounded-3xl border border-gray-200 dark:border-gray-800 space-y-8 shadow-sm">
+                <div class="flex justify-between items-center pb-2 border-b border-gray-100 dark:border-gray-800">
+                  <h3 class="font-bold text-lg text-gray-900 dark:text-white flex items-center gap-2"><i data-lucide="sliders" class="w-5 h-5"></i> Filters</h3>
+                  <button onclick="window.resetShopFilters()" class="text-xs text-indigo-500 font-bold hover:underline">Reset</button>
+                </div>
+
+                <!-- Category Filtering -->
+                <div class="space-y-3">
+                  <h4 class="text-xs font-extrabold uppercase tracking-widest text-gray-500">Categories</h4>
+                  <div class="space-y-2">
+                    ${categoryList.map(cat => `
+                      <label class="flex items-center gap-3 cursor-pointer group">
+                        <input type="radio" name="shop-category" value="${cat}" ${activeFilterCategory === cat ? 'checked' : ''} onchange="window.filterShopProducts()" class="w-4 h-4 text-indigo-600 border-gray-300 focus:ring-indigo-500 bg-transparent">
+                        <span class="text-sm text-gray-600 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white transition-colors">${cat}</span>
+                      </label>
+                    `).join('')}
+                  </div>
+                </div>
+
+                <!-- Brand Filtering -->
+                <div class="space-y-3">
+                  <h4 class="text-xs font-extrabold uppercase tracking-widest text-gray-500">Brands</h4>
+                  <div class="space-y-2">
+                    ${uniqueBrands.map(b => `
+                      <label class="flex items-center gap-3 cursor-pointer group">
+                        <input type="radio" name="shop-brand" value="${b}" ${b === 'All' ? 'checked' : ''} onchange="window.filterShopProducts()" class="w-4 h-4 text-indigo-600 border-gray-300 focus:ring-indigo-500 bg-transparent">
+                        <span class="text-sm text-gray-600 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white transition-colors">${b}</span>
+                      </label>
+                    `).join('')}
+                  </div>
+                </div>
+
+                <!-- Price Filter Range -->
+                <div class="space-y-3">
+                  <div class="flex justify-between items-center">
+                    <h4 class="text-xs font-extrabold uppercase tracking-widest text-gray-500">Max Price</h4>
+                    <span id="price-val" class="text-xs font-bold text-indigo-600 dark:text-indigo-400">₹25,000</span>
+                  </div>
+                  <input type="range" id="price-range" min="1000" max="30000" step="1000" value="25000" oninput="window.updatePriceRangeVal(this.value)" onchange="window.filterShopProducts()" class="w-full accent-indigo-600 font-bold">
+                </div>
+              </div>
+            </div>
+
+            <!-- Product Grid -->
+            <div class="flex-grow flex flex-col">
+              <div id="shop-products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8">
+                <!-- Products injected dynamically -->
+              </div>
+              
+              <!-- Pagination controls -->
+              <div id="shop-pagination" class="flex justify-center items-center gap-4 mt-12 py-4">
+                <!-- Pagination buttons generated dynamically -->
+              </div>
+
+              <div id="shop-empty-state" class="hidden text-center py-24 bg-gray-50 dark:bg-gray-900/10 rounded-3xl border border-dashed border-gray-300 dark:border-gray-800">
+                <i data-lucide="package-search" class="w-16 h-16 mx-auto text-gray-400 mb-4 animate-bounce"></i>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-1">No Premium Footwear Match</h3>
+                <p class="text-gray-500 dark:text-gray-400 mb-6 text-sm">Modify filter constraints or clear search filters.</p>
+                <button onclick="window.resetShopFilters()" class="bg-indigo-600 text-white px-6 py-2 rounded-xl font-semibold hover:bg-indigo-700 transition-all text-xs">Clear Filter Rules</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+      window.filterShopProducts();
+    }
+
+    window.updatePriceRangeVal = function(val) {
+      document.getElementById('price-val').innerText = formatINR(val);
+    }
+
+    window.resetShopFilters = function() {
+      state.searchQuery = '';
+      const searchBox = document.getElementById('global-search');
+      if (searchBox) searchBox.value = '';
+      state.viewParam = 'All';
+      state.shopPage = 1;
+      renderShop();
+    }
+
+    window.filterShopProducts = function() {
+      const grid = document.getElementById('shop-products-grid');
+      const emptyState = document.getElementById('shop-empty-state');
+      const paginationEl = document.getElementById('shop-pagination');
+      
+      const catVal = document.querySelector('input[name="shop-category"]:checked')?.value || 'All';
+      const brandVal = document.querySelector('input[name="shop-brand"]:checked')?.value || 'All';
+      const maxPrice = parseInt(document.getElementById('price-range')?.value || 25000);
+      const sortBy = document.getElementById('shop-sorting')?.value || 'popular';
+
+      let list = [...state.products];
+
+      if (catVal !== 'All') list = list.filter(p => p.category === catVal);
+      if (brandVal !== 'All') list = list.filter(p => p.brand === brandVal);
+      list = list.filter(p => p.price <= maxPrice);
+
+      if (state.searchQuery) {
+        list = list.filter(p => p.name.toLowerCase().includes(state.searchQuery.toLowerCase()) || p.brand.toLowerCase().includes(state.searchQuery.toLowerCase()));
+      }
+
+      if (sortBy === 'low-high') {
+        list.sort((a, b) => a.price - b.price);
+      } else if (sortBy === 'high-low') {
+        list.sort((a, b) => b.price - a.price);
+      } else if (sortBy === 'rating') {
+        list.sort((a, b) => (b.rating||0) - (a.rating||0));
+      }
+
+      const totalItems = list.length;
+      
+      if (totalItems === 0) {
+        grid.innerHTML = '';
+        emptyState.classList.remove('hidden');
+        paginationEl.innerHTML = '';
+      } else {
+        emptyState.classList.add('hidden');
+        
+        const totalPages = Math.ceil(totalItems / state.shopPageSize);
+        if (state.shopPage > totalPages) state.shopPage = 1;
+        
+        const startIdx = (state.shopPage - 1) * state.shopPageSize;
+        const slicedList = list.slice(startIdx, startIdx + state.shopPageSize);
+
+        grid.innerHTML = slicedList.map(p => generateProductCardHtml(p)).join('');
+
+        paginationEl.innerHTML = `
+          <button onclick="window.changeShopPage(${state.shopPage - 1})" ${state.shopPage === 1 ? 'disabled' : ''} class="px-3 py-1.5 rounded-xl border border-gray-300 dark:border-gray-850 font-bold hover:bg-gray-100 dark:hover:bg-gray-800 text-xs disabled:opacity-40 transition-colors">Previous</button>
+          <span class="text-xs font-semibold text-gray-600 dark:text-gray-400">Page <span class="text-indigo-600 dark:text-indigo-400 font-bold">${state.shopPage}</span> of ${totalPages}</span>
+          <button onclick="window.changeShopPage(${state.shopPage + 1})" ${state.shopPage === totalPages ? 'disabled' : ''} class="px-3 py-1.5 rounded-xl border border-gray-300 dark:border-gray-850 font-bold hover:bg-gray-100 dark:hover:bg-gray-800 text-xs disabled:opacity-40 transition-colors">Next</button>
+        `;
+      }
+      lucide.createIcons();
+    }
+
+    window.changeShopPage = function(targetPage) {
+      state.shopPage = targetPage;
+      window.filterShopProducts();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    // PRODUCT DETAIL VIEW (REDESIGNED: Features active bottom carousel listing alternate products)
+    function renderProductDetail() {
+      const main = document.getElementById('main-content');
+      const product = state.products.find(p => String(p.id) === String(state.viewParam));
+      
+      if (!product) {
+        notify('Product asset not found.', 'error');
+        navigate('shop');
+        return;
+      }
+
+      const sizeArray = (product.sizes && Array.isArray(product.sizes) && product.sizes.length > 0) ? product.sizes : ['Standard'];
+      const colorArray = (product.colors && Array.isArray(product.colors) && product.colors.length > 0) ? product.colors : ['Default'];
+
+      let selectedSize = sizeArray[0];
+      let selectedColor = colorArray[0];
+
+      const prodDesc = product.description || 'Elevate your daily walk of life. Engineered with absolute prestige material science, handcrafted to endure supreme mileage with luxurious aesthetics.';
+      const prodBenefits = product.benefits ? product.benefits.split(';') : ['Supreme comfort cushioning', 'Reinforced stitch matrix stability', 'Premium aesthetic design footprint'];
+      const revCount = product.reviewsList ? product.reviewsList.length : 0;
+
+      const galleryImages = [product.image];
+      if (product.image2) galleryImages.push(product.image2);
+      if (product.image3) galleryImages.push(product.image3);
+      let currentImgIndex = 0;
+
+      // Extract alternate products to generate bottom navigation catalog
+      const alternateProducts = state.products.filter(p => String(p.id) !== String(product.id)).slice(0, 4);
+      let alternateProductsHtml = '';
+      if (alternateProducts.length > 0) {
+        alternateProductsHtml = `
+          <div class="mt-24 border-t border-gray-200 dark:border-gray-800 pt-16">
+            <div class="mb-10">
+              <h3 class="text-2xl md:text-3xl font-black text-gray-900 dark:text-white">Discover Alternate Styles</h3>
+              <p class="text-sm text-gray-500 mt-1">If this layout isn't exactly what you need, explore these top-rated luxury picks below.</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+              ${alternateProducts.map(p => generateProductCardHtml(p)).join('')}
+            </div>
+          </div>
+        `;
+      }
+
+      main.innerHTML = `
+        <div class="pt-10 pb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 animate-fade-in">
+          <button onclick="navigate('shop')" class="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400 font-semibold mb-8 transition-colors">
+            <i data-lucide="chevron-left" class="w-4 h-4"></i> Back to Collection
+          </button>
+
+          <div class="grid md:grid-cols-2 gap-12 mb-16">
+            
+            <!-- Animated Sliding Gallery Frame -->
+            <div class="space-y-4">
+              <div class="relative aspect-square bg-gray-50 dark:bg-[#121214] rounded-3xl overflow-hidden border border-gray-200 dark:border-gray-800/80 shadow-md flex items-center justify-center">
+                
+                <div id="detail-slider-wrapper" class="w-full h-full relative overflow-hidden">
+                  <img id="detail-slide-img" src="${product.image}" alt="${product.name}" class="w-full h-full object-cover transition-all duration-500 slide-active">
+                </div>
+
+                <!-- Navigation Chevrons -->
+                <button onclick="window.prevDetailImage()" class="absolute left-4 p-2 rounded-full bg-white/80 dark:bg-black/80 hover:bg-white dark:hover:bg-black text-gray-900 dark:text-white transition-all shadow hover:scale-110 active:scale-95">
+                  <i data-lucide="chevron-left" class="w-5 h-5"></i>
+                </button>
+                <button onclick="window.nextDetailImage()" class="absolute right-4 p-2 rounded-full bg-white/80 dark:bg-black/80 hover:bg-white dark:hover:bg-black text-gray-900 dark:text-white transition-all shadow hover:scale-110 active:scale-95">
+                  <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                </button>
+              </div>
+
+              <!-- Thumbnails -->
+              <div class="flex gap-4 overflow-x-auto pb-2" id="detail-thumbnails-container">
+                ${galleryImages.map((imgUrl, i) => `
+                  <div onclick="window.jumpToDetailImage(${i})" id="detail-thumb-${i}" class="w-20 h-20 bg-gray-100 dark:bg-gray-800 rounded-xl overflow-hidden cursor-pointer border-2 transition-all shadow-sm flex-shrink-0 ${i === 0 ? 'border-indigo-600' : 'border-transparent hover:border-indigo-400'}">
+                    <img src="${imgUrl}" onerror="this.src='https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80'" class="w-full h-full object-cover">
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+
+            <!-- Detail Descriptions -->
+            <div class="flex flex-col justify-center">
+              <div class="flex items-center justify-between mb-4">
+                <span class="text-xs text-indigo-600 dark:text-indigo-400 font-extrabold uppercase tracking-widest">${product.brand}</span>
+                ${product.inStock 
+                  ? `<span class="px-3 py-1 bg-emerald-100 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 text-xs font-bold rounded-lg border border-emerald-200 dark:border-emerald-900">In Stock</span>`
+                  : `<span class="px-3 py-1 bg-rose-100 dark:bg-rose-950/40 text-rose-700 dark:text-rose-400 text-xs font-bold rounded-lg border border-rose-200 dark:border-rose-900">Sold Out</span>`
+                }
+              </div>
+
+              <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-white mb-4">${product.name}</h1>
+              
+              <div class="flex items-center gap-4 mb-6">
+                <div class="flex items-center gap-1">
+                  <i data-lucide="star" class="w-4 h-4 fill-yellow-400 text-yellow-400"></i>
+                  <span class="text-sm font-bold text-gray-900 dark:text-white">${product.rating || 4.5}</span>
+                </div>
+                <span class="text-xs text-gray-400 font-semibold">| &nbsp; ${revCount} Verified Reviews</span>
+              </div>
+
+              <div class="p-6 bg-gray-100 dark:bg-gray-900/60 rounded-2xl mb-6 shadow-sm border border-gray-200/50 dark:border-gray-800">
+                <div class="flex items-baseline gap-3 mb-2">
+                  <span class="text-3xl font-black text-gray-900 dark:text-white">${formatINR(product.price)}</span>
+                  ${product.originalPrice > product.price 
+                    ? `<span class="text-sm text-gray-500 line-through">${formatINR(product.originalPrice)}</span>` 
+                    : ''
+                  }
+                </div>
+                <p class="text-xs text-green-600 dark:text-green-500 font-bold bg-green-100/50 dark:bg-green-950/30 inline-block px-2 py-1 rounded">Standard GST (0%) : ₹0</p>
+              </div>
+
+              <!-- Specs Table -->
+              <div class="border-t border-b border-gray-200 dark:border-gray-800 py-4 mb-6 text-sm">
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">${prodDesc}</p>
+                <div class="space-y-1">
+                  <span class="text-xs font-extrabold uppercase tracking-wider text-gray-400">Key Benefits:</span>
+                  <ul class="list-disc pl-4 space-y-1 text-xs text-gray-500 dark:text-gray-400">
+                    ${prodBenefits.map(b => b.trim() ? `<li>${b.trim()}</li>` : '').join('')}
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Size selector -->
+              <div class="mb-6">
+                <h4 class="text-xs font-extrabold uppercase tracking-widest text-gray-500 mb-3">Select Size / Fit</h4>
+                <div class="flex flex-wrap gap-2.5">
+                  ${sizeArray.map(sz => `
+                    <button id="size-btn-${sz}" onclick="window.selectDetailSize('${sz}')" class="px-4 py-2 min-w-[3rem] h-12 rounded-xl text-sm font-bold border-2 flex items-center justify-center transition-all ${
+                      sz === selectedSize 
+                        ? 'bg-indigo-600 border-indigo-600 text-white shadow shadow-indigo-500/20' 
+                        : 'border-gray-200 dark:border-gray-800 text-gray-900 dark:text-white hover:border-indigo-400'
+                    }">${sz}</button>
+                  `).join('')}
+                </div>
+              </div>
+
+              <!-- Color Select -->
+              <div class="mb-8">
+                <h4 class="text-xs font-extrabold uppercase tracking-widest text-gray-500 mb-3">Colorways</h4>
+                <div class="flex flex-wrap gap-2">
+                  ${colorArray.map(color => `
+                    <button id="color-btn-${color.replace(/\s+/g, '-')}" onclick="window.selectDetailColor('${color}')" class="px-4 py-2 text-xs font-semibold rounded-xl border-2 transition-all ${
+                      color === selectedColor 
+                        ? 'bg-indigo-600/10 border-indigo-600 text-indigo-700 dark:text-indigo-400' 
+                        : 'border-gray-200 dark:border-gray-800 text-gray-600 dark:text-gray-400 hover:border-indigo-400'
+                    }">${color}</button>
+                  `).join('')}
+                </div>
+              </div>
+
+              <div class="flex gap-4">
+                <button onclick="window.handleAddToCart(${product.id})" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 transform active:scale-95 ${!product.inStock ? 'opacity-50 pointer-events-none' : ''}">
+                  <i data-lucide="shopping-bag" class="w-5 h-5"></i> Add to Bag
+                </button>
+                <button onclick="window.toggleWishlist(${product.id})" class="p-4 rounded-xl border-2 border-gray-200 dark:border-gray-800 text-gray-900 dark:text-white hover:border-indigo-500 transition-colors">
+                  <i data-lucide="heart" class="w-6 h-6"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product Reviews Section -->
+          <div class="border-t border-gray-200 dark:border-gray-800 pt-12">
+            <div class="grid md:grid-cols-3 gap-12">
+              <div class="md:col-span-1 space-y-6">
+                <h3 class="text-2xl font-black text-gray-900 dark:text-white">Customer Feedback</h3>
+                <p class="text-sm text-gray-500">Read what buyers are saying about their new purchase, or write a custom review below.</p>
+                
+                <div class="bg-white dark:bg-gray-900 p-6 rounded-3xl border border-gray-200 dark:border-gray-800 shadow-sm space-y-4">
+                  <h4 class="font-bold text-sm">Write a Comment</h4>
+                  <div>
+                    <label class="text-[10px] uppercase tracking-wider text-gray-500 block mb-1">Your Name</label>
+                    <input type="text" id="new-review-author" value="${state.user ? state.user.name : ''}" placeholder="e.g. Priyesh R." class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl outline-none text-xs focus:ring-1 focus:ring-indigo-500 dark:text-white">
+                  </div>
+                  <div>
+                    <label class="text-[10px] uppercase tracking-wider text-gray-500 block mb-1">Your Comment</label>
+                    <textarea id="new-review-comment" rows="3" placeholder="How is the fit and comfort?" class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl outline-none text-xs focus:ring-1 focus:ring-indigo-500 dark:text-white"></textarea>
+                  </div>
+                  <button onclick="window.handleUserSubmitComment(${product.id})" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 rounded-xl text-xs transition-colors">
+                    Post Comment
+                  </button>
+                </div>
+              </div>
+
+              <!-- List of Comments -->
+              <div class="md:col-span-2 space-y-4">
+                <h4 class="font-extrabold text-sm text-gray-400 uppercase tracking-widest mb-4">Latest Comments</h4>
+                <div class="space-y-4 max-h-[450px] overflow-y-auto pr-2">
+                  ${product.reviewsList && product.reviewsList.length > 0 ? product.reviewsList.map(rev => `
+                    <div class="p-6 bg-white dark:bg-gray-900/60 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-sm animate-fade-in">
+                      <div class="flex justify-between items-center mb-2">
+                        <span class="font-bold text-sm text-gray-900 dark:text-white">${rev.author}</span>
+                        <div class="flex gap-0.5 text-yellow-400">
+                          <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
+                          <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
+                          <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
+                          <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
+                          <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
+                        </div>
+                      </div>
+                      <p class="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">${rev.comment}</p>
+                    </div>
+                  `).join('') : `
+                    <div class="p-8 text-center bg-gray-100 dark:bg-gray-900/30 rounded-2xl border border-dashed border-gray-200 dark:border-gray-800">
+                      <p class="text-sm text-gray-500">No comments posted yet. Be the first to share your experience!</p>
+                    </div>
+                  `}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom alternate/more products directory catalog -->
+          ${alternateProductsHtml}
+        </div>
+      `;
+
+      // Slider Logic - sliding transition animation
+      window.jumpToDetailImage = function(index) {
+        if (index === currentImgIndex) return;
+        const direction = index > currentImgIndex ? 'right' : 'left';
+        currentImgIndex = index;
+        animateDetailImage(galleryImages[index], direction);
+      };
+
+      window.nextDetailImage = function() {
+        const nextIdx = (currentImgIndex + 1) % galleryImages.length;
+        currentImgIndex = nextIdx;
+        animateDetailImage(galleryImages[nextIdx], 'right');
+      };
+
+      window.prevDetailImage = function() {
+        const prevIdx = (currentImgIndex - 1 + galleryImages.length) % galleryImages.length;
+        currentImgIndex = prevIdx;
+        animateDetailImage(galleryImages[prevIdx], 'left');
+      };
+
+      function animateDetailImage(url, direction) {
+        const wrapper = document.getElementById('detail-slider-wrapper');
+        if (!wrapper) return;
+
+        galleryImages.forEach((img, idx) => {
+          const thumbEl = document.getElementById(`detail-thumb-${idx}`);
+          if (thumbEl) {
+            if (idx === currentImgIndex) {
+              thumbEl.className = "w-20 h-20 bg-gray-100 dark:bg-gray-800 rounded-xl overflow-hidden cursor-pointer border-2 border-indigo-600 shadow-sm flex-shrink-0 transition-all";
+            } else {
+              thumbEl.className = "w-20 h-20 bg-gray-100 dark:bg-gray-800 rounded-xl overflow-hidden cursor-pointer border-2 border-transparent hover:border-indigo-400 shadow-sm flex-shrink-0 transition-all";
+            }
+          }
+        });
+
+        const currentImgEl = document.getElementById('detail-slide-img');
+        const slideOutClass = direction === 'right' ? '-translate-x-full opacity-0' : 'translate-x-full opacity-0';
+        const slideInStartClass = direction === 'right' ? 'translate-x-full opacity-0' : '-translate-x-full opacity-0';
+
+        currentImgEl.style.transition = 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+        currentImgEl.className = `w-full h-full object-cover absolute ${slideOutClass}`;
+
+        const newImgEl = document.createElement('img');
+        newImgEl.src = url;
+        newImgEl.className = `w-full h-full object-cover absolute transition-all duration-300 transform ${slideInStartClass}`;
+        newImgEl.style.transition = 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+        wrapper.appendChild(newImgEl);
+
+        newImgEl.offsetHeight; // repaint force
+        newImgEl.className = `w-full h-full object-cover absolute translate-x-0 opacity-100`;
+
+        setTimeout(() => {
+          currentImgEl.remove();
+          newImgEl.id = 'detail-slide-img';
+        }, 400);
+      }
+
+      window.selectDetailSize = function(size) {
+        selectedSize = size;
+        sizeArray.forEach(sz => {
+          const btn = document.getElementById(`size-btn-${sz}`);
+          if (btn) {
+            btn.className = `px-4 py-2 min-w-[3rem] h-12 rounded-xl text-sm font-bold border-2 flex items-center justify-center transition-all ${
+              sz === selectedSize 
+                ? 'bg-indigo-600 border-indigo-600 text-white shadow shadow-indigo-500/20' 
+                : 'border-gray-200 dark:border-gray-800 text-gray-900 dark:text-white hover:border-indigo-400'
+            }`;
+          }
+        });
+      };
+
+      window.selectDetailColor = function(color) {
+        selectedColor = color;
+        colorArray.forEach(col => {
+          const btn = document.getElementById(`color-btn-${col.replace(/\s+/g, '-')}`);
+          if (btn) {
+            btn.className = `px-4 py-2 text-xs font-semibold rounded-xl border-2 transition-all ${
+              col === selectedColor 
+                ? 'bg-indigo-600/10 border-indigo-600 text-indigo-700 dark:text-indigo-400' 
+                : 'border-gray-200 dark:border-gray-800 text-gray-600 dark:text-gray-400 hover:border-indigo-400'
+            }`;
+          }
+        });
+      };
+
+      window.handleAddToCart = function(id) {
+        const cartItem = {
+          id: product.id,
+          name: product.name,
+          brand: product.brand,
+          price: product.price,
+          image: product.image,
+          size: selectedSize,
+          color: selectedColor,
+          quantity: 1
+        };
+        
+        const existingIdx = state.cart.findIndex(i => String(i.id) === String(product.id) && i.size === selectedSize && i.color === selectedColor);
+        if (existingIdx !== -1) {
+          state.cart[existingIdx].quantity += 1;
+        } else {
+          state.cart.push(cartItem);
+        }
+        
+        saveCart();
+        notify(`Added ${product.name} (UK ${selectedSize}) to shopping cart.`, 'success');
+        navigate('cart');
+      };
+
+      window.handleUserSubmitComment = function(productId) {
+        const authorInput = document.getElementById('new-review-author');
+        const commentInput = document.getElementById('new-review-comment');
+        
+        if (!authorInput.value.trim() || !commentInput.value.trim()) {
+          notify('Please complete both comment fields.', 'error');
+          return;
+        }
+
+        const activeProduct = state.products.find(p => String(p.id) === String(productId));
+        if (activeProduct) {
+          if (!activeProduct.reviewsList) activeProduct.reviewsList = [];
+          
+          activeProduct.reviewsList.unshift({
+            id: Date.now(),
+            author: authorInput.value.trim(),
+            rating: 5,
+            comment: commentInput.value.trim()
+          });
+          
+          saveProducts();
+          notify('Your comment has been posted successfully!', 'success');
+          renderProductDetail();
+        }
+      };
+      
+      lucide.createIcons();
+    }
+
+    // CART VIEW
+    function renderCart() {
+      const main = document.getElementById('main-content');
+
+      if (state.cart.length === 0) {
+        main.innerHTML = `
+          <div class="pt-32 pb-20 max-w-xl mx-auto px-4 text-center animate-fade-in min-h-[70vh] flex flex-col justify-center items-center">
+            <div class="w-20 h-20 bg-gray-100 dark:bg-gray-900 rounded-full flex items-center justify-center mb-6 border border-gray-200 dark:border-gray-800">
+              <i data-lucide="shopping-cart" class="w-8 h-8 text-gray-400"></i>
+            </div>
+            <h2 class="text-3xl font-black text-gray-900 dark:text-white mb-2">Cart is empty</h2>
+            <p class="text-gray-500 dark:text-gray-400 mb-8">Add high performance items from our collections to get started.</p>
+            <button onclick="navigate('shop')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3.5 px-8 rounded-full transition-all shadow">Start Shopping</button>
+          </div>
+        `;
+        return;
+      }
+
+      const subtotal = state.cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+      let discount = 0;
+      if (state.appliedCoupon) {
+        if (state.appliedCoupon.type === 'percent') {
+          discount = subtotal * (state.appliedCoupon.value / 100);
+        } else if (state.appliedCoupon.type === 'fixed') {
+          discount = subtotal > 9999 ? state.appliedCoupon.value : 0;
+        }
+      }
+      const gst = 0;
+      const delivery = (subtotal - discount) > 5000 ? 0 : 0;
+      const grandTotal = subtotal - discount + gst + delivery;
+
+      main.innerHTML = `
+        <div class="pt-10 pb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 animate-fade-in">
+          <h1 class="text-4xl font-black text-gray-900 dark:text-white mb-10">Shopping Bag</h1>
+
+          <div class="grid lg:grid-cols-3 gap-12">
+            <div class="lg:col-span-2 space-y-6">
+              ${state.cart.map((item, index) => `
+                <div class="flex flex-col sm:flex-row gap-6 p-6 bg-white dark:bg-gray-900 rounded-3xl border border-gray-200 dark:border-gray-800 shadow-sm animate-fade-in">
+                  <div class="w-full sm:w-28 h-28 bg-gray-100 dark:bg-gray-800 rounded-2xl overflow-hidden flex-shrink-0">
+                    <img src="${item.image}" onerror="this.src='https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80'" alt="${item.name}" class="w-full h-full object-cover">
+                  </div>
+                  <div class="flex-1 flex flex-col justify-between">
+                    <div>
+                      <div class="flex justify-between items-start">
+                        <div>
+                          <h3 class="text-base font-bold text-gray-900 dark:text-white">${item.name}</h3>
+                          <p class="text-xs text-gray-400 mt-1">Size/Fit: ${item.size} | Color: ${item.color}</p>
+                        </div>
+                        <button onclick="window.removeFromCart(${index})" class="text-gray-400 hover:text-rose-500 transition-colors">
+                          <i data-lucide="trash-2" class="w-5 h-5"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="flex justify-between items-center mt-6">
+                      <div class="flex items-center gap-3 bg-gray-100 dark:bg-gray-800 rounded-xl p-1 border border-gray-200 dark:border-gray-700/80">
+                        <button onclick="window.updateCartQty(${index}, ${item.quantity - 1})" class="w-8 h-8 rounded-lg hover:bg-white dark:hover:bg-gray-700 flex items-center justify-center font-bold text-sm">-</button>
+                        <span class="w-4 text-center text-xs font-bold">${item.quantity}</span>
+                        <button onclick="window.updateCartQty(${index}, ${item.quantity + 1})" class="w-8 h-8 rounded-lg hover:bg-white dark:hover:bg-gray-700 flex items-center justify-center font-bold text-sm">+</button>
+                      </div>
+                      <span class="text-lg font-black text-gray-900 dark:text-white">${formatINR(item.price * item.quantity)}</span>
+                    </div>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+
+            <!-- Summary Card -->
+            <div class="lg:col-span-1">
+              <div class="bg-white dark:bg-gray-900 p-8 rounded-3xl border border-gray-200 dark:border-gray-800 space-y-6 shadow-sm">
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white pb-3 border-b border-gray-100 dark:border-gray-800">Order Summary</h3>
+                
+                <!-- Coupon Integration -->
+                <div>
+                  <label class="text-xs font-extrabold uppercase tracking-widest text-gray-500 block mb-2">Have a coupon code?</label>
+                  <div class="flex gap-2">
+                    <input type="text" id="coupon-code-input" placeholder="e.g. CHINMOY20" value="${state.appliedCoupon ? state.appliedCoupon.code : ''}" class="flex-1 px-4 py-2.5 rounded-xl text-sm border border-gray-200 dark:border-gray-800 bg-transparent outline-none focus:ring-2 focus:ring-indigo-500 dark:text-white">
+                    <button onclick="window.applyCouponCode()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-4 py-2.5 rounded-xl text-xs transition-all">Apply</button>
+                  </div>
+                  ${state.appliedCoupon 
+                    ? `<p class="text-xs text-emerald-500 mt-2 font-semibold">Active: ${state.appliedCoupon.code} applied successfully! <button onclick="window.removeCouponCode()" class="text-rose-500 hover:underline ml-1">Remove</button></p>`
+                    : ''
+                  }
+                </div>
+
+                <div class="space-y-3 text-sm text-gray-600 dark:text-gray-400 pt-2">
+                  <div class="flex justify-between">
+                    <span>Bag Subtotal</span>
+                    <span class="font-semibold text-gray-900 dark:text-white">${formatINR(subtotal)}</span>
+                  </div>
+                  ${discount > 0 ? `
+                    <div class="flex justify-between text-emerald-500 font-semibold">
+                      <span>Promo Discount</span>
+                      <span>-${formatINR(discount)}</span>
+                    </div>
+                  ` : ''}
+                  <div class="flex justify-between">
+                    <span>GST (0% Standard)</span>
+                    <span class="font-semibold text-green-500">₹0</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span>Delivery Charges</span>
+                    <span class="font-semibold text-emerald-500">${delivery === 0 ? 'FREE' : formatINR(delivery)}</span>
+                  </div>
+                </div>
+
+                <div class="border-t border-gray-100 dark:border-gray-800 pt-4 flex justify-between items-baseline">
+                  <span class="text-base font-bold text-gray-900 dark:text-white">Est. Grand Total</span>
+                  <span class="text-2xl font-black text-gray-900 dark:text-white">${formatINR(grandTotal)}</span>
+                </div>
+
+                <button onclick="navigate('checkout')" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 rounded-2xl shadow-lg transition-all flex items-center justify-center gap-2 transform active:scale-95">
+                  Checkout Order <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    window.updateCartQty = function(index, newQty) {
+      if (newQty < 1) return;
+      state.cart[index].quantity = newQty;
+      saveCart();
+      renderCart();
+    };
+
+    window.removeFromCart = function(index) {
+      const name = state.cart[index].name;
+      state.cart.splice(index, 1);
+      saveCart();
+      notify(`Removed ${name} from your bag.`, 'success');
+      renderCart();
+    };
+
+    window.applyCouponCode = function() {
+      const input = document.getElementById('coupon-code-input').value.trim().toUpperCase();
+      const match = state.coupons.find(c => c.code === input);
+      if (match) {
+        state.appliedCoupon = match;
+        notify(`Coupon applied: ${match.description}`, 'success');
+        renderCart();
+      } else {
+        notify('Invalid promo or coupon code.', 'error');
+      }
+    };
+
+    window.removeCouponCode = function() {
+      state.appliedCoupon = null;
+      notify('Coupon code detached.', 'success');
+      renderCart();
+    };
+
+    // CHECKOUT VIEW
+    function renderCheckout() {
+      const main = document.getElementById('main-content');
+      
+      if (state.cart.length === 0) {
+        navigate('cart');
+        return;
+      }
+
+      const subtotal = state.cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+      let discount = 0;
+      if (state.appliedCoupon) {
+        if (state.appliedCoupon.type === 'percent') {
+          discount = subtotal * (state.appliedCoupon.value / 100);
+        } else if (state.appliedCoupon.type === 'fixed') {
+          discount = subtotal > 9999 ? state.appliedCoupon.value : 0;
+        }
+      }
+      const gst = 0;
+      const delivery = (subtotal - discount) > 5000 ? 0 : 0;
+      const grandTotal = subtotal - discount + gst + delivery;
+
+      const userShipping = (state.shippingInfo && state.shippingInfo.length > 0) 
+        ? state.shippingInfo[0] 
+        : {
+            fullName: state.user ? state.user.name : '',
+            phone: '',
+            pincode: '',
+            address: '',
+            city: '',
+            state: ''
+          };
+
+      main.innerHTML = `
+        <div class="pt-10 pb-20 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 animate-fade-in">
+          <div class="text-center mb-12">
+            <h1 class="text-3xl font-black text-gray-900 dark:text-white">Secure Gateway Checkout</h1>
+            <p class="text-gray-500 mt-1">Provide your delivery variables below to finalize shipment.</p>
+          </div>
+
+          <div class="grid md:grid-cols-3 gap-8 items-start">
+            <!-- Form -->
+            <div class="md:col-span-2 bg-white dark:bg-gray-900 p-8 rounded-3xl border border-gray-200 dark:border-gray-800 space-y-6 shadow-sm">
+              <div class="flex justify-between items-center">
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white">Shipping Coordinates</h3>
+                ${(state.shippingInfo && state.shippingInfo.length > 0) ? `<span class="text-xs bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-400 px-3 py-1 rounded-full font-bold flex items-center gap-1"><i data-lucide="zap" class="w-3 h-3"></i> Cloud Autofill</span>` : ''}
+              </div>
+              <form id="checkout-form" onsubmit="window.handlePlaceOrder(event)" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="sm:col-span-2">
+                  <label class="text-xs font-bold text-gray-500 block mb-1">Full Name</label>
+                  <input type="text" id="checkout-name" required value="${userShipping.fullName}" class="w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 focus:ring-2 focus:ring-indigo-500 outline-none text-sm dark:text-white transition-colors">
+                </div>
+                <div>
+                  <label class="text-xs font-bold text-gray-500 block mb-1">Phone Number</label>
+                  <input type="tel" id="checkout-phone" required placeholder="+91 98765 XXXXX" value="${userShipping.phone}" class="w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 focus:ring-2 focus:ring-indigo-500 outline-none text-sm dark:text-white transition-colors">
+                </div>
+                <div>
+                  <label class="text-xs font-bold text-gray-500 block mb-1">Pincode</label>
+                  <input type="text" id="checkout-pincode" required pattern="[0-9]{6}" placeholder="e.g. 400001" value="${userShipping.pincode}" class="w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 focus:ring-2 focus:ring-indigo-500 outline-none text-sm dark:text-white transition-colors">
+                </div>
+                <div class="sm:col-span-2">
+                  <label class="text-xs font-bold text-gray-500 block mb-1">Delivery Address</label>
+                  <input type="text" id="checkout-address" required placeholder="Street address, Flat, Area" value="${userShipping.address}" class="w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 focus:ring-2 focus:ring-indigo-500 outline-none text-sm dark:text-white transition-colors">
+                </div>
+                <div>
+                  <label class="text-xs font-bold text-gray-500 block mb-1">City</label>
+                  <input type="text" id="checkout-city" required placeholder="Mumbai" value="${userShipping.city}" class="w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 focus:ring-2 focus:ring-indigo-500 outline-none text-sm dark:text-white transition-colors">
+                </div>
+                <div>
+                  <label class="text-xs font-bold text-gray-500 block mb-1">State</label>
+                  <input type="text" id="checkout-state" required placeholder="Maharashtra" value="${userShipping.state}" class="w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 focus:ring-2 focus:ring-indigo-500 outline-none text-sm dark:text-white transition-colors">
+                </div>
+
+                <div class="sm:col-span-2 border-t border-gray-100 dark:border-gray-800 pt-6 mt-2 space-y-4">
+                  <h3 class="text-base font-bold text-gray-900 dark:text-white">Preferred Payment Method</h3>
+                  <div class="grid grid-cols-1 gap-2.5">
+                    <label class="flex items-center p-4 border border-indigo-600/30 bg-indigo-50/20 dark:bg-indigo-950/20 rounded-xl cursor-pointer">
+                      <input type="radio" checked name="payment" value="Cash on Delivery" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500 mr-3">
+                      <div>
+                        <span class="font-bold text-sm block text-indigo-800 dark:text-indigo-300">Cash on Delivery (COD)</span>
+                        <span class="text-xs text-indigo-600/70 dark:text-indigo-400/70">Pay in cash when your package arrives at your doorstep</span>
+                      </div>
+                    </label>
+                  </div>
+                </div>
+
+                <button type="submit" class="sm:col-span-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 rounded-xl shadow-lg mt-6 flex justify-center items-center gap-2 transform active:scale-95 transition-all">
+                  Confirm & Ship Order
+                </button>
+              </form>
+            </div>
+
+            <!-- Review Card -->
+            <div class="md:col-span-1 bg-gray-100 dark:bg-gray-900/60 p-6 rounded-3xl border border-gray-200 dark:border-gray-800/80 space-y-4 animate-fade-in">
+              <h3 class="font-bold text-gray-900 dark:text-white">Bag Check</h3>
+              <div class="space-y-3">
+                ${state.cart.map(item => `
+                  <div class="flex justify-between text-xs border-b border-gray-200/50 dark:border-gray-800/50 pb-2">
+                    <span class="text-gray-500 truncate w-32">${item.name} (${item.quantity}x)</span>
+                    <span class="font-bold text-gray-900 dark:text-white">${formatINR(item.price * item.quantity)}</span>
+                  </div>
+                `).join('')}
+              </div>
+              <div class="border-t border-gray-200 dark:border-gray-800 pt-4 text-sm space-y-2">
+                <div class="flex justify-between text-gray-500 text-xs">
+                  <span>Bag Amount</span>
+                  <span>${formatINR(subtotal)}</span>
+                </div>
+                ${discount > 0 ? `
+                  <div class="flex justify-between text-emerald-500 font-semibold text-xs">
+                    <span>Discount</span>
+                    <span>-${formatINR(discount)}</span>
+                  </div>
+                ` : ''}
+                <div class="flex justify-between text-gray-500 text-xs">
+                  <span>GST (0%)</span>
+                  <span class="text-green-500 font-bold">₹0</span>
+                </div>
+                <div class="flex justify-between text-gray-500 text-xs">
+                  <span>Delivery fee</span>
+                  <span>${delivery === 0 ? 'FREE' : formatINR(delivery)}</span>
+                </div>
+                <div class="flex justify-between text-base font-black text-gray-900 dark:text-white pt-2 border-t border-gray-200 dark:border-gray-800">
+                  <span>Grand Total</span>
+                  <span>${formatINR(grandTotal)}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      window.handlePlaceOrder = function(e) {
+        e.preventDefault();
+        
+        const shipName = document.getElementById('checkout-name').value.trim();
+        const shipPhone = document.getElementById('checkout-phone').value.trim();
+        const shipPincode = document.getElementById('checkout-pincode').value.trim();
+        const shipAddress = document.getElementById('checkout-address').value.trim();
+        const shipCity = document.getElementById('checkout-city').value.trim();
+        const shipState = document.getElementById('checkout-state').value.trim();
+        
+        state.shippingInfo = [{
+          fullName: shipName,
+          phone: shipPhone,
+          pincode: shipPincode,
+          address: shipAddress,
+          city: shipCity,
+          state: shipState
+        }];
+        saveShippingInfo();
+
+        notify('Verifying shipping coordinates...', 'success');
+        
+        setTimeout(() => {
+          const randID = 'ORD-2026-' + Math.floor(1000 + Math.random() * 9000);
+          const amt = grandTotal;
+          const todayDate = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+          
+          state.orders.unshift({
+            id: randID,
+            customer: shipName,
+            customerEmail: state.user ? state.user.email : 'guest', 
+            date: todayDate,
+            amount: amt,
+            status: 'Processing',
+            payment: 'Cash on Delivery',
+            shippingInfo: {
+              phone: shipPhone,
+              address: shipAddress,
+              city: shipCity,
+              state: shipState,
+              pincode: shipPincode
+            }
+          });
+
+          // Capture cart contents before emptying so we can display them on the success board
+          const purchasedItems = [...state.cart];
+
+          state.cart = [];
+          state.appliedCoupon = null;
+          saveCart();
+          saveOrders(); 
+
+          renderSuccessScreen(randID, purchasedItems);
+        }, 1200);
+      };
+    }
+
+    // REDESIGNED SUCCESS BOARD
+    function renderSuccessScreen(orderId, purchasedItems = []) {
+      const main = document.getElementById('main-content');
+      
+      main.innerHTML = `
+        <div class="pt-12 pb-24 max-w-2xl mx-auto px-4 animate-fade-in">
+          <!-- Premium Board Frame -->
+          <div class="bg-white dark:bg-[#0c0c0e] border-2 border-indigo-500/30 dark:border-indigo-500/20 rounded-[2.5rem] p-8 md:p-12 shadow-[0_25px_60px_rgba(79,70,229,0.18)] relative overflow-hidden text-center space-y-10">
+            
+            <!-- Radiant Background Glow Effects -->
+            <div class="absolute -top-12 -right-12 w-48 h-48 bg-indigo-500/10 blur-3xl rounded-full"></div>
+            <div class="absolute -bottom-12 -left-12 w-48 h-48 bg-purple-500/10 blur-3xl rounded-full"></div>
+
+            <!-- Top of the Board: Ordered Products List -->
+            <div class="space-y-4 relative z-10">
+              <span class="text-xs font-black uppercase tracking-widest text-indigo-600 dark:text-indigo-400">Order Confirmed • Items Acquired</span>
+              <div class="divide-y divide-gray-100 dark:divide-gray-800 max-h-48 overflow-y-auto bg-gray-50 dark:bg-gray-950/50 p-5 rounded-2xl border border-gray-200/50 dark:border-gray-850/50 text-left">
+                ${purchasedItems.length > 0 ? purchasedItems.map(item => `
+                  <div class="py-3 flex justify-between items-center text-sm">
+                    <div class="pr-4">
+                      <span class="font-extrabold text-gray-900 dark:text-white block">${item.name}</span>
+                      <span class="text-xs text-gray-400 font-semibold">UK ${item.size} • ${item.color}</span>
+                    </div>
+                    <span class="text-xs font-extrabold bg-indigo-100 dark:bg-indigo-950/50 text-indigo-700 dark:text-indigo-400 px-3 py-1.5 rounded-lg shrink-0">Qty: ${item.quantity}</span>
+                  </div>
+                `).join('') : `
+                  <div class="py-3 text-center text-xs text-gray-400 italic">No items retrieved</div>
+                `}
+              </div>
+            </div>
+
+            <!-- Middle Section: Delivery Timeline -->
+            <div class="space-y-4 relative z-10 pt-2">
+              <p class="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-white leading-tight tracking-wide">
+                Your order will reach your address within <br/>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-purple-500 underline decoration-indigo-500/40 decoration-wavy">9 to 10 days</span>.
+              </p>
+            </div>
+
+            <!-- Large Stylized Thank You Design -->
+            <div class="relative z-10 py-4">
+              <h1 class="text-6xl md:text-8xl font-black bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 tracking-widest uppercase italic animate-pulse">
+                Thank You
+              </h1>
+              <p class="text-xs text-gray-400 dark:text-gray-500 mt-3 font-semibold tracking-widest uppercase">For Choosing Chinmoy Footwear Store</p>
+            </div>
+
+            <!-- Quick Metadata Details -->
+            <div class="bg-gray-50 dark:bg-gray-950/30 p-4 rounded-2xl border border-gray-150 dark:border-gray-850 text-xs flex flex-col sm:flex-row justify-between items-center gap-2 text-gray-500 relative z-10">
+              <div><strong>Reference ID:</strong> <span class="text-indigo-500 font-bold">${orderId}</span></div>
+              <div><strong>Verification Method:</strong> Cash on Delivery (COD)</div>
+            </div>
+
+            <!-- Navigation Options: Continue Shopping & Home -->
+            <div class="flex flex-col sm:flex-row gap-4 justify-center pt-2 relative z-10">
+              <button onclick="navigate('shop')" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 px-6 rounded-2xl shadow-lg shadow-indigo-500/20 transform active:scale-95 transition-all text-sm flex items-center justify-center gap-2">
+                <i data-lucide="shopping-bag" class="w-4 h-4"></i> Continue Shopping
+              </button>
+              <button onclick="navigate('home')" class="flex-1 bg-gray-100 dark:bg-gray-900 hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-900 dark:text-white font-bold py-4 px-6 rounded-2xl border border-gray-200 dark:border-gray-800 transform active:scale-95 transition-all text-sm flex items-center justify-center gap-2">
+                <i data-lucide="home" class="w-4 h-4"></i> Home
+              </button>
+            </div>
+
+          </div>
+        </div>
+      `;
+      lucide.createIcons();
+    }
+
+    // AUTHENTICATION VIEW
+    function renderAuth() {
+      const main = document.getElementById('main-content');
+      let isSignUp = false;
+
+      function renderForm() {
+        main.innerHTML = `
+          <div class="pt-20 pb-20 max-w-md mx-auto px-4 animate-fade-in">
+            <div class="bg-white dark:bg-gray-900 p-8 rounded-3xl border border-gray-200 dark:border-gray-800 shadow-xl space-y-6">
+              <div class="text-center">
+                <h2 class="text-3xl font-black text-gray-900 dark:text-white mb-1">
+                  ${isSignUp ? 'Register Account' : 'Prestige Access'}
+                </h2>
+                <p class="text-sm text-gray-500">
+                  ${isSignUp ? 'Join our curated premium club program.' : 'Verify your profile credentials to enter portal.'}
+                </p>
+              </div>
+
+              <form id="auth-form" onsubmit="window.handleAuthSubmit(event)" class="space-y-4">
+                ${isSignUp ? `
+                  <div>
+                    <label class="text-xs font-bold text-gray-500 block mb-1">Display Name</label>
+                    <input type="text" id="auth-name" required placeholder="John Doe" class="w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 focus:ring-2 focus:ring-indigo-500 outline-none text-sm dark:text-white">
+                  </div>
+                ` : ''}
+                <div>
+                  <label class="text-xs font-bold text-gray-500 block mb-1">Email Address</label>
+                  <input type="text" id="auth-email" required placeholder="user@example.com" class="w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 focus:ring-2 focus:ring-indigo-500 outline-none text-sm dark:text-white">
+                </div>
+                <div>
+                  <label class="text-xs font-bold text-gray-500 block mb-1">Secure Password</label>
+                  <input type="password" id="auth-pass" required placeholder="••••••••" class="w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 focus:ring-2 focus:ring-indigo-500 outline-none text-sm dark:text-white">
+                </div>
+
+                <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3.5 rounded-xl text-sm transition-all shadow-md transform active:scale-95">
+                  ${isSignUp ? 'Sign Up' : 'Authorize Login'}
+                </button>
+              </form>
+
+              <div class="relative flex py-2 items-center">
+                <div class="flex-grow border-t border-gray-100 dark:border-gray-800"></div>
+                <span class="flex-shrink mx-4 text-gray-400 text-xs uppercase font-extrabold tracking-widest">Or</span>
+                <div class="flex-grow border-t border-gray-100 dark:border-gray-800"></div>
+              </div>
+
+              <div class="text-center text-xs text-gray-600 dark:text-gray-400 font-semibold">
+                ${isSignUp ? 'Already registered?' : 'Brand new to our platform?'}
+                <button onclick="window.toggleSignUpState()" class="text-indigo-500 font-bold hover:underline ml-1">
+                  ${isSignUp ? 'Sign In Now' : 'Create Custom Credentials'}
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+        lucide.createIcons();
+      }
+
+      window.toggleSignUpState = function() {
+        isSignUp = !isSignUp;
+        renderForm();
+      };
+
+      window.handleAuthSubmit = function(e) {
+        e.preventDefault();
+        const email = document.getElementById('auth-email').value.trim();
+        const pass = document.getElementById('auth-pass').value;
+        const nameVal = isSignUp ? document.getElementById('auth-name').value : 'Sandbox Guest';
+
+        if (email === 'CHINMOYADMIN' && pass === 'Chinmoy1234@') {
+          state.user = {
+            name: 'Admin Chinmoy',
+            email: email,
+            role: 'admin'
+          };
+          localStorage.setItem('chinmoy_user', JSON.stringify(state.user));
+          updateUserUI();
+          notify('Admin verification cleared. Entering operations terminal...', 'success');
+          navigate('admin');
+        } else {
+          state.user = {
+            name: nameVal,
+            email: email,
+            role: 'user'
+          };
+          localStorage.setItem('chinmoy_user', JSON.stringify(state.user));
+          updateUserUI();
+          notify(`Welcome back, ${state.user.name}. Session verified successfully.`, 'success');
+          navigate('dashboard');
+        }
+      };
+
+      if (state.user) {
+        navigate('dashboard');
+      } else {
+        renderForm();
+      }
+    }
+
+    // USER DASHBOARD VIEW
+    function renderDashboard() {
+      const main = document.getElementById('main-content');
+      
+      if (!state.user) {
+        navigate('auth');
+        return;
+      }
+
+      main.innerHTML = `
+        <div class="pt-10 pb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 animate-fade-in">
+          <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 border-b border-gray-100 dark:border-gray-800 pb-8 mb-10">
+            <div>
+              <h1 class="text-4xl font-black text-gray-900 dark:text-white mb-1">My Dashboard</h1>
+              <p class="text-sm text-gray-500">Welcome, ${state.user.name}</p>
+            </div>
+            <button onclick="window.handleLogOut()" class="border border-rose-200 dark:border-rose-950 hover:bg-rose-50 dark:hover:bg-rose-950/30 text-rose-500 px-6 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2">
+              <i data-lucide="log-out" class="w-4 h-4"></i> Sign Out
+            </button>
+          </div>
+
+          <div class="grid md:grid-cols-4 gap-10">
+            <!-- Sidebar tabs -->
+            <div class="md:col-span-1 space-y-2">
+              <button onclick="window.setDashboardTab('profile')" id="db-tab-profile" class="w-full text-left p-4 rounded-2xl font-bold text-sm bg-indigo-600 text-white transition-all shadow-sm">My Profile</button>
+              <button onclick="window.setDashboardTab('wishlist')" id="db-tab-wishlist" class="w-full text-left p-4 rounded-2xl font-bold text-sm hover:bg-gray-100 dark:hover:bg-gray-900 transition-all text-gray-600 dark:text-gray-400">Wishlist (${state.wishlist.length})</button>
+              <button onclick="window.setDashboardTab('orders')" id="db-tab-orders" class="w-full text-left p-4 rounded-2xl font-bold text-sm hover:bg-gray-100 dark:hover:bg-gray-900 transition-all text-gray-600 dark:text-gray-400">My Orders</button>
+            </div>
+
+            <!-- Panel Contents -->
+            <div id="dashboard-tab-panel" class="md:col-span-3 space-y-6">
+              <!-- Content injected dynamically -->
+            </div>
+          </div>
+        </div>
+      `;
+
+      window.removeUserOrder = async function(orderId) {
+        const confirmed = await customConfirm('Remove Order', 'Are you sure you want to remove this order from your list?');
+        if (confirmed) {
+          const idx = state.orders.findIndex(o => o.id === orderId);
+          if (idx !== -1) {
+            state.orders.splice(idx, 1);
+            saveOrders(); 
+            notify('Order information removed from your list.', 'success');
+            window.setDashboardTab('orders'); 
+          }
+        }
+      };
+
+      window.handleLogOut = function() {
+        state.user = null;
+        localStorage.removeItem('chinmoy_user');
+        updateUserUI();
+        notify('Session terminated cleanly.', 'success');
+        navigate('home');
+      };
+
+      window.setDashboardTab = function(tabName) {
+        ['profile', 'wishlist', 'orders'].forEach(tab => {
+          const btn = document.getElementById(`db-tab-${tab}`);
+          if (btn) {
+            if (tab === tabName) {
+              btn.className = "w-full text-left p-4 rounded-2xl font-bold text-sm bg-indigo-600 text-white transition-all shadow-sm";
+            } else {
+              btn.className = "w-full text-left p-4 rounded-2xl font-bold text-sm hover:bg-gray-100 dark:hover:bg-gray-900 transition-all text-gray-600 dark:text-gray-400";
+            }
+          }
+        });
+
+        const panel = document.getElementById('dashboard-tab-panel');
+        
+        if (tabName === 'profile') {
+          panel.innerHTML = `
+            <div class="bg-white dark:bg-gray-900 p-8 rounded-3xl border border-gray-200 dark:border-gray-800 space-y-6 animate-fade-in">
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white">Profile Coordinates</h3>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="text-xs font-bold text-gray-500 block mb-1">Display Name</label>
+                  <input type="text" value="${state.user.name}" class="w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 focus:ring-2 focus:ring-indigo-500 outline-none text-sm text-gray-900 dark:text-white font-semibold">
+                </div>
+                <div>
+                  <label class="text-xs font-bold text-gray-500 block mb-1">Email Address (Locked)</label>
+                  <input type="text" disabled value="${state.user.email}" class="w-full px-4 py-3 rounded-xl bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-800 outline-none text-sm text-gray-400">
+                </div>
+              </div>
+              <button onclick="notify('Profile credentials updated.', 'success')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-6 py-2.5 rounded-xl text-xs transition-all shadow">Save Changes</button>
+            </div>
+          `;
+        } else if (tabName === 'wishlist') {
+          if (state.wishlist.length === 0) {
+            panel.innerHTML = `
+              <div class="text-center py-24 bg-white dark:bg-gray-900 rounded-3xl border border-gray-200 dark:border-gray-800 animate-fade-in">
+                <i data-lucide="heart" class="w-12 h-12 mx-auto text-gray-400 mb-4 animate-pulse"></i>
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white">Your wishlist has no drops</h3>
+                <p class="text-sm text-gray-500 mt-1 mb-6">Star products to review them before checkouts.</p>
+                <button onclick="navigate('shop')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-6 rounded-xl text-xs transition-all">Go Shop</button>
+              </div>
+            `;
+          } else {
+            panel.innerHTML = `
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 animate-fade-in">
+                ${state.wishlist.map(p => generateProductCardHtml(p)).join('')}
+              </div>
+            `;
+          }
+        } else if (tabName === 'orders') {
+          const userOrders = state.orders.filter(ord => ord.customerEmail === state.user.email);
+
+          panel.innerHTML = `
+            <div class="bg-white dark:bg-gray-900 p-8 rounded-3xl border border-gray-200 dark:border-gray-800 animate-fade-in">
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-6">Recent Shipments</h3>
+              <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                  <thead>
+                    <tr class="text-xs text-gray-500 uppercase tracking-widest border-b border-gray-100 dark:border-gray-800 pb-4">
+                      <th class="py-3 font-semibold">Reference ID</th>
+                      <th class="py-3 font-semibold">Ordered On</th>
+                      <th class="py-3 font-semibold">Grand Total</th>
+                      <th class="py-3 font-semibold">Status</th>
+                      <th class="py-3 font-semibold">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody class="text-sm divide-y divide-gray-100 dark:divide-gray-800">
+                    ${userOrders.length > 0 ? userOrders.map(ord => `
+                      <tr class="hover:bg-gray-50/50 dark:hover:bg-gray-950/20 transition-all animate-fade-in">
+                        <td class="py-4 font-bold text-indigo-500">${ord.id}</td>
+                        <td class="py-4 text-gray-500">${ord.date}</td>
+                        <td class="py-4 font-black">${formatINR(ord.amount)}</td>
+                        <td class="py-4">
+                          <span class="px-2.5 py-1 rounded-md text-[10px] font-bold ${
+                            ord.status === 'Delivered' 
+                              ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-400' 
+                              : 'bg-indigo-100 text-indigo-700 dark:bg-indigo-950/30 dark:text-indigo-400'
+                          }">${ord.status}</span>
+                        </td>
+                        <td class="py-4">
+                           <button onclick="window.removeUserOrder('${ord.id}')" class="text-xs font-bold text-rose-500 hover:text-rose-600 hover:underline border border-rose-200 dark:border-rose-900 bg-rose-50 dark:bg-rose-950/30 px-3 py-1.5 rounded-lg transition-colors">
+                             Remove
+                           </button>
+                        </td>
+                      </tr>
+                    `).join('') : `
+                      <tr>
+                        <td colspan="5" class="text-center py-8 text-gray-500 text-sm">
+                          <i data-lucide="package-x" class="w-12 h-12 mx-auto text-gray-300 mb-2"></i>
+                          You haven't placed any orders yet. Place an order to see it here!
+                        </td>
+                      </tr>
+                    `}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          `;
+        }
+        lucide.createIcons();
+      };
+
+      const defaultTab = state.viewParam === 'wishlist' ? 'wishlist' : 'profile';
+      window.setDashboardTab(defaultTab);
+    }
+
+    window.toggleWishlist = function(id) {
+      const product = state.products.find(p => String(p.id) === String(id));
+      if (!product) return;
+      const idx = state.wishlist.findIndex(p => String(p.id) === String(id));
+      if (idx !== -1) {
+        state.wishlist.splice(idx, 1);
+        notify(`Detached ${product.name} from your wishlist.`, 'success');
+      } else {
+        state.wishlist.push(product);
+        notify(`Starred ${product.name} inside wishlist.`, 'success');
+      }
+      saveWishlist();
+      updateGlobalBadges();
+      if (state.view === 'shop') window.filterShopProducts();
+      else if (state.view === 'home') renderHome();
+      else if (state.view === 'product') renderProductDetail();
+      else if (state.view === 'dashboard') window.setDashboardTab('wishlist');
+    };
+
+    // FAQ VIEW
+    function renderFAQ() {
+      const main = document.getElementById('main-content');
+      const faqs = [
+        { q: 'Are your shoes 100% authentic design units?', a: 'Absolutely. We do not support replica distributions. All materials are engineered from genuine prime high-quality leather, carbon plates, and breathable performance yarn.' },
+        { q: 'How long does shipment validation typically take?', a: 'Processing is cleared within 24 hours. Transit to major Indian metros takes around 3 working days.' },
+        { q: 'Is there a warranty guaranteed on performance shoes?', a: 'We provide a comprehensive 1-year product manufacturing warranty covering adhesive failures or thread tearing.' },
+        { q: 'Can I swap sizes if they fit improperly?', a: 'Yes! Our hassle-free return panel permits simple size swap requests within 30 days of shipment receipt.' }
+      ];
+
+      main.innerHTML = `
+        <div class="pt-10 pb-20 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 animate-fade-in min-h-[80vh]">
+          <h1 class="text-4xl font-black text-gray-900 dark:text-white mb-3 text-center">Frequently Asked Inquiries</h1>
+          <p class="text-gray-500 text-center mb-12">Quick answers to frequently asked questions about Chinmoy Footwear Store.</p>
+
+          <div class="space-y-4">
+            ${faqs.map((faq, i) => `
+              <div class="bg-white dark:bg-gray-900 p-6 rounded-3xl border border-gray-200 dark:border-gray-800">
+                <button onclick="window.toggleFaqAccordion(${i})" class="w-full text-left flex justify-between items-center font-bold text-base text-gray-900 dark:text-white">
+                  <span>${faq.q}</span>
+                  <i id="faq-icon-${i}" data-lucide="plus" class="w-5 h-5 text-indigo-500 transition-transform"></i>
+                </button>
+                <div id="faq-answer-${i}" class="hidden mt-3 text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                  ${faq.a}
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+
+      window.toggleFaqAccordion = function(i) {
+        const ans = document.getElementById(`faq-answer-${i}`);
+        const icon = document.getElementById(`faq-icon-${i}`);
+        ans.classList.toggle('hidden');
+        if (ans.classList.contains('hidden')) {
+          icon.setAttribute('data-lucide', 'plus');
+        } else {
+          icon.setAttribute('data-lucide', 'minus');
+        }
+        lucide.createIcons();
+      };
+    }
+
+    // STATIC POLICY VIEWS
+    function renderStaticPolicy(title, paragraph) {
+      const main = document.getElementById('main-content');
+      main.innerHTML = `
+        <div class="pt-10 pb-20 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 animate-fade-in">
+          <h1 class="text-4xl font-black text-gray-900 dark:text-white mb-6">${title}</h1>
+          <div class="p-8 bg-white dark:bg-gray-900 rounded-3xl border border-gray-200 dark:border-gray-800 shadow-sm leading-relaxed text-gray-600 dark:text-gray-400 space-y-4 text-base">
+            <p>${paragraph}</p>
+            <p>If you require any specific assistance or have queries regarding this documentation, please reach out directly via WhatsApp Support coordinates or mail support@chinmoy.com.</p>
+          </div>
+        </div>
+      `;
+    }
+
+    // ADMIN SYSTEM PANEL
+    function renderAdmin() {
+      const main = document.getElementById('main-content');
+      
+      if (!state.user || state.user.role !== 'admin' || state.user.email !== 'CHINMOYADMIN') {
+        notify('Access Denied. Unauthorized entry attempted.', 'error');
+        navigate('auth');
+        return;
+      }
+
+      let activeAdminTab = 'overview';
+
+      function renderAdminShell() {
+        main.innerHTML = `
+          <div class="pt-10 pb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 animate-fade-in min-h-screen">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-gray-200 dark:border-gray-800 pb-6 mb-8">
+              <div>
+                <h1 class="text-3xl font-black text-gray-900 dark:text-white flex items-center gap-2">
+                  <i data-lucide="shield-check" class="text-red-500 w-8 h-8"></i> Operations Management Terminal
+                </h1>
+                <p class="text-sm text-gray-500">Secure Access Level: Master Reseller Sandbox Admin [${state.user.name}]</p>
+              </div>
+              <button onclick="window.exitAdminTerminal()" class="bg-red-600 hover:bg-red-700 text-white font-bold px-5 py-2.5 rounded-xl text-xs flex items-center gap-2 transform active:scale-95 transition-all shadow-md">
+                <i data-lucide="log-out" class="w-4 h-4"></i> Secure Exit
+              </button>
+            </div>
+
+            <!-- Panel tabs -->
+            <div class="flex space-x-2 border-b border-gray-200 dark:border-gray-800 mb-8 overflow-x-auto pb-2">
+              <button onclick="window.setAdminTab('overview')" id="admin-tab-overview" class="px-6 py-3 rounded-t-xl font-bold text-xs uppercase tracking-wider transition-all">Overview</button>
+              <button onclick="window.setAdminTab('products')" id="admin-tab-products" class="px-6 py-3 rounded-t-xl font-bold text-xs uppercase tracking-wider transition-all">Inventory</button>
+              <button onclick="window.setAdminTab('categories')" id="admin-tab-categories" class="px-6 py-3 rounded-t-xl font-bold text-xs uppercase tracking-wider transition-all">Categories</button>
+              <button onclick="window.setAdminTab('comments')" id="admin-tab-comments" class="px-6 py-3 rounded-t-xl font-bold text-xs uppercase tracking-wider transition-all flex items-center gap-1.5">
+                Reviews Center <span class="bg-red-500 text-white text-[10px] px-1.5 py-0.5 rounded-full font-black">${getTotalCommentsCount()}</span>
+              </button>
+              <button onclick="window.setAdminTab('orders')" id="admin-tab-orders" class="px-6 py-3 rounded-t-xl font-bold text-xs uppercase tracking-wider transition-all">Shipments (${state.orders.length})</button>
+              <button onclick="window.setAdminTab('coupons')" id="admin-tab-coupons" class="px-6 py-3 rounded-t-xl font-bold text-xs uppercase tracking-wider transition-all">Coupons</button>
+              <button onclick="window.setAdminTab('settings')" id="admin-tab-settings" class="px-6 py-3 rounded-t-xl font-bold text-xs uppercase tracking-wider transition-all">Settings</button>
+            </div>
+
+            <!-- Tab Container -->
+            <div id="admin-tab-panel" class="space-y-8 animate-fade-in">
+              <!-- Admin tabs loaded dynamically -->
+            </div>
+          </div>
+
+          <!-- HIGH-FIDELITY ADD/EDIT PRODUCT MODAL -->
+          <div id="product-admin-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
+            <div class="bg-white dark:bg-[#0c0c0e] border border-gray-200 dark:border-gray-800 w-full max-w-2xl rounded-3xl overflow-hidden shadow-2xl flex flex-col max-h-[90vh]">
+              <div class="p-6 border-b border-gray-100 dark:border-gray-800/80 flex justify-between items-center bg-gray-50 dark:bg-gray-900/30">
+                <h3 id="modal-title" class="font-extrabold text-lg text-gray-900 dark:text-white">Add New Premium Footwear Asset</h3>
+                <button onclick="window.closeProductModal()" class="text-gray-400 hover:text-gray-600 dark:hover:text-white transition-colors">
+                  <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+              </div>
+              <form id="product-modal-form" onsubmit="window.handleProductModalSubmit(event)" class="p-6 overflow-y-auto space-y-4 flex-grow text-xs text-gray-700 dark:text-gray-300">
+                <input type="hidden" id="modal-product-id">
+                
+                <div class="grid grid-cols-2 gap-4">
+                  <div>
+                    <label class="block font-bold mb-1">Product Name *</label>
+                    <input type="text" id="modal-name" required placeholder="e.g. Apex Velocity carbon" class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:ring-1 focus:ring-indigo-500 outline-none text-xs dark:text-white">
+                  </div>
+                  <div>
+                    <label class="block font-bold mb-1">Brand Name *</label>
+                    <input type="text" id="modal-brand" required placeholder="e.g. Chinmoy Elite" class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:ring-1 focus:ring-indigo-500 outline-none text-xs dark:text-white">
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                  <div>
+                    <label class="block font-bold mb-1">Retail Price (INR) *</label>
+                    <input type="number" id="modal-price" required placeholder="12999" class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:ring-1 focus:ring-indigo-500 outline-none text-xs dark:text-white">
+                  </div>
+                  <div>
+                    <label class="block font-bold mb-1">Original Price (Strike-through INR)</label>
+                    <input type="number" id="modal-original-price" placeholder="15999" class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:ring-1 focus:ring-indigo-500 outline-none text-xs dark:text-white">
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-3 gap-4">
+                  <div>
+                    <label class="block font-bold mb-1">Category *</label>
+                    <select id="modal-category" class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:ring-1 focus:ring-indigo-500 outline-none text-xs dark:text-white">
+                      <!-- Populated dynamically via JS -->
+                    </select>
+                  </div>
+                  <div>
+                    <label class="block font-bold mb-1">Sizes (comma split) *</label>
+                    <input type="text" id="modal-sizes" required placeholder="7, 8, 9" class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:ring-1 focus:ring-indigo-500 outline-none text-xs dark:text-white">
+                  </div>
+                  <div>
+                    <label class="block font-bold mb-1 text-indigo-500">Colors (comma split) *</label>
+                    <input type="text" id="modal-colors" required placeholder="Red, Black" class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-950 border border-indigo-200 dark:border-indigo-900/50 rounded-xl focus:ring-1 focus:ring-indigo-500 outline-none text-xs dark:text-white shadow-sm font-semibold">
+                  </div>
+                </div>
+
+                <!-- Three Distinct Images Config -->
+                <div class="space-y-2 bg-gray-100/50 dark:bg-gray-900/30 p-4 rounded-2xl border border-gray-200/50 dark:border-gray-800/50">
+                  <span class="block font-extrabold uppercase tracking-widest text-[10px] text-gray-400 mb-1">Product Media Asset Pipeline (URLs)</span>
+                  <div>
+                    <label class="block mb-0.5 text-[10px] text-gray-500">Main Display Image URL *</label>
+                    <input type="url" id="modal-image" required placeholder="https://..." class="w-full px-3 py-1.5 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-lg focus:ring-1 focus:ring-indigo-500 outline-none text-xs dark:text-white">
+                  </div>
+                  <div>
+                    <label class="block mb-0.5 text-[10px] text-gray-500">Image Alternate 2 URL</label>
+                    <input type="url" id="modal-image2" placeholder="https://..." class="w-full px-3 py-1.5 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-lg focus:ring-1 focus:ring-indigo-500 outline-none text-xs dark:text-white">
+                  </div>
+                  <div>
+                    <label class="block mb-0.5 text-[10px] text-gray-500">Image Alternate 3 URL</label>
+                    <input type="url" id="modal-image3" placeholder="https://..." class="w-full px-3 py-1.5 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-lg focus:ring-1 focus:ring-indigo-500 outline-none text-xs dark:text-white">
+                  </div>
+                </div>
+
+                <div>
+                  <label class="block font-bold mb-1">Product Description</label>
+                  <textarea id="modal-description" rows="2" placeholder="Describe the luxury fabric structure, cushion response and heritage detailing..." class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:ring-1 focus:ring-indigo-500 outline-none text-xs dark:text-white"></textarea>
+                </div>
+
+                <div>
+                  <label class="block font-bold mb-1">Product Benefits (Semicolon separated;)</label>
+                  <input type="text" id="modal-benefits" placeholder="Seamless breathable knit; Ultra-grip continental outer rim; Elastic heel lock stability" class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:ring-1 focus:ring-indigo-500 outline-none text-xs dark:text-white">
+                </div>
+
+                <div class="flex items-center gap-4 bg-gray-100/30 dark:bg-gray-900/30 p-3 rounded-xl">
+                  <label class="flex items-center gap-2 cursor-pointer font-bold text-gray-700 dark:text-gray-300">
+                    <input type="checkbox" id="modal-instock" checked class="w-4 h-4 text-indigo-600 focus:ring-indigo-500 rounded bg-transparent">
+                    In Stock Active
+                  </label>
+                  <label class="flex items-center gap-2 cursor-pointer font-bold text-gray-700 dark:text-gray-300">
+                    <input type="checkbox" id="modal-new" checked class="w-4 h-4 text-indigo-600 focus:ring-indigo-500 rounded bg-transparent">
+                    New Release Badge
+                  </label>
+                </div>
+
+                <div class="pt-4 border-t border-gray-100 dark:border-gray-800 flex justify-end gap-3">
+                  <button type="button" onclick="window.closeProductModal()" class="px-5 py-2 rounded-xl font-bold bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">Cancel</button>
+                  <button type="submit" class="px-5 py-2 rounded-xl font-bold bg-indigo-600 hover:bg-indigo-700 text-white transition-colors shadow flex items-center gap-1.5"><i data-lucide="save" class="w-4 h-4"></i> Save Product File</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        `;
+        window.setAdminTab(activeAdminTab);
+      }
+
+      function getTotalCommentsCount() {
+        return state.products.reduce((acc, p) => acc + (p.reviewsList ? p.reviewsList.length : 0), 0);
+      }
+
+      window.setAdminTab = function(tab) {
+        activeAdminTab = tab;
+        ['overview', 'products', 'categories', 'comments', 'orders', 'coupons', 'settings'].forEach(t => {
+          const btn = document.getElementById(`admin-tab-${t}`);
+          if (btn) {
+            if (t === tab) {
+              btn.className = "px-6 py-3 rounded-t-xl font-bold text-xs uppercase tracking-wider bg-indigo-600 text-white shadow-sm";
+            } else {
+              btn.className = "px-6 py-3 rounded-t-xl font-bold text-xs uppercase tracking-wider bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-800";
+            }
+          }
+        });
+
+        const panel = document.getElementById('admin-tab-panel');
+
+        if (tab === 'overview') {
+          const liveRevenue = state.orders.reduce((sum, o) => sum + o.amount, 0);
+
+          panel.innerHTML = `
+            <!-- Analytics Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 animate-fade-in">
+              <div class="bg-white dark:bg-gray-900 p-6 rounded-3xl border border-gray-200 dark:border-gray-800 shadow-sm flex items-center justify-between">
+                <div>
+                  <h4 class="text-xs text-gray-500 uppercase tracking-widest font-extrabold mb-1">Store Revenue</h4>
+                  <p class="text-2xl font-black text-gray-900 dark:text-white">${formatINR(liveRevenue)}</p>
+                </div>
+                <div class="p-3.5 bg-emerald-50 dark:bg-emerald-950 text-emerald-500 rounded-2xl">
+                  <i data-lucide="trending-up" class="w-6 h-6"></i>
+                </div>
+              </div>
+
+              <div class="bg-white dark:bg-gray-900 p-6 rounded-3xl border border-gray-200 dark:border-gray-800 shadow-sm flex items-center justify-between">
+                <div>
+                  <h4 class="text-xs text-gray-500 uppercase tracking-widest font-extrabold mb-1">Total Orders</h4>
+                  <p class="text-2xl font-black text-gray-900 dark:text-white">${state.orders.length}</p>
+                </div>
+                <div class="p-3.5 bg-indigo-50 dark:bg-indigo-950 text-indigo-500 rounded-2xl">
+                  <i data-lucide="shopping-bag" class="w-6 h-6"></i>
+                </div>
+              </div>
+
+              <div class="bg-white dark:bg-gray-900 p-6 rounded-3xl border border-gray-200 dark:border-gray-800 shadow-sm flex items-center justify-between">
+                <div>
+                  <h4 class="text-xs text-gray-500 uppercase tracking-widest font-extrabold mb-1">Store Catalogue</h4>
+                  <p class="text-2xl font-black text-gray-900 dark:text-white">${state.products.length}</p>
+                </div>
+                <div class="p-3.5 bg-yellow-50 dark:bg-yellow-950 text-yellow-500 rounded-2xl">
+                  <i data-lucide="package" class="w-6 h-6"></i>
+                </div>
+              </div>
+
+              <div class="bg-white dark:bg-gray-900 p-6 rounded-3xl border border-gray-200 dark:border-gray-800 shadow-sm flex items-center justify-between">
+                <div>
+                  <h4 class="text-xs text-gray-500 uppercase tracking-widest font-extrabold mb-1">Total Comments</h4>
+                  <p class="text-2xl font-black text-gray-900 dark:text-white">${getTotalCommentsCount()}</p>
+                </div>
+                <div class="p-3.5 bg-rose-50 dark:bg-rose-950 text-rose-500 rounded-2xl">
+                  <i data-lucide="message-square" class="w-6 h-6"></i>
+                </div>
+              </div>
+            </div>
+
+            <!-- Performance Storage Note -->
+            <div class="p-6 bg-indigo-50 dark:bg-indigo-950/40 rounded-3xl border border-indigo-100 dark:border-indigo-900 flex items-center gap-4 animate-fade-in">
+              <div class="p-3 bg-indigo-600 text-white rounded-xl">
+                <i data-lucide="database" class="w-6 h-6"></i>
+              </div>
+              <div>
+                <h3 class="font-extrabold text-sm text-indigo-900 dark:text-indigo-200">High-Performance IndexedDB Storage Enabled</h3>
+                <p class="text-xs text-indigo-700/85 dark:text-indigo-300/85 mt-0.5">Your platform is running with specialized high-volume IndexedDB. Support is active for 2,00,000+ catalog inventory nodes with offline cache backups.</p>
+              </div>
+            </div>
+
+            <!-- Activity block -->
+            <div class="bg-white dark:bg-gray-900 p-6 rounded-3xl border border-gray-200 dark:border-gray-800 animate-fade-in">
+              <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">Live Activity Streams</h3>
+              <div class="text-sm space-y-3">
+                ${state.orders.length > 0 ? `
+                  <div class="flex items-start gap-3 border-b border-gray-100 dark:border-gray-800 pb-3">
+                    <span class="w-2.5 h-2.5 bg-green-500 rounded-full mt-1.5 shrink-0"></span>
+                    <div>
+                      <p class="font-bold text-gray-900 dark:text-white">System Dispatch Confirmed</p>
+                      <p class="text-xs text-gray-500">Order ${state.orders[0].id} processed successfully via COD terminal.</p>
+                    </div>
+                  </div>
+                ` : '<p class="text-xs text-gray-500 italic">No activity detected yet. Waiting for first event.</p>'}
+              </div>
+            </div>
+          `;
+        } else if (tab === 'products') {
+          const totalProds = state.products.length;
+          const totalPages = Math.ceil(totalProds / state.adminProductsPageSize);
+          if (state.adminProductsPage > totalPages) state.adminProductsPage = 1;
+          const startIdx = (state.adminProductsPage - 1) * state.adminProductsPageSize;
+          const paginatedProds = state.products.slice(startIdx, startIdx + state.adminProductsPageSize);
+
+          panel.innerHTML = `
+            <div class="bg-white dark:bg-gray-900 rounded-3xl border border-gray-200 dark:border-gray-800 overflow-hidden shadow-sm animate-fade-in">
+              <div class="p-6 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center bg-gray-50 dark:bg-gray-950/20">
+                <div>
+                  <h3 class="font-bold text-lg text-gray-900 dark:text-white">Active Product Inventory</h3>
+                  <p class="text-xs text-gray-500">Deploy luxury items with comprehensive details, benefits, descriptions, and alternate images.</p>
+                </div>
+                <button onclick="window.openProductModalForAdd()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-4 py-2.5 rounded-xl text-xs flex items-center gap-2 transition-colors">
+                  <i data-lucide="plus" class="w-4 h-4"></i> Add Footwear Asset
+                </button>
+              </div>
+              <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                  <thead>
+                    <tr class="bg-gray-50 dark:bg-gray-950 text-xs text-gray-500 uppercase tracking-widest border-y border-gray-200 dark:border-gray-800">
+                      <th class="p-4 font-semibold">Asset Info</th>
+                      <th class="p-4 font-semibold">Category</th>
+                      <th class="p-4 font-semibold">Retail Price</th>
+                      <th class="p-4 font-semibold">Status</th>
+                      <th class="p-4 font-semibold">Operations</th>
+                    </tr>
+                  </thead>
+                  <tbody class="text-sm divide-y divide-gray-100 dark:divide-gray-800">
+                    ${paginatedProds.length > 0 ? paginatedProds.map(p => `
+                      <tr class="hover:bg-gray-50/30 dark:hover:bg-gray-950/20 transition-colors animate-fade-in">
+                        <td class="p-4 flex items-center gap-3">
+                          <img src="${p.image}" onerror="this.src='https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80'" class="w-12 h-12 rounded-lg object-cover bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                          <div>
+                            <p class="font-bold text-gray-900 dark:text-white">${p.name}</p>
+                            <p class="text-[10px] text-indigo-500 font-bold uppercase tracking-wider mt-0.5">${p.brand}</p>
+                          </div>
+                        </td>
+                        <td class="p-4"><span class="text-[10px] font-bold tracking-wider uppercase bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 px-2.5 py-1 rounded-md border border-gray-200 dark:border-gray-700">${p.category}</span></td>
+                        <td class="p-4 font-black text-gray-900 dark:text-white">${formatINR(p.price)}</td>
+                        <td class="p-4">
+                          <span class="px-2 py-0.5 rounded text-[10px] font-bold ${
+                            p.inStock 
+                              ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-400' 
+                              : 'bg-rose-100 text-rose-700 dark:bg-rose-950/30 dark:text-rose-400'
+                          }">${p.inStock ? 'In Stock' : 'Out of stock'}</span>
+                        </td>
+                        <td class="p-4">
+                          <div class="flex items-center gap-3">
+                            <button onclick="window.openProductModalForEdit(${p.id})" class="text-indigo-500 hover:text-indigo-700 transition-colors p-1" title="Edit"><i data-lucide="edit-3" class="w-4 h-4"></i></button>
+                            <button onclick="window.handleAdminToggleStock(${p.id})" class="text-yellow-500 hover:text-yellow-600 transition-colors p-1" title="Toggle Stock"><i data-lucide="package" class="w-4 h-4"></i></button>
+                            <button onclick="window.handleAdminDeleteProduct(${p.id})" class="text-rose-500 hover:text-rose-700 transition-colors p-1" title="Delete"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
+                          </div>
+                        </td>
+                      </tr>
+                    `).join('') : `
+                      <tr><td colspan="5" class="p-8 text-center text-gray-500 text-sm italic">Catalogue empty. Add products to populate.</td></tr>
+                    `}
+                  </tbody>
+                </table>
+              </div>
+
+              ${totalPages > 1 ? `
+                <div class="flex justify-between items-center p-4 border-t border-gray-100 dark:border-gray-850 bg-gray-50 dark:bg-gray-950/20">
+                  <button onclick="window.changeAdminPage(${state.adminProductsPage - 1})" ${state.adminProductsPage === 1 ? 'disabled' : ''} class="px-3 py-1 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-xs rounded-xl font-bold disabled:opacity-40">Prev</button>
+                  <span class="text-xs font-semibold">Showing page ${state.adminProductsPage} of ${totalPages} (${totalProds} items)</span>
+                  <button onclick="window.changeAdminPage(${state.adminProductsPage + 1})" ${state.adminProductsPage === totalPages ? 'disabled' : ''} class="px-3 py-1 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-xs rounded-xl font-bold disabled:opacity-40">Next</button>
+                </div>
+              ` : ''}
+            </div>
+          `;
+        } else if (tab === 'categories') {
+          panel.innerHTML = `
+            <div class="bg-white dark:bg-gray-900 rounded-3xl border border-gray-200 dark:border-gray-800 overflow-hidden shadow-sm animate-fade-in">
+              <div class="p-6 border-b border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-gray-950/20">
+                <h3 class="font-bold text-lg text-gray-900 dark:text-white">Manage Store Keywords & Categories</h3>
+                <p class="text-xs text-gray-500 mt-1">Add or remove distinct footwear categories like 'Sneakers' or 'Running'. Changes instantly reflect in main shop filters.</p>
+              </div>
+              <div class="p-6 space-y-6">
+                <div class="flex gap-2 max-w-sm">
+                  <input type="text" id="new-category-input" placeholder="e.g. Formal, High Tops" class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:ring-1 focus:ring-indigo-500 outline-none text-xs dark:text-white font-bold">
+                  <button onclick="window.handleAdminAddCategory()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-4 py-2 rounded-xl text-xs transition-colors shrink-0 font-extrabold">Add Tag</button>
+                </div>
+                
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 animate-fade-in">
+                  ${state.categories.map((cat, idx) => `
+                    <div class="flex justify-between items-center bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 px-4 py-3 rounded-2xl">
+                      <span class="font-bold text-sm text-gray-900 dark:text-white">${cat}</span>
+                      <button onclick="window.handleAdminDeleteCategory(${idx})" class="text-rose-500 hover:bg-rose-100 dark:hover:bg-rose-900/40 p-1.5 rounded-lg transition-colors">
+                        <i data-lucide="trash-2" class="w-4 h-4"></i>
+                      </button>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            </div>
+          `;
+        } else if (tab === 'comments') {
+          panel.innerHTML = `
+            <div class="bg-white dark:bg-gray-900 rounded-3xl border border-gray-200 dark:border-gray-800 overflow-hidden shadow-sm animate-fade-in">
+              <div class="p-6 border-b border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-gray-950/20">
+                <h3 class="font-bold text-lg text-gray-900 dark:text-white">Active Comments & Reviews Panel</h3>
+                <p class="text-xs text-gray-500 mt-1">Manage, edit, author or delete customer comments for every individual product to ensure high reselling confidence.</p>
+              </div>
+              <div class="p-6 space-y-6">
+                ${state.products.map(p => {
+                  const comments = p.reviewsList || [];
+                  return `
+                    <div class="bg-gray-50 dark:bg-gray-950/40 border border-gray-200 dark:border-gray-800 p-6 rounded-2xl space-y-4 animate-fade-in">
+                      <div class="flex justify-between items-center border-b border-gray-200 dark:border-gray-800 pb-3">
+                        <div class="flex items-center gap-3">
+                          <img src="${p.image}" onerror="this.src='https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80'" class="w-10 h-10 rounded-lg border border-gray-200 dark:border-gray-700 object-cover">
+                          <div>
+                            <h4 class="font-extrabold text-sm text-gray-900 dark:text-white">${p.name}</h4>
+                            <p class="text-[10px] text-indigo-500 font-bold uppercase tracking-wider">${comments.length} Total comments</p>
+                          </div>
+                        </div>
+                        <button onclick="window.handleAdminAddCommentPrompt('${p.id}')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-3 py-1.5 rounded-lg text-xs transition-colors flex items-center gap-1 shadow-sm">
+                          <i data-lucide="plus-circle" class="w-3.5 h-3.5"></i> Insert Review
+                        </button>
+                      </div>
+
+                      ${comments.length > 0 ? `
+                        <div class="space-y-3 pl-2">
+                          ${comments.map(c => `
+                            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-white dark:bg-[#0c0c0e] border border-gray-200 dark:border-gray-800 p-4 rounded-xl gap-3 animate-fade-in">
+                              <div class="flex-grow space-y-1">
+                                <p class="text-xs font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                                  ${c.author}
+                                  <span class="text-[10px] text-yellow-400 font-semibold">★★★★★</span>
+                                </p>
+                                <p class="text-xs text-gray-600 dark:text-gray-400 italic">"${c.comment}"</p>
+                              </div>
+                              <div class="flex items-center gap-2 shrink-0">
+                                <button onclick="window.handleAdminEditComment('${p.id}', '${c.id}')" class="text-indigo-500 hover:underline text-xs font-bold px-3 py-1.5 bg-indigo-50 dark:bg-indigo-950/30 rounded-lg border border-indigo-100 dark:border-indigo-900 transition-colors">Edit</button>
+                                <button onclick="window.handleAdminDeleteComment('${p.id}', '${c.id}')" class="text-rose-500 hover:underline text-xs font-bold px-3 py-1.5 bg-rose-50 dark:bg-rose-950/30 rounded-lg border border-rose-100 dark:border-rose-900 transition-colors">Delete</button>
+                              </div>
+                            </div>
+                          `).join('')}
+                        </div>
+                      ` : `
+                        <p class="text-xs text-gray-400 italic pl-2 py-2">No reviews/comments exist for this footwear model.</p>
+                      `}
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+          `;
+        } else if (tab === 'orders') {
+          panel.innerHTML = `
+            <div class="bg-white dark:bg-gray-900 rounded-3xl border border-gray-200 dark:border-gray-800 overflow-hidden shadow-sm animate-fade-in">
+              <div class="p-6 border-b border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-gray-950/20">
+                <h3 class="font-bold text-lg text-gray-900 dark:text-white">Active Orders</h3>
+              </div>
+              <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                  <thead>
+                    <tr class="bg-gray-50 dark:bg-gray-950 text-xs text-gray-500 uppercase tracking-widest border-y border-gray-200 dark:border-gray-800">
+                      <th class="p-4 font-semibold">Reference ID</th>
+                      <th class="p-4 font-semibold">Shipping Coordinates</th>
+                      <th class="p-4 font-semibold">Total / Payment</th>
+                      <th class="p-4 font-semibold">Status / Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody class="text-sm divide-y divide-gray-100 dark:divide-gray-800">
+                    ${state.orders.length > 0 ? state.orders.map(ord => {
+                      const shippingText = ord.shippingInfo 
+                        ? `${ord.shippingInfo.address}, ${ord.shippingInfo.city}, ${ord.shippingInfo.state} - ${ord.shippingInfo.pincode}<br><span class="text-indigo-500 font-bold mt-1 inline-block">📞 Phone: ${ord.shippingInfo.phone}</span>`
+                        : '<span class="text-gray-400 italic">No detailed address provided</span>';
+
+                      return `
+                      <tr class="hover:bg-gray-50/30 dark:hover:bg-gray-950/20 transition-colors">
+                        <td class="p-4 font-bold text-indigo-500">${ord.id}</td>
+                        <td class="p-4">
+                          <p class="font-bold text-gray-900 dark:text-white mb-1">${ord.customer} <span class="text-[10px] text-gray-400 bg-gray-100 dark:bg-gray-800 px-2 py-0.5 rounded-full ml-1">${ord.customerEmail}</span></p>
+                          <p class="text-xs text-gray-500 leading-tight">${shippingText}</p>
+                        </td>
+                        <td class="p-4">
+                          <p class="font-black text-gray-900 dark:text-white">${formatINR(ord.amount)}</p>
+                          <p class="text-[10px] text-gray-500 uppercase tracking-wider font-bold mt-1">${ord.payment}</p>
+                        </td>
+                        <td class="p-4">
+                          <select onchange="window.updateOrderStatus('${ord.id}', this.value)" class="text-xs bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 px-2 py-1.5 rounded font-bold text-gray-900 dark:text-white focus:ring-1 focus:ring-indigo-500 mb-2 block w-full outline-none">
+                            <option value="Pending" ${ord.status === 'Pending' ? 'selected' : ''}>Pending</option>
+                            <option value="Processing" ${ord.status === 'Processing' ? 'selected' : ''}>Processing</option>
+                            <option value="Delivered" ${ord.status === 'Delivered' ? 'selected' : ''}>Delivered</option>
+                          </select>
+                          <button onclick="window.deleteAdminOrder('${ord.id}')" class="text-xs font-bold text-rose-500 hover:text-rose-600 hover:underline flex items-center gap-1 w-full justify-center bg-rose-50 dark:bg-rose-950/30 border border-rose-100 dark:border-rose-900 py-1.5 rounded transition-colors">
+                             <i data-lucide="trash-2" class="w-3.5 h-3.5"></i> Delete Data
+                           </button>
+                        </td>
+                      </tr>
+                    `}).join('') : `
+                      <tr>
+                        <td colspan="4" class="text-center py-10 text-gray-500 text-sm italic bg-gray-50 dark:bg-gray-950/10">No active orders exist in the system.<br>New customer checkouts will appear securely here.</td>
+                      </tr>
+                    `}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          `;
+        } else if (tab === 'coupons') {
+          panel.innerHTML = `
+            <div class="bg-white dark:bg-gray-900 rounded-3xl border border-gray-200 dark:border-gray-800 overflow-hidden shadow-sm animate-fade-in">
+              <div class="p-6 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center bg-gray-50 dark:bg-gray-950/20">
+                <h3 class="font-bold text-lg text-gray-900 dark:text-white">Active Coupons</h3>
+                <button onclick="window.handleAdminAddCoupon()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-4 py-2 rounded-xl text-xs flex items-center gap-2 shadow-sm">
+                  <i data-lucide="plus" class="w-4 h-4"></i> Add Coupon
+                </button>
+              </div>
+              <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                  <thead>
+                    <tr class="bg-gray-50 dark:bg-gray-950 text-xs text-gray-500 uppercase tracking-widest border-y border-gray-200 dark:border-gray-800">
+                      <th class="p-4 font-semibold">Promo Code</th>
+                      <th class="p-4 font-semibold">Discount Configuration</th>
+                      <th class="p-4 font-semibold">Rules Description</th>
+                      <th class="p-4 font-semibold">Operations</th>
+                    </tr>
+                  </thead>
+                  <tbody class="text-sm divide-y divide-gray-100 dark:divide-gray-800">
+                    ${state.coupons.map((c, idx) => `
+                      <tr class="hover:bg-gray-50/30 dark:hover:bg-gray-950/20 transition-colors animate-fade-in">
+                        <td class="p-4 font-bold text-indigo-500">${c.code}</td>
+                        <td class="p-4 font-bold text-gray-900 dark:text-white">${c.type === 'percent' ? `${c.value}% Off` : `Flat ${formatINR(c.value)} Off`}</td>
+                        <td class="p-4 text-gray-500 text-xs font-semibold">${c.description}</td>
+                        <td class="p-4">
+                          <button onclick="window.handleAdminDeleteCoupon(${idx})" class="text-rose-500 hover:text-rose-600 hover:underline flex items-center gap-1.5 bg-rose-50 dark:bg-rose-950/30 border border-rose-100 dark:border-rose-900 px-3 py-1.5 rounded-lg transition-colors font-bold text-xs shadow-sm">
+                            <i data-lucide="trash-2" class="w-3.5 h-3.5"></i> Remove Code
+                          </button>
+                        </td>
+                      </tr>
+                    `).join('')}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          `;
+        } else if (tab === 'settings') {
+          panel.innerHTML = `
+            <div class="bg-white dark:bg-gray-900 rounded-3xl border border-gray-200 dark:border-gray-800 overflow-hidden shadow-sm animate-fade-in">
+              <div class="p-6 border-b border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-gray-950/20">
+                <h3 class="font-bold text-lg text-gray-900 dark:text-white">Store Configuration</h3>
+                <p class="text-xs text-gray-500 mt-1">Manage global system variables like support routing.</p>
+              </div>
+              <div class="p-6 space-y-6 animate-fade-in">
+                <div class="max-w-md bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 p-6 rounded-2xl">
+                  <label class="block font-bold mb-1 text-sm text-gray-900 dark:text-white">WhatsApp Support Number</label>
+                  <p class="text-xs text-gray-500 mb-4">Include country code (e.g., 91 for India) without '+' symbol. This automatically links the floating chat button.</p>
+                  <div class="flex gap-2">
+                    <input type="text" id="admin-whatsapp-number" value="${state.storeSettings.whatsappNumber || ''}" placeholder="e.g. 919876543210" class="w-full px-4 py-2.5 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl focus:ring-1 focus:ring-indigo-500 outline-none text-sm dark:text-white shadow-sm font-semibold">
+                    <button onclick="window.handleAdminSaveSettings()" class="bg-green-500 hover:bg-green-600 text-white font-bold px-5 py-2.5 rounded-xl text-xs transition-colors shrink-0 shadow font-extrabold">Save Number</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+        }
+        lucide.createIcons();
+      };
+
+      window.changeAdminPage = function(targetPage) {
+        state.adminProductsPage = targetPage;
+        window.setAdminTab('products');
+      };
+
+      window.deleteAdminOrder = async function(id) {
+        const confirmed = await customConfirm('Delete Order', `Delete this order ${id} completely from system?`);
+        if (confirmed) {
+          const idx = state.orders.findIndex(o => o.id === id);
+          if (idx !== -1) {
+            state.orders.splice(idx, 1);
+            saveOrders(); 
+            notify(`Order ${id} removed off system database.`, 'success');
+            window.setAdminTab('orders'); 
+          }
+        }
+      };
+
+      window.handleAdminToggleStock = function(id) {
+        const product = state.products.find(p => String(p.id) === String(id));
+        if (product) {
+          product.inStock = !product.inStock;
+          saveProducts();
+          notify(`Toggled stock state for ${product.name}.`, 'success');
+          window.setAdminTab('products');
+        }
+      };
+
+      window.handleAdminDeleteProduct = async function(id) {
+        const confirmed = await customConfirm('Delete Product', 'Warning: Permanently delete this product from database? This cannot be undone.');
+        if (confirmed) {
+          const productIdx = state.products.findIndex(p => String(p.id) === String(id));
+          if (productIdx !== -1) {
+            const name = state.products[productIdx].name;
+            state.products.splice(productIdx, 1);
+            saveProducts();
+            notify(`Removed ${name} from shop catalog completely.`, 'success');
+            window.setAdminTab('products');
+          }
+        }
+      };
+
+      window.updateOrderStatus = function(id, val) {
+        const order = state.orders.find(o => o.id === id);
+        if (order) {
+          order.status = val;
+          saveOrders(); 
+          notify(`Updated state of order ${id} to ${val}.`, 'success');
+        }
+      };
+
+      window.handleAdminSaveSettings = function() {
+        const input = document.getElementById('admin-whatsapp-number');
+        const num = input.value.trim().replace(/[^0-9]/g, ''); 
+        if(num) {
+            state.storeSettings.whatsappNumber = num;
+            saveStoreSettings();
+            notify('WhatsApp support number updated successfully.', 'success');
+            const waBtn = document.getElementById('whatsapp-floating-btn');
+            if (waBtn) waBtn.href = `https://wa.me/${num}`;
+        } else {
+            notify('Please enter a valid numeric phone number.', 'error');
+        }
+      };
+
+      window.handleAdminAddCategory = function() {
+        const input = document.getElementById('new-category-input');
+        const val = input.value.trim();
+        if(val && !state.categories.includes(val)) {
+            state.categories.push(val);
+            saveCategories();
+            notify(`Category '${val}' registered successfully.`, 'success');
+            window.setAdminTab('categories');
+        } else {
+            notify(`Category invalid or already exists.`, 'error');
+        }
+      };
+
+      window.handleAdminDeleteCategory = async function(index) {
+        const confirmed = await customConfirm('Delete Category', `Are you sure you want to remove keyword tag '${state.categories[index]}'?`);
+        if (confirmed) {
+            state.categories.splice(index, 1);
+            saveCategories();
+            notify('Category keyword permanently removed.', 'success');
+            window.setAdminTab('categories');
+        }
+      };
+
+      window.openProductModalForAdd = function() {
+        document.getElementById('modal-title').innerText = "Add New Premium Footwear Asset";
+        document.getElementById('modal-product-id').value = "";
+        document.getElementById('product-modal-form').reset();
+        
+        const catDrop = document.getElementById('modal-category');
+        catDrop.innerHTML = state.categories.map(c => `<option value="${c}">${c}</option>`).join('');
+
+        document.getElementById('product-admin-modal').classList.remove('hidden');
+        lucide.createIcons();
+      };
+
+      window.openProductModalForEdit = function(productId) {
+        const p = state.products.find(item => String(item.id) === String(productId));
+        if (!p) return;
+
+        document.getElementById('modal-title').innerText = `Edit: ${p.name}`;
+        document.getElementById('modal-product-id').value = p.id;
+        document.getElementById('modal-name').value = p.name;
+        document.getElementById('modal-brand').value = p.brand;
+        document.getElementById('modal-price').value = p.price;
+        document.getElementById('modal-original-price').value = p.originalPrice || '';
+        
+        const catDrop = document.getElementById('modal-category');
+        catDrop.innerHTML = state.categories.map(c => `<option value="${c}" ${c === p.category ? 'selected' : ''}>${c}</option>`).join('');
+
+        document.getElementById('modal-sizes').value = (p.sizes && Array.isArray(p.sizes)) ? p.sizes.join(', ') : 'Standard';
+        document.getElementById('modal-colors').value = (p.colors && Array.isArray(p.colors)) ? p.colors.join(', ') : 'Default Color';
+        
+        document.getElementById('modal-image').value = p.image;
+        document.getElementById('modal-image2').value = p.image2 || '';
+        document.getElementById('modal-image3').value = p.image3 || '';
+        document.getElementById('modal-description').value = p.description || '';
+        document.getElementById('modal-benefits').value = p.benefits || '';
+        document.getElementById('modal-instock').checked = p.inStock;
+        document.getElementById('modal-new').checked = p.isNew;
+
+        document.getElementById('product-admin-modal').classList.remove('hidden');
+        lucide.createIcons();
+      };
+
+      window.closeProductModal = function() {
+        document.getElementById('product-admin-modal').classList.add('hidden');
+      };
+
+      window.handleProductModalSubmit = function(e) {
+        e.preventDefault();
+
+        const idVal = document.getElementById('modal-product-id').value;
+        const name = document.getElementById('modal-name').value.trim();
+        const brand = document.getElementById('modal-brand').value.trim();
+        const price = parseInt(document.getElementById('modal-price').value);
+        const originalPrice = parseInt(document.getElementById('modal-original-price').value) || (price + 2000);
+        const category = document.getElementById('modal-category').value;
+        
+        const sizesRaw = document.getElementById('modal-sizes').value;
+        const colorsRaw = document.getElementById('modal-colors').value;
+
+        const image = document.getElementById('modal-image').value.trim();
+        const image2 = document.getElementById('modal-image2').value.trim();
+        const image3 = document.getElementById('modal-image3').value.trim();
+        const description = document.getElementById('modal-description').value.trim();
+        const benefits = document.getElementById('modal-benefits').value.trim();
+        const inStock = document.getElementById('modal-instock').checked;
+        const isNew = document.getElementById('modal-new').checked;
+
+        let sizes = sizesRaw.split(',').map(s => s.trim()).filter(s => s !== '');
+        if(sizes.length === 0) sizes = ['Standard'];
+        
+        let colors = colorsRaw.split(',').map(c => c.trim()).filter(c => c !== '');
+        if(colors.length === 0) colors = ['Default Color'];
+
+        if (idVal) {
+          const prodIndex = state.products.findIndex(p => String(p.id) === String(idVal));
+          if (prodIndex !== -1) {
+            state.products[prodIndex] = {
+              ...state.products[prodIndex],
+              name, brand, price, originalPrice, category, sizes, colors, image, image2, image3, description, benefits, inStock, isNew
+            };
+            notify('Footwear coordinates updated successfully!', 'success');
+          }
+        } else {
+          const newId = String(Date.now());
+          state.products.unshift({
+            id: newId,
+            name, brand, price, originalPrice, category, sizes, colors, image, image2, image3, description, benefits,
+            rating: 4.8, reviewsList: [], isNew, inStock,
+            specs: { Upper: 'Engineered performance mesh', Midsole: 'Prestige lightfoam core', Outsole: 'Traction grip compound' }
+          });
+          notify(`New asset "${name}" registered into catalog successfully!`, 'success');
+        }
+
+        saveProducts();
+        window.closeProductModal();
+        window.setAdminTab('products');
+      };
+
+      window.handleAdminAddCommentPrompt = async function(productId) {
+        const response = await customPrompt(
+          'Insert Verified Review',
+          'Add a premium customer review to immediately boost checkout trust scores.',
+          [
+            { id: 'author', label: 'Reviewer Display Name', placeholder: 'e.g., Rohan Sharma', value: '' },
+            { id: 'comment', label: 'Review Feedback Comment', placeholder: 'e.g., Outstanding carbon fiber responsiveness!', value: '' }
+          ]
+        );
+
+        if (response && response.author && response.comment) {
+          const p = state.products.find(item => String(item.id) === String(productId));
+          if (p) {
+            if (!p.reviewsList) p.reviewsList = [];
+            p.reviewsList.unshift({
+              id: Date.now(),
+              author: response.author.trim(),
+              rating: 5,
+              comment: response.comment.trim()
+            });
+            saveProducts();
+            notify('Comment injected successfully.', 'success');
+            window.setAdminTab('comments');
+          }
+        }
+      };
+
+      window.handleAdminEditComment = async function(productId, commentId) {
+        const p = state.products.find(item => String(item.id) === String(productId));
+        if (!p) return;
+        const c = p.reviewsList.find(item => String(item.id) === String(commentId));
+        if (!c) return;
+
+        const response = await customPrompt(
+          'Edit Verified Review',
+          'Make modifications to this user review.',
+          [
+            { id: 'author', label: 'Reviewer Name', value: c.author },
+            { id: 'comment', label: 'Review Comment text', value: c.comment }
+          ]
+        );
+
+        if (response && response.author && response.comment) {
+          c.author = response.author.trim();
+          c.comment = response.comment.trim();
+          saveProducts();
+          notify('Comment updated.', 'success');
+          window.setAdminTab('comments');
+        }
+      };
+
+      window.handleAdminDeleteComment = async function(productId, commentId) {
+        const confirmed = await customConfirm('Delete Comment', 'Are you sure you want to delete this comment review from this product file?');
+        if (confirmed) {
+          const p = state.products.find(item => String(item.id) === String(productId));
+          if (p) {
+            p.reviewsList = p.reviewsList.filter(c => String(c.id) !== String(commentId));
+            saveProducts();
+            notify('Comment review deleted cleanly.', 'success');
+            window.setAdminTab('comments');
+          }
+        }
+      };
+
+      // FUNCTION IMPLEMENTATION: REMOVE PROMO COUPONS
+      window.handleAdminDeleteCoupon = async function(idx) {
+        const coupon = state.coupons[idx];
+        if (!coupon) return;
+
+        const confirmed = await customConfirm(
+          'Remove Promo Coupon', 
+          `Are you sure you want to permanently delete coupon code "${coupon.code}" from your store database?`
+        );
+
+        if (confirmed) {
+          state.coupons.splice(idx, 1);
+          saveCoupons();
+          notify(`Promo coupon code ${coupon.code} removed successfully.`, 'success');
+          window.setAdminTab('coupons');
+        }
+      };
+
+      window.handleAdminAddCoupon = async function() {
+        const response = await customPrompt(
+          'Create Promotion Coupon',
+          'Deploy a new discount coupon rate to boost conversion.',
+          [
+            { id: 'code', label: 'Promo Code (Uppercase)', placeholder: 'e.g. SNEAKERHEAD', value: '' },
+            { id: 'value', label: 'Percentage Value Off', placeholder: 'e.g. 25', value: '25' }
+          ]
+        );
+
+        if (response && response.code && response.value) {
+          const discountVal = parseInt(response.value);
+          state.coupons.push({
+            code: response.code.trim().toUpperCase(),
+            type: 'percent',
+            value: discountVal,
+            description: `${discountVal}% off storewide`
+          });
+          saveCoupons();
+          notify(`Promo coupon code ${response.code.toUpperCase()} initialized successfully!`, 'success');
+          window.setAdminTab('coupons');
+        }
+      };
+
+      window.exitAdminTerminal = function() {
+        state.user = null;
+        localStorage.removeItem('chinmoy_user');
+        window.updateUserUI();
+        notify('Operations terminal logged out securely.', 'success');
+        navigate('home');
+      };
+
+      renderAdminShell();
+    }
+  </script>
+
+  <!-- ==================== INITIALIZATION & CORE START ==================== -->
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      navigate('home'); 
+    });
+  </script>
+</body>
+</html>
