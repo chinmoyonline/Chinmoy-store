@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Chinmoy Shoes Store - Premium Indian Footwear Store</title>
   
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -27,12 +28,15 @@
     }
   </script>
 
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=300;400;500;600;700;800&display=swap" rel="stylesheet">
 
+  <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
+  <!-- Custom Styles -->
   <style>
     body {
       font-family: 'Plus Jakarta Sans', sans-serif;
@@ -65,6 +69,9 @@
     ::-webkit-scrollbar-thumb:hover {
       background: #3730a3;
     }
+    #cloud-loader {
+      transition: opacity 0.5s ease;
+    }
     /* Main gallery slider animation styles */
     .slide-active {
       transform: translateX(0);
@@ -85,10 +92,18 @@
 </head>
 <body class="bg-gray-50 dark:bg-[#09090b] text-gray-900 dark:text-gray-100 min-h-screen flex flex-col transition-colors duration-300 relative">
 
+  <!-- INITIAL CLOUD LOADING SCREEN -->
+  <div id="cloud-loader" class="fixed inset-0 z-[100] bg-white dark:bg-[#09090b] flex flex-col items-center justify-center">
+    <div class="w-16 h-16 border-4 border-indigo-200 border-t-indigo-600 rounded-full animate-spin mb-4"></div>
+    <h2 class="text-xl font-black tracking-widest uppercase text-gray-900 dark:text-white animate-pulse">Syncing Database Engine...</h2>
+  </div>
+
+  <!-- ==================== HEADER / NAVIGATION ==================== -->
   <header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-[#09090b]/85 backdrop-blur-xl border-b border-gray-200 dark:border-gray-800 transition-colors duration-300">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between items-center h-20">
         
+        <!-- Logo -->
         <div class="flex items-center cursor-pointer group" onclick="navigate('home')">
           <div class="w-10 h-10 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-xl flex items-center justify-center mr-3 group-hover:rotate-12 transition-transform">
             <span class="text-white font-black text-xl">C</span>
@@ -98,10 +113,14 @@
           </span>
         </div>
 
+        <!-- Desktop Navigation -->
         <nav class="hidden md:flex space-x-8 text-sm font-semibold tracking-wide text-gray-600 dark:text-gray-300" id="desktop-nav-links">
-          </nav>
+          <!-- Populated dynamically -->
+        </nav>
 
+        <!-- Utility Icons -->
         <div class="flex items-center space-x-4">
+          <!-- Search Switch -->
           <div class="relative flex items-center">
             <input type="text" id="global-search" placeholder="Search sneakers..." class="hidden sm:block w-0 focus:w-48 lg:focus:w-64 px-4 py-2 rounded-full bg-gray-100 dark:bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:text-white transition-all opacity-0 focus:opacity-100 duration-300" onkeyup="handleGlobalSearch(event)">
             <button onclick="toggleSearchBar()" class="p-2 text-gray-600 dark:text-gray-300 hover:text-indigo-500 transition-colors">
@@ -109,25 +128,30 @@
             </button>
           </div>
 
+          <!-- Light/Dark Mode Toggle -->
           <button onclick="toggleTheme()" class="p-2 text-gray-600 dark:text-gray-300 hover:text-indigo-500 transition-colors">
             <i id="theme-icon" data-lucide="sun" class="w-5 h-5"></i>
           </button>
 
+          <!-- User Account -->
           <button onclick="navigate('auth')" class="p-2 text-gray-600 dark:text-gray-300 hover:text-indigo-500 transition-colors relative">
             <i data-lucide="user" class="w-5 h-5"></i>
             <span id="user-badge" class="hidden absolute top-1 right-1 w-2.5 h-2.5 bg-green-500 rounded-full border border-white dark:border-gray-900"></span>
           </button>
 
+          <!-- Wishlist -->
           <button onclick="navigate('dashboard', 'wishlist')" class="p-2 text-gray-600 dark:text-gray-300 hover:text-indigo-500 transition-colors relative">
             <i data-lucide="heart" class="w-5 h-5"></i>
             <span id="wishlist-badge" class="hidden absolute -top-1 -right-1 bg-rose-500 text-white text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center">0</span>
           </button>
 
+          <!-- Shopping Cart -->
           <button onclick="navigate('cart')" class="p-2 text-gray-600 dark:text-gray-300 hover:text-indigo-500 transition-colors relative">
             <i data-lucide="shopping-cart" class="w-5 h-5"></i>
             <span id="cart-badge" class="hidden absolute -top-1 -right-1 bg-indigo-600 text-white text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center">0</span>
           </button>
 
+          <!-- Mobile Menu Button -->
           <button onclick="toggleMobileMenu()" class="md:hidden p-2 text-gray-600 dark:text-gray-300">
             <i data-lucide="menu" id="mobile-menu-icon" class="w-6 h-6"></i>
           </button>
@@ -135,24 +159,31 @@
       </div>
     </div>
 
+    <!-- Mobile Dropdown Menu -->
     <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-[#09090b] border-t border-gray-200 dark:border-gray-800 p-4 space-y-4">
       <nav class="flex flex-col space-y-3 font-semibold text-gray-600 dark:text-gray-300" id="mobile-nav-links">
-         </nav>
+         <!-- Populated dynamically -->
+      </nav>
     </div>
   </header>
 
+  <!-- ==================== MAIN CONTENT CONTAINER ==================== -->
   <main id="main-content" class="flex-grow pt-20">
-    </main>
+    <!-- Active view content loaded dynamically -->
+  </main>
 
+  <!-- ==================== NOTIFICATION SYSTEM ==================== -->
   <div id="notification-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-3 pointer-events-none"></div>
 
+  <!-- ==================== CUSTOM MODAL DIALOGS ==================== -->
   <div id="custom-dialog-backdrop" class="fixed inset-0 z-[110] bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
     <div class="bg-white dark:bg-[#0e0e11] border border-gray-200 dark:border-gray-800 w-full max-w-md rounded-2xl overflow-hidden shadow-2xl p-6 space-y-4">
       <h3 id="dialog-title" class="text-lg font-extrabold text-gray-900 dark:text-white">Dialog Header</h3>
       <p id="dialog-message" class="text-xs text-gray-600 dark:text-gray-400">Confirmation request text message.</p>
       
       <div id="dialog-inputs-container" class="space-y-3 hidden">
-        </div>
+        <!-- Dynamic Form Fields -->
+      </div>
 
       <div class="flex justify-end gap-3 pt-2">
         <button id="dialog-cancel-btn" onclick="closeCustomDialog(false)" class="px-4 py-2 rounded-xl text-xs font-bold bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">Cancel</button>
@@ -161,6 +192,7 @@
     </div>
   </div>
 
+  <!-- ==================== FOOTER ==================== -->
   <footer class="bg-gray-100 dark:bg-black pt-16 pb-10 border-t border-gray-200 dark:border-gray-800 transition-colors duration-300">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
@@ -221,74 +253,281 @@
     </div>
   </footer>
 
+  <!-- ==================== WHATSAPP QUICK CHAT BUTTON ==================== -->
   <a id="whatsapp-floating-btn" href="https://wa.me/919876543210" target="_blank" class="fixed bottom-6 left-6 z-40 bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 hover:scale-110 active:scale-95 transition-all flex items-center justify-center">
     <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
       <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.438 2.5 1.177 3.464l-.772 2.817 2.883-.755c.928.568 2.008.894 3.16.894 3.181 0 5.767-2.586 5.768-5.766 0-3.181-2.587-5.767-5.768-5.767zm3.811 8.23c-.194.545-1.121 1.01-1.542 1.054-.383.04-.881.082-2.502-.574-2.073-.838-3.414-2.946-3.518-3.084-.104-.138-.838-1.111-.838-2.115 0-1.004.524-1.499.711-1.704.187-.205.412-.258.55-.258s.275-.003.393.003c.122.006.287-.046.45.342.169.4.58 1.412.63 1.512.05.1.082.217.017.348-.066.13-.1.217-.197.332-.097.114-.204.256-.29.345-.1.1-.205.21-.088.411.117.201.521.859 1.119 1.391.77.687 1.42.9 1.623.999.203.1.322.083.442-.055.12-.138.524-.61.666-.818.14-.208.28-.175.474-.104.193.071 1.226.578 1.439.684.212.106.353.159.405.248.053.089.053.517-.141 1.062z"/>
     </svg>
   </a>
 
+  <!-- ==================== STORAGE ENGINE (INDEXEDDB) ==================== -->
   <script>
-    // TO UPDATE YOUR CATALOG FOR INSTAGRAM: 
-    // Just edit, add, or remove objects inside this defaultProducts array!
+    const DB_NAME = 'ChinmoyShoesDB';
+    const DB_VERSION = 1;
+    let indexedDbInstance = null;
+
+    function openIndexedDB() {
+      return new Promise((resolve, reject) => {
+        const request = indexedDB.open(DB_NAME, DB_VERSION);
+        
+        request.onupgradeneeded = (event) => {
+          const db = event.target.result;
+          if (!db.objectStoreNames.contains('products')) db.createObjectStore('products', { keyPath: 'id' });
+          if (!db.objectStoreNames.contains('orders')) db.createObjectStore('orders', { keyPath: 'id' });
+          if (!db.objectStoreNames.contains('categories')) db.createObjectStore('categories');
+          if (!db.objectStoreNames.contains('coupons')) db.createObjectStore('coupons');
+          if (!db.objectStoreNames.contains('storeSettings')) db.createObjectStore('storeSettings');
+          if (!db.objectStoreNames.contains('cart')) db.createObjectStore('cart');
+          if (!db.objectStoreNames.contains('wishlist')) db.createObjectStore('wishlist');
+          if (!db.objectStoreNames.contains('shippingInfo')) db.createObjectStore('shippingInfo');
+        };
+
+        request.onsuccess = (event) => {
+          indexedDbInstance = event.target.result;
+          resolve(indexedDbInstance);
+        };
+
+        request.onerror = (event) => reject(event.target.error);
+      });
+    }
+
+    function getIDBData(storeName, key) {
+      return new Promise((resolve, reject) => {
+        if (!indexedDbInstance) { resolve(null); return; }
+        const transaction = indexedDbInstance.transaction([storeName], 'readonly');
+        const store = transaction.objectStore(storeName);
+        const request = key ? store.get(key) : store.getAll();
+
+        request.onsuccess = () => resolve(request.result);
+        request.onerror = () => reject(request.error);
+      });
+    }
+
+    function saveIDBData(storeName, key, value) {
+      return new Promise((resolve, reject) => {
+        if (!indexedDbInstance) { resolve(false); return; }
+        const transaction = indexedDbInstance.transaction([storeName], 'readwrite');
+        const store = transaction.objectStore(storeName);
+        const request = key ? store.put(value, key) : store.put(value);
+
+        request.onsuccess = () => resolve(true);
+        request.onerror = () => reject(request.error);
+      });
+    }
+
+    function saveIDBProductsBatch(productsArray) {
+      return new Promise((resolve, reject) => {
+        if (!indexedDbInstance) { resolve(false); return; }
+        const transaction = indexedDbInstance.transaction(['products'], 'readwrite');
+        const store = transaction.objectStore('products');
+        store.clear();
+        productsArray.forEach(p => store.put(p));
+        transaction.oncomplete = () => resolve(true);
+        transaction.onerror = (e) => reject(e.target.error);
+      });
+    }
+
+    function saveIDBOrdersBatch(ordersArray) {
+      return new Promise((resolve, reject) => {
+        if (!indexedDbInstance) { resolve(false); return; }
+        const transaction = indexedDbInstance.transaction(['orders'], 'readwrite');
+        const store = transaction.objectStore('orders');
+        store.clear();
+        ordersArray.forEach(o => store.put(o));
+        transaction.oncomplete = () => resolve(true);
+        transaction.onerror = (e) => reject(e.target.error);
+      });
+    }
+  </script>
+
+  <!-- ==================== CLOUD DATABASE ENGINE ==================== -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import { getAuth, signInWithCustomToken, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+    import { getFirestore, collection, doc, setDoc, deleteDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+    window.fbAPI = { doc, setDoc, deleteDoc, onSnapshot };
+    let isCloudActive = false;
+
+    // Default Seed Data
     const defaultProducts = [
-        { 
-          id: 1, 
-          name: 'Streetwise Low Sneakers', 
-          brand: 'SKY NIGHT', 
-          price: 1299, 
-          originalPrice: 1599, 
-          category: 'Sneakers', 
-          image: 'https://i.ibb.co/L5T1T6D/IMG-20240502-WA0001.jpg', 
-          image2: 'https://images.unsplash.com/photo-1608231387042-66d1773070a5?auto=format&fit=crop&w=800&q=80', 
-          image3: 'https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?auto=format&fit=crop&w=800&q=80', 
-          description: 'The foot cleaning scrubber for shower allows convenient use during bath time without the need to bend down.', 
-          benefits: 'Non-slip foot scrubber mat; Massager helping to cleanse foot surface; Ideal for both men and women.', 
-          rating: 4.8, 
-          reviewsList: [], 
-          sizes: [7, 8, 9], 
-          colors: ['Yellow', 'Black'], 
-          isNew: true, 
-          inStock: true 
-        },
-        { 
-          id: 2, 
-          name: 'Classic Retro Court', 
-          brand: 'VANTAGE', 
-          price: 7999, 
-          originalPrice: 9999, 
-          category: 'Casual', 
-          image: 'https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?auto=format&fit=crop&w=800&q=80', 
-          image2: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80', 
-          image3: 'https://images.unsplash.com/photo-1608231387042-66d1773070a5?auto=format&fit=crop&w=800&q=80', 
-          description: 'A masterpiece vintage revival handcrafted from full-grain luxury leather. Ideal for clean street aesthetics.', 
-          benefits: 'Plush leather that molds to your feet; Retro siped non-slip traction soles; Luxury cork cushioned insoles.', 
-          rating: 4.5, 
-          reviewsList: [{ id: 1, author: 'Arjun Sen', rating: 5, comment: 'Perfect match with linen trousers.' }], 
-          sizes: [8, 9, 10], 
-          colors: ['Tan Leather', 'Monochrome Black'], 
-          isNew: false, 
-          inStock: true 
-        },
-        { 
-          id: 3, 
-          name: 'Chinmoy Hyperion-X V2', 
-          brand: 'CHINMOY ELITE', 
-          price: 14999, 
-          originalPrice: 18999, 
-          category: 'Running', 
-          image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80', 
-          image2: 'https://images.unsplash.com/photo-1608231387042-66d1773070a5?auto=format&fit=crop&w=800&q=80', 
-          image3: 'https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?auto=format&fit=crop&w=800&q=80', 
-          description: 'Experience pure unadulterated luxury and mechanical cushion propulsion. Designed specifically for elite Indian athletes.', 
-          benefits: 'Propulsive carbon-fiber launch plate; Dual-density nitrogen injected response foam; Laser weave engineered hyper-breathable shell.', 
-          rating: 4.9, 
-          reviewsList: [{ id: 1, author: 'Aarav Kumar', rating: 5, comment: 'Phenomenal cushion tech!' }], 
-          sizes: [7, 8, 9, 10, 11], 
-          colors: ['Indigo Burst', 'Stealth Black'], 
-          isNew: false, 
-          inStock: true 
-        }
+        { id: 1, name: 'Chinmoy Hyperion-X V2', brand: 'Chinmoy Elite', price: 14999, originalPrice: 18999, category: 'Running', image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80', image2: 'https://images.unsplash.com/photo-1608231387042-66d1773070a5?auto=format&fit=crop&w=800&q=80', image3: 'https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?auto=format&fit=crop&w=800&q=80', description: 'Experience pure unadulterated luxury and mechanical cushion propulsion. Designed specifically for elite Indian athletes.', benefits: 'Propulsive carbon-fiber launch plate; Dual-density nitrogen injected response foam; Laser weave engineered hyper-breathable shell.', rating: 4.9, reviewsList: [{ id: 1, author: 'Aarav Kumar', rating: 5, comment: 'Phenomenal cushion tech!' }], sizes: [7, 8, 9, 10, 11], colors: ['Indigo Burst', 'Stealth Black'], isNew: true, inStock: true, specs: { Upper: 'Seamless engineered mesh', Midsole: 'Carbon-fiber infused foam', Outsole: 'Traction rubber matrix' } },
+        { id: 2, name: 'Apex Nitro Runner', brand: 'Apex', price: 9999, originalPrice: 12999, category: 'Running', image: 'https://images.unsplash.com/photo-1608231387042-66d1773070a5?auto=format&fit=crop&w=800&q=80', image2: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80', image3: 'https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?auto=format&fit=crop&w=800&q=80', description: 'Engineered with premium lightweight high-wear rubber and high-grade responsive nitrogen cushion matrix.', benefits: 'High responsive bounce tech; High-wear durable compound grid; Seamless inner compression glove.', rating: 4.7, reviewsList: [{ id: 1, author: 'Sneha Patel', rating: 4, comment: 'Highly comfortable and bouncy.' }], sizes: [6, 7, 8, 9, 10], colors: ['Neon Green', 'Glacier White'], isNew: false, inStock: true, specs: { Upper: 'Knit fabric', Midsole: 'Nitrogen infused cushion', Outsole: 'High wear rubber' } },
+        { id: 3, name: 'Classic Retro Court', brand: 'Vantage', price: 7999, originalPrice: 9999, category: 'Casual', image: 'https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?auto=format&fit=crop&w=800&q=80', image2: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80', image3: 'https://images.unsplash.com/photo-1608231387042-66d1773070a5?auto=format&fit=crop&w=800&q=80', description: 'A masterpiece vintage revival handcrafted from full-grain luxury leather. Ideal for clean street aesthetics.', benefits: 'Plush leather that molds to your feet; Retro siped non-slip traction soles; Luxury cork cushioned insoles.', rating: 4.5, reviewsList: [{ id: 1, author: 'Arjun Sen', rating: 5, comment: 'Perfect match with linen trousers.' }], sizes: [8, 9, 10], colors: ['Tan Leather', 'Monochrome Black'], isNew: false, inStock: true, specs: { Upper: 'Full-grain leather', Midsole: 'EVA core', Outsole: 'Siped gum sole' } },
+        { id: 4, name: 'Streetwise Low Sneakers', brand: 'Horizon', price: 5999, originalPrice: 7499, category: 'Sneakers', image: 'https://images.unsplash.com/photo-1560769629-975ec94e6a86?auto=format&fit=crop&w=800&q=80', image2: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80', image3: 'https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?auto=format&fit=crop&w=800&q=80', description: 'Suede street classics optimized with vulcanized flexibility wrappers. Authentic prestige lifestyle upgrade.', benefits: 'Italian hand-brushed premium suede shell; All-day shock absorbing cushion padding; Iconic street traction.', rating: 4.6, reviewsList: [{ id: 1, author: 'Pooja Iyer', rating: 4, comment: 'Suede looks highly classy.' }], sizes: [6, 7, 8, 9, 10, 11], colors: ['Suede Grey', 'Cream Canvas'], isNew: true, inStock: true, specs: { Upper: 'Italian suede', Midsole: 'Vulcanized rubber wrapper', Outsole: 'Flex grip outsole' } }
     ];
+
+    window.loadLocalState = async function() {
+        if (!window.state) return;
+        await openIndexedDB();
+
+        const storedProducts = await getIDBData('products');
+        window.state.products = (storedProducts && storedProducts.length > 0) ? storedProducts : defaultProducts;
+
+        if (!storedProducts || storedProducts.length === 0) {
+          await saveIDBProductsBatch(defaultProducts);
+        }
+
+        const storedOrders = await getIDBData('orders');
+        window.state.orders = storedOrders || [];
+
+        window.state.categories = await getIDBData('categories', 'list') || ['Running', 'Sneakers', 'Casual', 'Basketball', 'Formals'];
+        window.state.coupons = await getIDBData('coupons', 'list') || [
+            { code: 'CHINMOY20', type: 'percent', value: 20, description: 'Get 20% off your purchase' },
+            { code: 'FIRSTSTEP', type: 'fixed', value: 1500, description: 'Flat ₹1500 off order above ₹9999' }
+        ];
+        
+        window.state.storeSettings = await getIDBData('storeSettings', 'config') || { whatsappNumber: '919876543210' };
+        window.state.cart = await getIDBData('cart', 'list') || [];
+        window.state.wishlist = await getIDBData('wishlist', 'list') || [];
+        window.state.shippingInfo = await getIDBData('shippingInfo', 'list') || [];
+        
+        if (typeof window.updateGlobalBadges === 'function') window.updateGlobalBadges();
+    };
+
+    async function initCloudStorage() {
+        await window.loadLocalState();
+        
+        if (typeof __firebase_config !== 'undefined' && __firebase_config) {
+            try {
+                const app = initializeApp(JSON.parse(__firebase_config));
+                const auth = getAuth(app);
+                window.db = getFirestore(app);
+                window.appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                } else {
+                    await signInAnonymously(auth);
+                }
+
+                onAuthStateChanged(auth, (user) => {
+                    if (user) {
+                        window.userId = user.uid;
+                        isCloudActive = true;
+                        attachCloudListeners();
+                    }
+                });
+            } catch (e) {
+                console.error("Firebase Auth Failed:", e);
+                removeLoader();
+                if(typeof window.renderApp === 'function') window.renderApp(); 
+            }
+        } else {
+            console.warn("No cloud config found. Running locally with unlimited IndexedDB database layers.");
+            removeLoader();
+            if(typeof window.renderApp === 'function') window.renderApp(); 
+        }
+    }
+
+    function attachCloudListeners() {
+        const { doc, onSnapshot } = window.fbAPI;
+        const db = window.db; const appId = window.appId; const userId = window.userId;
+
+        const syncPublicDoc = (docName, stateKey, defaultData, saveLocalFn) => {
+            onSnapshot(doc(db, 'artifacts', appId, 'public', 'data', 'storeData', docName), {
+                next: (snap) => {
+                    if(snap.exists()) {
+                        window.state[stateKey] = snap.data().list;
+                    } else {
+                        window.state[stateKey] = defaultData;
+                        window.syncToCloud(docName, defaultData, false);
+                    }
+                    if (saveLocalFn) saveLocalFn(window.state[stateKey]);
+                    window.renderApp();
+                    removeLoader();
+                },
+                error: (e) => console.error(`Error syncing ${docName}:`, e)
+            });
+        };
+
+        const syncPrivateDoc = (docName, stateKey, defaultData, iDBCacheKey) => {
+            onSnapshot(doc(db, 'artifacts', appId, 'users', userId, 'privateData', docName), {
+                next: (snap) => {
+                    if(snap.exists()) window.state[stateKey] = snap.data().list;
+                    else {
+                        window.state[stateKey] = defaultData;
+                        window.syncToCloud(docName, defaultData, true);
+                    }
+                    saveIDBData(iDBCacheKey, 'list', window.state[stateKey]);
+                    window.updateGlobalBadges();
+                },
+                error: (e) => console.error(`Error syncing private ${docName}:`, e)
+            });
+        };
+
+        syncPublicDoc('products', 'products', defaultProducts, (data) => saveIDBProductsBatch(data));
+        syncPublicDoc('orders', 'orders', [], (data) => saveIDBOrdersBatch(data)); 
+        syncPublicDoc('categories', 'categories', ['Running', 'Sneakers', 'Casual', 'Basketball', 'Formals'], (data) => saveIDBData('categories', 'list', data));
+        syncPublicDoc('storeSettings', 'storeSettings', { whatsappNumber: '919876543210' }, (data) => saveIDBData('storeSettings', 'config', data));
+        syncPublicDoc('coupons', 'coupons', [
+            { code: 'CHINMOY20', type: 'percent', value: 20, description: 'Get 20% off your purchase' },
+            { code: 'FIRSTSTEP', type: 'fixed', value: 1500, description: 'Flat ₹1500 off order above ₹9999' }
+        ], (data) => saveIDBData('coupons', 'list', data));
+
+        syncPrivateDoc('cart', 'cart', [], 'cart');
+        syncPrivateDoc('wishlist', 'wishlist', [], 'wishlist');
+        syncPrivateDoc('shippingInfo', 'shippingInfo', [], 'shippingInfo');
+    }
+
+    window.syncToCloud = function(docName, listData, isPrivate = false) {
+        try {
+            if (docName === 'products') saveIDBProductsBatch(listData);
+            else if (docName === 'orders') saveIDBOrdersBatch(listData);
+            else if (docName === 'storeSettings') saveIDBData('storeSettings', 'config', listData);
+            else {
+              saveIDBData(docName, 'list', listData);
+            }
+        } catch(e) { console.warn("IndexedDB write error:", e); }
+
+        if (!isCloudActive || !window.db) return;
+        const { doc, setDoc } = window.fbAPI;
+        const path = isPrivate 
+            ? ['artifacts', window.appId, 'users', window.userId, 'privateData', docName]
+            : ['artifacts', window.appId, 'public', 'data', 'storeData', docName];
+        
+        setDoc(doc(window.db, ...path), { list: listData }).catch(e => console.error("Write error:", e));
+    }
+
+    function removeLoader() {
+        const loader = document.getElementById('cloud-loader');
+        if(loader) {
+            loader.style.opacity = '0';
+            setTimeout(() => loader.remove(), 500);
+        }
+    }
+
+    window.addEventListener('load', initCloudStorage);
+  </script>
+
+  <!-- ==================== CONTROLLER SCRIPT (V-SPA CORE) ==================== -->
+  <script>
+    // ---> GOOGLE SHEETS INTEGRATION LOGIC <---
+    const GOOGLE_SHEET_APP_URL = 'https://script.google.com/macros/s/AKfycbzsWQCMlEqOfzSeljqQnY4c5o0iDkDK08eOpD84RQpknkWSXP_3BVOsaO_kGAcCGtOsug/exec';
+
+    window.sendToGoogleSheet = function(actionType, payload) {
+      try {
+        const formData = new FormData();
+        formData.append('Action_Type', actionType);
+        formData.append('Timestamp', new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }));
+
+        for (const key in payload) {
+          const value = typeof payload[key] === 'object' ? JSON.stringify(payload[key]) : payload[key];
+          formData.append(key, value);
+        }
+
+        fetch(GOOGLE_SHEET_APP_URL, {
+          method: 'POST',
+          mode: 'no-cors', // Essential to prevent CORS blocking issues across domains
+          body: formData
+        })
+        .then(() => console.log(`[Google Sheets] Data payload '${actionType}' pushed to sheet successfully.`))
+        .catch(err => console.error('[Google Sheets] Submission Failed:', err));
+      } catch (err) {
+        console.error("Error creating Google Sheet data package:", err);
+      }
+    };
+    // -----------------------------------------
 
     window.state = {
       view: 'home', 
@@ -300,13 +539,10 @@
       wishlist: [],
       cart: [],
       shippingInfo: [], 
-      products: defaultProducts, // Loaded directly from the static array
+      products: [],
       orders: [], 
-      categories: ['Running', 'Sneakers', 'Casual', 'Basketball', 'Formals'],
-      coupons: [
-          { code: 'CHINMOY20', type: 'percent', value: 20, description: 'Get 20% off your purchase' },
-          { code: 'FIRSTSTEP', type: 'fixed', value: 1500, description: 'Flat ₹1500 off order above ₹9999' }
-      ],
+      categories: [],
+      coupons: [],
       storeSettings: { whatsappNumber: '919876543210' }, 
       appliedCoupon: null,
       shopPage: 1,
@@ -315,17 +551,14 @@
       adminProductsPageSize: 15
     };
 
-    // Replace Cloud/IDB save functions with simple local state updates 
-    // Note: In this pure static mode, admin panel changes will wipe on refresh.
-    // Permanent changes MUST be made by editing the HTML file directly.
-    function saveCart() { localStorage.setItem('chinmoy_cart', JSON.stringify(state.cart)); updateGlobalBadges(); }
-    function saveWishlist() { localStorage.setItem('chinmoy_wishlist', JSON.stringify(state.wishlist)); updateGlobalBadges(); }
-    function saveOrders() { localStorage.setItem('chinmoy_orders', JSON.stringify(state.orders)); }
-    function saveProducts() { /* Admin changes are temporary in static mode */ }
-    function saveCategories() { /* Admin changes are temporary in static mode */ }
-    function saveCoupons() { /* Admin changes are temporary in static mode */ }
-    function saveStoreSettings() { /* Admin changes are temporary in static mode */ }
-    function saveShippingInfo() { localStorage.setItem('chinmoy_shipping', JSON.stringify(state.shippingInfo)); }
+    function saveCart() { window.syncToCloud('cart', state.cart, true); updateGlobalBadges(); }
+    function saveWishlist() { window.syncToCloud('wishlist', state.wishlist, true); updateGlobalBadges(); }
+    function saveOrders() { window.syncToCloud('orders', state.orders, false); }
+    function saveProducts() { window.syncToCloud('products', state.products, false); }
+    function saveCategories() { window.syncToCloud('categories', state.categories, false); }
+    function saveCoupons() { window.syncToCloud('coupons', state.coupons, false); }
+    function saveStoreSettings() { window.syncToCloud('storeSettings', state.storeSettings, false); }
+    function saveShippingInfo() { window.syncToCloud('shippingInfo', state.shippingInfo, true); }
 
     let activeDialogPromise = null;
 
@@ -404,28 +637,11 @@
     };
 
     function initUserSession() {
-      // Load user session
       const savedUser = localStorage.getItem('chinmoy_user');
       if (savedUser) {
         state.user = JSON.parse(savedUser);
         updateUserUI();
       }
-      
-      // Load local data (Cart, Wishlist, Orders)
-      const savedCart = localStorage.getItem('chinmoy_cart');
-      if (savedCart) state.cart = JSON.parse(savedCart);
-      
-      const savedWishlist = localStorage.getItem('chinmoy_wishlist');
-      if (savedWishlist) state.wishlist = JSON.parse(savedWishlist);
-
-      const savedOrders = localStorage.getItem('chinmoy_orders');
-      if (savedOrders) state.orders = JSON.parse(savedOrders);
-
-      const savedShipping = localStorage.getItem('chinmoy_shipping');
-      if (savedShipping) state.shippingInfo = JSON.parse(savedShipping);
-
-      updateGlobalBadges();
-      renderApp();
     }
     window.addEventListener('load', initUserSession);
 
@@ -590,6 +806,7 @@
     }
   </script>
 
+  <!-- ==================== MAIN COMPONENT VIEWS (JS RENDERING) ==================== -->
   <script>
     window.renderApp = function() {
       const main = document.getElementById('main-content');
@@ -623,60 +840,14 @@
       lucide.createIcons();
     }
 
-    // HOME VIEW (REDESIGNED: Shows ALL Products & Features Quick-Buy visual widget at top hero section)
+    // HOME VIEW
     function renderHome() {
       const main = document.getElementById('main-content');
-      const allProducts = state.products;
-      const featuredProduct = allProducts.length > 0 ? allProducts[0] : null;
-
-      let quickBuyWidgetHtml = '';
-      if (featuredProduct) {
-        quickBuyWidgetHtml = `
-          <div class="relative flex justify-center items-center h-[450px] md:h-[600px] w-full max-w-lg mx-auto">
-            <div class="absolute inset-0 bg-gradient-to-tr from-indigo-500/20 to-transparent rounded-full blur-3xl animate-pulse-subtle"></div>
-            
-            <div onclick="navigate('product', '${featuredProduct.id}')" class="relative z-10 w-full bg-white/10 dark:bg-black/45 border border-gray-200/20 dark:border-gray-800/80 rounded-[2.5rem] p-6 shadow-2xl backdrop-blur-xl hover:scale-105 transition-all duration-500 cursor-pointer group flex flex-col justify-between">
-              
-              <div class="flex justify-between items-center mb-4">
-                <span class="text-[10px] bg-indigo-600 text-white font-extrabold px-3 py-1 rounded-full uppercase tracking-wider">Top Featured Drop</span>
-                <span class="text-xs text-indigo-500 font-bold dark:text-indigo-400 hover:underline">Inspect Details</span>
-              </div>
-
-              <div class="relative aspect-[4/3] flex items-center justify-center overflow-hidden rounded-2xl bg-gray-50/5 dark:bg-white/5 mb-4">
-                <img src="${featuredProduct.image}" alt="${featuredProduct.name}" class="max-h-[220px] object-contain drop-shadow-[0_20px_30px_rgba(0,0,0,0.5)] transform -rotate-12 group-hover:rotate-0 group-hover:scale-115 transition-all duration-700">
-              </div>
-
-              <div class="space-y-4">
-                <div>
-                  <p class="text-xs text-indigo-600 dark:text-indigo-400 font-extrabold uppercase tracking-widest">${featuredProduct.brand}</p>
-                  <h3 class="text-xl font-bold text-gray-900 dark:text-white mt-1 line-clamp-1">${featuredProduct.name}</h3>
-                </div>
-
-                <div class="flex items-center justify-between pt-4 border-t border-gray-200/30 dark:border-gray-800/30">
-                  <div>
-                    <span class="text-2xl font-black text-gray-900 dark:text-white">${formatINR(featuredProduct.price)}</span>
-                    ${featuredProduct.originalPrice > featuredProduct.price ? `<span class="text-xs text-gray-500 line-through ml-2">${formatINR(featuredProduct.originalPrice)}</span>` : ''}
-                  </div>
-                  <button onclick="event.stopPropagation(); window.handleQuickBuyAddToCart(${featuredProduct.id})" class="bg-indigo-600 hover:bg-indigo-700 text-white font-black py-3 px-6 rounded-2xl text-xs transition-all flex items-center gap-2 shadow-lg shadow-indigo-500/20 hover:scale-105 active:scale-95 transform">
-                    <i data-lucide="shopping-cart" class="w-4 h-4"></i> Buy Now
-                  </button>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        `;
-      } else {
-        quickBuyWidgetHtml = `
-          <div class="relative flex justify-center items-center h-[400px] md:h-[600px]">
-            <div class="absolute inset-0 bg-gradient-to-tr from-indigo-500/20 to-transparent rounded-full blur-3xl animate-pulse-subtle"></div>
-            <p class="text-gray-400 italic">Configure inventory drops in the Admin Panel to feature shoes.</p>
-          </div>
-        `;
-      }
+      const featured = state.products.slice(0, 4);
 
       main.innerHTML = `
         <div class="animate-fade-in">
+          <!-- Hero Section -->
           <section class="relative min-h-[90vh] flex items-center overflow-hidden py-12">
             <div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-bl from-indigo-500/20 to-purple-500/10 blur-3xl -z-10 rounded-bl-full pointer-events-none"></div>
             <div class="absolute bottom-0 left-0 w-1/3 h-1/2 bg-gradient-to-tr from-indigo-500/10 to-transparent blur-3xl -z-10 pointer-events-none"></div>
@@ -695,7 +866,7 @@
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4">
                   <button onclick="navigate('shop')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 px-8 rounded-full shadow-lg shadow-indigo-500/30 flex items-center justify-center gap-2 transform active:scale-95 transition-all">
-                    Shop All drops <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                    Shop Collection <i data-lucide="arrow-right" class="w-5 h-5"></i>
                   </button>
                   ${state.categories.length > 0 ? `<button onclick="navigate('shop', '${state.categories[0]}')" class="border border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white hover:border-indigo-500 hover:text-indigo-500 dark:hover:text-indigo-400 font-semibold py-4 px-8 rounded-full flex items-center justify-center transition-all">Explore ${state.categories[0]}</button>` : ''}
                 </div>
@@ -712,28 +883,33 @@
                 </div>
               </div>
               
-              ${quickBuyWidgetHtml}
+              <div class="relative flex justify-center items-center h-[400px] md:h-[600px]">
+                <div class="absolute inset-0 bg-gradient-to-tr from-indigo-500/20 to-transparent rounded-full blur-3xl animate-pulse-subtle"></div>
+                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1000&q=80" alt="Premium Shoe" class="relative z-10 w-full max-w-[450px] object-contain drop-shadow-2xl transform -rotate-12 hover:rotate-0 transition-all duration-700 hover:scale-110">
+              </div>
             </div>
           </section>
 
-          <section class="py-24 bg-gray-100 dark:bg-black/40 border-t border-b border-gray-200 dark:border-gray-800">
+          <!-- Featured Collections -->
+          <section class="py-24 bg-gray-100 dark:bg-black/40">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-4">
+              <div class="flex justify-between items-end mb-12">
                 <div>
-                  <h2 class="text-3xl md:text-4xl font-black text-gray-900 dark:text-white mb-3">All Live Launches</h2>
-                  <p class="text-gray-600 dark:text-gray-400">Instantly buy any added model directly from our fully operational home marketplace.</p>
+                  <h2 class="text-3xl md:text-4xl font-black text-gray-900 dark:text-white mb-3">Trending Drops</h2>
+                  <p class="text-gray-600 dark:text-gray-400">Exclusive launches highly sought-after by shoe collectors this season.</p>
                 </div>
-                <button onclick="navigate('shop')" class="text-indigo-600 dark:text-indigo-400 font-bold hover:underline flex items-center gap-2">
-                  Use advanced filters <i data-lucide="sliders" class="w-4 h-4"></i>
+                <button onclick="navigate('shop')" class="hidden sm:flex items-center gap-2 text-indigo-600 dark:text-indigo-400 font-bold hover:underline">
+                  View All <i data-lucide="arrow-right" class="w-4 h-4"></i>
                 </button>
               </div>
               
               <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                ${allProducts.length > 0 ? allProducts.map(p => generateProductCardHtml(p)).join('') : '<p class="text-gray-500">No products configured inside the admin panel database yet.</p>'}
+                ${featured.length > 0 ? featured.map(p => generateProductCardHtml(p)).join('') : '<p class="text-gray-500">No products configured yet.</p>'}
               </div>
             </div>
           </section>
 
+          <!-- Brand Philosophy / Story -->
           <section class="py-24">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-16 items-center">
               <div class="relative rounded-3xl overflow-hidden aspect-[4/3] group shadow-2xl">
@@ -766,6 +942,7 @@
             </div>
           </section>
 
+          <!-- Elegant Promotional Banner / Newsletter -->
           <section class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20">
             <div class="relative rounded-3xl overflow-hidden bg-indigo-600 dark:bg-indigo-950 p-8 md:p-16 flex flex-col md:flex-row items-center justify-between gap-12">
               <div class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-purple-500/30 via-transparent to-transparent pointer-events-none"></div>
@@ -784,40 +961,16 @@
       `;
     }
 
-    // Helper to immediately buy the featured item with standard sizes directly from the home view quick-buy card
-    window.handleQuickBuyAddToCart = function(productId) {
-      const product = state.products.find(p => String(p.id) === String(productId));
-      if (!product) return;
-
-      const size = (product.sizes && product.sizes.length > 0) ? product.sizes[0] : 'Standard';
-      const color = (product.colors && product.colors.length > 0) ? product.colors[0] : 'Default';
-
-      const cartItem = {
-        id: product.id,
-        name: product.name,
-        brand: product.brand,
-        price: product.price,
-        image: product.image,
-        size: size,
-        color: color,
-        quantity: 1
-      };
-      
-      const existingIdx = state.cart.findIndex(i => String(i.id) === String(product.id) && i.size === size && i.color === color);
-      if (existingIdx !== -1) {
-        state.cart[existingIdx].quantity += 1;
-      } else {
-        state.cart.push(cartItem);
-      }
-      
-      saveCart();
-      notify(`Quick Buy: Added ${product.name} (UK ${size}) to bag.`, 'success');
-      navigate('cart');
-    };
-
     window.handleNewsletter = function() {
       const emailInput = document.getElementById('newsletter-email');
       if (emailInput && emailInput.value) {
+        
+        // ---> GOOGLE SHEETS INTEGRATION <---
+        window.sendToGoogleSheet('Newsletter_Subscription', {
+           email: emailInput.value
+        });
+        // -----------------------------------
+        
         customAlert('Club Registered', `Premium access confirmed for ${emailInput.value}. Check your inbox for dynamic gift coupon credentials.`);
         emailInput.value = '';
       } else {
@@ -895,6 +1048,7 @@
           </div>
 
           <div class="flex flex-col lg:flex-row gap-10">
+            <!-- Sidebar Filters -->
             <div id="shop-filters-sidebar" class="${state.isFiltersVisible ? 'block' : 'hidden'} w-full lg:w-64 flex-shrink-0 space-y-6 animate-fade-in">
               <div class="bg-white dark:bg-gray-900 p-6 rounded-3xl border border-gray-200 dark:border-gray-800 space-y-8 shadow-sm">
                 <div class="flex justify-between items-center pb-2 border-b border-gray-100 dark:border-gray-800">
@@ -902,6 +1056,7 @@
                   <button onclick="window.resetShopFilters()" class="text-xs text-indigo-500 font-bold hover:underline">Reset</button>
                 </div>
 
+                <!-- Category Filtering -->
                 <div class="space-y-3">
                   <h4 class="text-xs font-extrabold uppercase tracking-widest text-gray-500">Categories</h4>
                   <div class="space-y-2">
@@ -914,6 +1069,7 @@
                   </div>
                 </div>
 
+                <!-- Brand Filtering -->
                 <div class="space-y-3">
                   <h4 class="text-xs font-extrabold uppercase tracking-widest text-gray-500">Brands</h4>
                   <div class="space-y-2">
@@ -926,6 +1082,7 @@
                   </div>
                 </div>
 
+                <!-- Price Filter Range -->
                 <div class="space-y-3">
                   <div class="flex justify-between items-center">
                     <h4 class="text-xs font-extrabold uppercase tracking-widest text-gray-500">Max Price</h4>
@@ -936,12 +1093,16 @@
               </div>
             </div>
 
+            <!-- Product Grid -->
             <div class="flex-grow flex flex-col">
               <div id="shop-products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8">
-                </div>
+                <!-- Products injected dynamically -->
+              </div>
               
+              <!-- Pagination controls -->
               <div id="shop-pagination" class="flex justify-center items-center gap-4 mt-12 py-4">
-                </div>
+                <!-- Pagination buttons generated dynamically -->
+              </div>
 
               <div id="shop-empty-state" class="hidden text-center py-24 bg-gray-50 dark:bg-gray-900/10 rounded-3xl border border-dashed border-gray-300 dark:border-gray-800">
                 <i data-lucide="package-search" class="w-16 h-16 mx-auto text-gray-400 mb-4 animate-bounce"></i>
@@ -1029,7 +1190,7 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
-    // PRODUCT DETAIL VIEW (REDESIGNED: Features active bottom carousel listing alternate products)
+    // PRODUCT DETAIL VIEW
     function renderProductDetail() {
       const main = document.getElementById('main-content');
       const product = state.products.find(p => String(p.id) === String(state.viewParam));
@@ -1055,22 +1216,6 @@
       if (product.image3) galleryImages.push(product.image3);
       let currentImgIndex = 0;
 
-      const alternateProducts = state.products.filter(p => String(p.id) !== String(product.id)).slice(0, 4);
-      let alternateProductsHtml = '';
-      if (alternateProducts.length > 0) {
-        alternateProductsHtml = `
-          <div class="mt-24 border-t border-gray-200 dark:border-gray-800 pt-16">
-            <div class="mb-10">
-              <h3 class="text-2xl md:text-3xl font-black text-gray-900 dark:text-white">Discover Alternate Styles</h3>
-              <p class="text-sm text-gray-500 mt-1">If this layout isn't exactly what you need, explore these top-rated luxury picks below.</p>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-              ${alternateProducts.map(p => generateProductCardHtml(p)).join('')}
-            </div>
-          </div>
-        `;
-      }
-
       main.innerHTML = `
         <div class="pt-10 pb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 animate-fade-in">
           <button onclick="navigate('shop')" class="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400 font-semibold mb-8 transition-colors">
@@ -1079,6 +1224,7 @@
 
           <div class="grid md:grid-cols-2 gap-12 mb-16">
             
+            <!-- Animated Sliding Gallery Frame -->
             <div class="space-y-4">
               <div class="relative aspect-square bg-gray-50 dark:bg-[#121214] rounded-3xl overflow-hidden border border-gray-200 dark:border-gray-800/80 shadow-md flex items-center justify-center">
                 
@@ -1086,6 +1232,7 @@
                   <img id="detail-slide-img" src="${product.image}" alt="${product.name}" class="w-full h-full object-cover transition-all duration-500 slide-active">
                 </div>
 
+                <!-- Navigation Chevrons -->
                 <button onclick="window.prevDetailImage()" class="absolute left-4 p-2 rounded-full bg-white/80 dark:bg-black/80 hover:bg-white dark:hover:bg-black text-gray-900 dark:text-white transition-all shadow hover:scale-110 active:scale-95">
                   <i data-lucide="chevron-left" class="w-5 h-5"></i>
                 </button>
@@ -1094,6 +1241,7 @@
                 </button>
               </div>
 
+              <!-- Thumbnails -->
               <div class="flex gap-4 overflow-x-auto pb-2" id="detail-thumbnails-container">
                 ${galleryImages.map((imgUrl, i) => `
                   <div onclick="window.jumpToDetailImage(${i})" id="detail-thumb-${i}" class="w-20 h-20 bg-gray-100 dark:bg-gray-800 rounded-xl overflow-hidden cursor-pointer border-2 transition-all shadow-sm flex-shrink-0 ${i === 0 ? 'border-indigo-600' : 'border-transparent hover:border-indigo-400'}">
@@ -1103,6 +1251,7 @@
               </div>
             </div>
 
+            <!-- Detail Descriptions -->
             <div class="flex flex-col justify-center">
               <div class="flex items-center justify-between mb-4">
                 <span class="text-xs text-indigo-600 dark:text-indigo-400 font-extrabold uppercase tracking-widest">${product.brand}</span>
@@ -1133,6 +1282,7 @@
                 <p class="text-xs text-green-600 dark:text-green-500 font-bold bg-green-100/50 dark:bg-green-950/30 inline-block px-2 py-1 rounded">Standard GST (0%) : ₹0</p>
               </div>
 
+              <!-- Specs Table -->
               <div class="border-t border-b border-gray-200 dark:border-gray-800 py-4 mb-6 text-sm">
                 <p class="text-sm text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">${prodDesc}</p>
                 <div class="space-y-1">
@@ -1143,6 +1293,7 @@
                 </div>
               </div>
 
+              <!-- Size selector -->
               <div class="mb-6">
                 <h4 class="text-xs font-extrabold uppercase tracking-widest text-gray-500 mb-3">Select Size / Fit</h4>
                 <div class="flex flex-wrap gap-2.5">
@@ -1156,6 +1307,7 @@
                 </div>
               </div>
 
+              <!-- Color Select -->
               <div class="mb-8">
                 <h4 class="text-xs font-extrabold uppercase tracking-widest text-gray-500 mb-3">Colorways</h4>
                 <div class="flex flex-wrap gap-2">
@@ -1180,6 +1332,7 @@
             </div>
           </div>
 
+          <!-- Product Reviews Section -->
           <div class="border-t border-gray-200 dark:border-gray-800 pt-12">
             <div class="grid md:grid-cols-3 gap-12">
               <div class="md:col-span-1 space-y-6">
@@ -1202,6 +1355,7 @@
                 </div>
               </div>
 
+              <!-- List of Comments -->
               <div class="md:col-span-2 space-y-4">
                 <h4 class="font-extrabold text-sm text-gray-400 uppercase tracking-widest mb-4">Latest Comments</h4>
                 <div class="space-y-4 max-h-[450px] overflow-y-auto pr-2">
@@ -1228,8 +1382,6 @@
               </div>
             </div>
           </div>
-
-          ${alternateProductsHtml}
         </div>
       `;
 
@@ -1307,7 +1459,7 @@
       window.selectDetailColor = function(color) {
         selectedColor = color;
         colorArray.forEach(col => {
-          const btn = document.getElementById(`color-btn-${color.replace(/\s+/g, '-')}`);
+          const btn = document.getElementById(`color-btn-${col.replace(/\s+/g, '-')}`);
           if (btn) {
             btn.className = `px-4 py-2 text-xs font-semibold rounded-xl border-2 transition-all ${
               col === selectedColor 
@@ -1438,10 +1590,12 @@
               `).join('')}
             </div>
 
+            <!-- Summary Card -->
             <div class="lg:col-span-1">
               <div class="bg-white dark:bg-gray-900 p-8 rounded-3xl border border-gray-200 dark:border-gray-800 space-y-6 shadow-sm">
                 <h3 class="text-xl font-bold text-gray-900 dark:text-white pb-3 border-b border-gray-100 dark:border-gray-800">Order Summary</h3>
                 
+                <!-- Coupon Integration -->
                 <div>
                   <label class="text-xs font-extrabold uppercase tracking-widest text-gray-500 block mb-2">Have a coupon code?</label>
                   <div class="flex gap-2">
@@ -1564,9 +1718,11 @@
           </div>
 
           <div class="grid md:grid-cols-3 gap-8 items-start">
+            <!-- Form -->
             <div class="md:col-span-2 bg-white dark:bg-gray-900 p-8 rounded-3xl border border-gray-200 dark:border-gray-800 space-y-6 shadow-sm">
               <div class="flex justify-between items-center">
                 <h3 class="text-lg font-bold text-gray-900 dark:text-white">Shipping Coordinates</h3>
+                ${(state.shippingInfo && state.shippingInfo.length > 0) ? `<span class="text-xs bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-400 px-3 py-1 rounded-full font-bold flex items-center gap-1"><i data-lucide="zap" class="w-3 h-3"></i> Cloud Autofill</span>` : ''}
               </div>
               <form id="checkout-form" onsubmit="window.handlePlaceOrder(event)" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div class="sm:col-span-2">
@@ -1613,6 +1769,7 @@
               </form>
             </div>
 
+            <!-- Review Card -->
             <div class="md:col-span-1 bg-gray-100 dark:bg-gray-900/60 p-6 rounded-3xl border border-gray-200 dark:border-gray-800/80 space-y-4 animate-fade-in">
               <h3 class="font-bold text-gray-900 dark:text-white">Bag Check</h3>
               <div class="space-y-3">
@@ -1695,7 +1852,20 @@
               pincode: shipPincode
             }
           });
+          
+          // ---> GOOGLE SHEETS INTEGRATION <---
+          window.sendToGoogleSheet('New_Order', {
+            orderId: randID,
+            customerName: shipName,
+            customerEmail: state.user ? state.user.email : 'guest',
+            amount: amt,
+            phone: shipPhone,
+            address: `${shipAddress}, ${shipCity}, ${shipState} - ${shipPincode}`,
+            items: state.cart.map(item => `${item.quantity}x ${item.name} (${item.color}, Size ${item.size})`).join(' | ')
+          });
+          // -----------------------------------
 
+          // Capture cart contents before emptying so we can display them on the success board
           const purchasedItems = [...state.cart];
 
           state.cart = [];
@@ -1714,11 +1884,14 @@
       
       main.innerHTML = `
         <div class="pt-12 pb-24 max-w-2xl mx-auto px-4 animate-fade-in">
+          <!-- Premium Board Frame -->
           <div class="bg-white dark:bg-[#0c0c0e] border-2 border-indigo-500/30 dark:border-indigo-500/20 rounded-[2.5rem] p-8 md:p-12 shadow-[0_25px_60px_rgba(79,70,229,0.18)] relative overflow-hidden text-center space-y-10">
             
+            <!-- Radiant Background Glow Effects -->
             <div class="absolute -top-12 -right-12 w-48 h-48 bg-indigo-500/10 blur-3xl rounded-full"></div>
             <div class="absolute -bottom-12 -left-12 w-48 h-48 bg-purple-500/10 blur-3xl rounded-full"></div>
 
+            <!-- Top of the Board: Ordered Products List -->
             <div class="space-y-4 relative z-10">
               <span class="text-xs font-black uppercase tracking-widest text-indigo-600 dark:text-indigo-400">Order Confirmed • Items Acquired</span>
               <div class="divide-y divide-gray-100 dark:divide-gray-800 max-h-48 overflow-y-auto bg-gray-50 dark:bg-gray-950/50 p-5 rounded-2xl border border-gray-200/50 dark:border-gray-850/50 text-left">
@@ -1736,6 +1909,7 @@
               </div>
             </div>
 
+            <!-- Middle Section: Delivery Timeline -->
             <div class="space-y-4 relative z-10 pt-2">
               <p class="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-white leading-tight tracking-wide">
                 Your order will reach your address within <br/>
@@ -1743,6 +1917,7 @@
               </p>
             </div>
 
+            <!-- Large Stylized Thank You Design -->
             <div class="relative z-10 py-4">
               <h1 class="text-6xl md:text-8xl font-black bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 tracking-widest uppercase italic animate-pulse">
                 Thank You
@@ -1750,11 +1925,13 @@
               <p class="text-xs text-gray-400 dark:text-gray-500 mt-3 font-semibold tracking-widest uppercase">For Choosing Chinmoy Footwear Store</p>
             </div>
 
+            <!-- Quick Metadata Details -->
             <div class="bg-gray-50 dark:bg-gray-950/30 p-4 rounded-2xl border border-gray-150 dark:border-gray-850 text-xs flex flex-col sm:flex-row justify-between items-center gap-2 text-gray-500 relative z-10">
               <div><strong>Reference ID:</strong> <span class="text-indigo-500 font-bold">${orderId}</span></div>
               <div><strong>Verification Method:</strong> Cash on Delivery (COD)</div>
             </div>
 
+            <!-- Navigation Options: Continue Shopping & Home -->
             <div class="flex flex-col sm:flex-row gap-4 justify-center pt-2 relative z-10">
               <button onclick="navigate('shop')" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 px-6 rounded-2xl shadow-lg shadow-indigo-500/20 transform active:scale-95 transition-all text-sm flex items-center justify-center gap-2">
                 <i data-lucide="shopping-bag" class="w-4 h-4"></i> Continue Shopping
@@ -1854,6 +2031,16 @@
             email: email,
             role: 'user'
           };
+
+          if (isSignUp) {
+            // ---> GOOGLE SHEETS INTEGRATION <---
+            window.sendToGoogleSheet('New_User_Registration', {
+                name: nameVal,
+                email: email
+            });
+            // -----------------------------------
+          }
+
           localStorage.setItem('chinmoy_user', JSON.stringify(state.user));
           updateUserUI();
           notify(`Welcome back, ${state.user.name}. Session verified successfully.`, 'success');
@@ -1890,14 +2077,17 @@
           </div>
 
           <div class="grid md:grid-cols-4 gap-10">
+            <!-- Sidebar tabs -->
             <div class="md:col-span-1 space-y-2">
               <button onclick="window.setDashboardTab('profile')" id="db-tab-profile" class="w-full text-left p-4 rounded-2xl font-bold text-sm bg-indigo-600 text-white transition-all shadow-sm">My Profile</button>
               <button onclick="window.setDashboardTab('wishlist')" id="db-tab-wishlist" class="w-full text-left p-4 rounded-2xl font-bold text-sm hover:bg-gray-100 dark:hover:bg-gray-900 transition-all text-gray-600 dark:text-gray-400">Wishlist (${state.wishlist.length})</button>
               <button onclick="window.setDashboardTab('orders')" id="db-tab-orders" class="w-full text-left p-4 rounded-2xl font-bold text-sm hover:bg-gray-100 dark:hover:bg-gray-900 transition-all text-gray-600 dark:text-gray-400">My Orders</button>
             </div>
 
+            <!-- Panel Contents -->
             <div id="dashboard-tab-panel" class="md:col-span-3 space-y-6">
-              </div>
+              <!-- Content injected dynamically -->
+            </div>
           </div>
         </div>
       `;
@@ -2105,7 +2295,7 @@
       `;
     }
 
-    // ADMIN SYSTEM PANEL (Limited functionality in Static Mode)
+    // ADMIN SYSTEM PANEL
     function renderAdmin() {
       const main = document.getElementById('main-content');
       
@@ -2126,30 +2316,138 @@
                   <i data-lucide="shield-check" class="text-red-500 w-8 h-8"></i> Operations Management Terminal
                 </h1>
                 <p class="text-sm text-gray-500">Secure Access Level: Master Reseller Sandbox Admin [${state.user.name}]</p>
-                <div class="mt-2 bg-yellow-50 dark:bg-yellow-900/30 border border-yellow-200 dark:border-yellow-700/50 p-2 rounded-lg inline-flex">
-                  <p class="text-xs text-yellow-700 dark:text-yellow-400 font-bold flex items-center gap-1.5"><i data-lucide="alert-triangle" class="w-3.5 h-3.5"></i> Static Mode Active: Edits made here will reset on refresh. Edit HTML file directly to save permanently.</p>
-                </div>
               </div>
               <button onclick="window.exitAdminTerminal()" class="bg-red-600 hover:bg-red-700 text-white font-bold px-5 py-2.5 rounded-xl text-xs flex items-center gap-2 transform active:scale-95 transition-all shadow-md">
                 <i data-lucide="log-out" class="w-4 h-4"></i> Secure Exit
               </button>
             </div>
 
+            <!-- Panel tabs -->
             <div class="flex space-x-2 border-b border-gray-200 dark:border-gray-800 mb-8 overflow-x-auto pb-2">
               <button onclick="window.setAdminTab('overview')" id="admin-tab-overview" class="px-6 py-3 rounded-t-xl font-bold text-xs uppercase tracking-wider transition-all">Overview</button>
               <button onclick="window.setAdminTab('products')" id="admin-tab-products" class="px-6 py-3 rounded-t-xl font-bold text-xs uppercase tracking-wider transition-all">Inventory</button>
+              <button onclick="window.setAdminTab('categories')" id="admin-tab-categories" class="px-6 py-3 rounded-t-xl font-bold text-xs uppercase tracking-wider transition-all">Categories</button>
+              <button onclick="window.setAdminTab('comments')" id="admin-tab-comments" class="px-6 py-3 rounded-t-xl font-bold text-xs uppercase tracking-wider transition-all flex items-center gap-1.5">
+                Reviews Center <span class="bg-red-500 text-white text-[10px] px-1.5 py-0.5 rounded-full font-black">${getTotalCommentsCount()}</span>
+              </button>
+              <button onclick="window.setAdminTab('orders')" id="admin-tab-orders" class="px-6 py-3 rounded-t-xl font-bold text-xs uppercase tracking-wider transition-all">Shipments (${state.orders.length})</button>
+              <button onclick="window.setAdminTab('coupons')" id="admin-tab-coupons" class="px-6 py-3 rounded-t-xl font-bold text-xs uppercase tracking-wider transition-all">Coupons</button>
+              <button onclick="window.setAdminTab('settings')" id="admin-tab-settings" class="px-6 py-3 rounded-t-xl font-bold text-xs uppercase tracking-wider transition-all">Settings</button>
             </div>
 
+            <!-- Tab Container -->
             <div id="admin-tab-panel" class="space-y-8 animate-fade-in">
+              <!-- Admin tabs loaded dynamically -->
+            </div>
+          </div>
+
+          <!-- HIGH-FIDELITY ADD/EDIT PRODUCT MODAL -->
+          <div id="product-admin-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
+            <div class="bg-white dark:bg-[#0c0c0e] border border-gray-200 dark:border-gray-800 w-full max-w-2xl rounded-3xl overflow-hidden shadow-2xl flex flex-col max-h-[90vh]">
+              <div class="p-6 border-b border-gray-100 dark:border-gray-800/80 flex justify-between items-center bg-gray-50 dark:bg-gray-900/30">
+                <h3 id="modal-title" class="font-extrabold text-lg text-gray-900 dark:text-white">Add New Premium Footwear Asset</h3>
+                <button onclick="window.closeProductModal()" class="text-gray-400 hover:text-gray-600 dark:hover:text-white transition-colors">
+                  <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
               </div>
+              <form id="product-modal-form" onsubmit="window.handleProductModalSubmit(event)" class="p-6 overflow-y-auto space-y-4 flex-grow text-xs text-gray-700 dark:text-gray-300">
+                <input type="hidden" id="modal-product-id">
+                
+                <div class="grid grid-cols-2 gap-4">
+                  <div>
+                    <label class="block font-bold mb-1">Product Name *</label>
+                    <input type="text" id="modal-name" required placeholder="e.g. Apex Velocity carbon" class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:ring-1 focus:ring-indigo-500 outline-none text-xs dark:text-white">
+                  </div>
+                  <div>
+                    <label class="block font-bold mb-1">Brand Name *</label>
+                    <input type="text" id="modal-brand" required placeholder="e.g. Chinmoy Elite" class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:ring-1 focus:ring-indigo-500 outline-none text-xs dark:text-white">
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                  <div>
+                    <label class="block font-bold mb-1">Retail Price (INR) *</label>
+                    <input type="number" id="modal-price" required placeholder="12999" class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:ring-1 focus:ring-indigo-500 outline-none text-xs dark:text-white">
+                  </div>
+                  <div>
+                    <label class="block font-bold mb-1">Original Price (Strike-through INR)</label>
+                    <input type="number" id="modal-original-price" placeholder="15999" class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:ring-1 focus:ring-indigo-500 outline-none text-xs dark:text-white">
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-3 gap-4">
+                  <div>
+                    <label class="block font-bold mb-1">Category *</label>
+                    <select id="modal-category" class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:ring-1 focus:ring-indigo-500 outline-none text-xs dark:text-white">
+                      <!-- Populated dynamically via JS -->
+                    </select>
+                  </div>
+                  <div>
+                    <label class="block font-bold mb-1">Sizes (comma split) *</label>
+                    <input type="text" id="modal-sizes" required placeholder="7, 8, 9" class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:ring-1 focus:ring-indigo-500 outline-none text-xs dark:text-white">
+                  </div>
+                  <div>
+                    <label class="block font-bold mb-1 text-indigo-500">Colors (comma split) *</label>
+                    <input type="text" id="modal-colors" required placeholder="Red, Black" class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-950 border border-indigo-200 dark:border-indigo-900/50 rounded-xl focus:ring-1 focus:ring-indigo-500 outline-none text-xs dark:text-white shadow-sm font-semibold">
+                  </div>
+                </div>
+
+                <!-- Three Distinct Images Config -->
+                <div class="space-y-2 bg-gray-100/50 dark:bg-gray-900/30 p-4 rounded-2xl border border-gray-200/50 dark:border-gray-800/50">
+                  <span class="block font-extrabold uppercase tracking-widest text-[10px] text-gray-400 mb-1">Product Media Asset Pipeline (URLs)</span>
+                  <div>
+                    <label class="block mb-0.5 text-[10px] text-gray-500">Main Display Image URL *</label>
+                    <input type="url" id="modal-image" required placeholder="https://..." class="w-full px-3 py-1.5 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-lg focus:ring-1 focus:ring-indigo-500 outline-none text-xs dark:text-white">
+                  </div>
+                  <div>
+                    <label class="block mb-0.5 text-[10px] text-gray-500">Image Alternate 2 URL</label>
+                    <input type="url" id="modal-image2" placeholder="https://..." class="w-full px-3 py-1.5 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-lg focus:ring-1 focus:ring-indigo-500 outline-none text-xs dark:text-white">
+                  </div>
+                  <div>
+                    <label class="block mb-0.5 text-[10px] text-gray-500">Image Alternate 3 URL</label>
+                    <input type="url" id="modal-image3" placeholder="https://..." class="w-full px-3 py-1.5 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-lg focus:ring-1 focus:ring-indigo-500 outline-none text-xs dark:text-white">
+                  </div>
+                </div>
+
+                <div>
+                  <label class="block font-bold mb-1">Product Description</label>
+                  <textarea id="modal-description" rows="2" placeholder="Describe the luxury fabric structure, cushion response and heritage detailing..." class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:ring-1 focus:ring-indigo-500 outline-none text-xs dark:text-white"></textarea>
+                </div>
+
+                <div>
+                  <label class="block font-bold mb-1">Product Benefits (Semicolon separated;)</label>
+                  <input type="text" id="modal-benefits" placeholder="Seamless breathable knit; Ultra-grip continental outer rim; Elastic heel lock stability" class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:ring-1 focus:ring-indigo-500 outline-none text-xs dark:text-white">
+                </div>
+
+                <div class="flex items-center gap-4 bg-gray-100/30 dark:bg-gray-900/30 p-3 rounded-xl">
+                  <label class="flex items-center gap-2 cursor-pointer font-bold text-gray-700 dark:text-gray-300">
+                    <input type="checkbox" id="modal-instock" checked class="w-4 h-4 text-indigo-600 focus:ring-indigo-500 rounded bg-transparent">
+                    In Stock Active
+                  </label>
+                  <label class="flex items-center gap-2 cursor-pointer font-bold text-gray-700 dark:text-gray-300">
+                    <input type="checkbox" id="modal-new" checked class="w-4 h-4 text-indigo-600 focus:ring-indigo-500 rounded bg-transparent">
+                    New Release Badge
+                  </label>
+                </div>
+
+                <div class="pt-4 border-t border-gray-100 dark:border-gray-800 flex justify-end gap-3">
+                  <button type="button" onclick="window.closeProductModal()" class="px-5 py-2 rounded-xl font-bold bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">Cancel</button>
+                  <button type="submit" class="px-5 py-2 rounded-xl font-bold bg-indigo-600 hover:bg-indigo-700 text-white transition-colors shadow">Save Product File</button>
+                </div>
+              </form>
+            </div>
           </div>
         `;
         window.setAdminTab(activeAdminTab);
       }
 
+      function getTotalCommentsCount() {
+        return state.products.reduce((acc, p) => acc + (p.reviewsList ? p.reviewsList.length : 0), 0);
+      }
+
       window.setAdminTab = function(tab) {
         activeAdminTab = tab;
-        ['overview', 'products'].forEach(t => {
+        ['overview', 'products', 'categories', 'comments', 'orders', 'coupons', 'settings'].forEach(t => {
           const btn = document.getElementById(`admin-tab-${t}`);
           if (btn) {
             if (t === tab) {
@@ -2166,7 +2464,8 @@
           const liveRevenue = state.orders.reduce((sum, o) => sum + o.amount, 0);
 
           panel.innerHTML = `
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-fade-in">
+            <!-- Analytics Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 animate-fade-in">
               <div class="bg-white dark:bg-gray-900 p-6 rounded-3xl border border-gray-200 dark:border-gray-800 shadow-sm flex items-center justify-between">
                 <div>
                   <h4 class="text-xs text-gray-500 uppercase tracking-widest font-extrabold mb-1">Store Revenue</h4>
@@ -2196,6 +2495,43 @@
                   <i data-lucide="package" class="w-6 h-6"></i>
                 </div>
               </div>
+
+              <div class="bg-white dark:bg-gray-900 p-6 rounded-3xl border border-gray-200 dark:border-gray-800 shadow-sm flex items-center justify-between">
+                <div>
+                  <h4 class="text-xs text-gray-500 uppercase tracking-widest font-extrabold mb-1">Total Comments</h4>
+                  <p class="text-2xl font-black text-gray-900 dark:text-white">${getTotalCommentsCount()}</p>
+                </div>
+                <div class="p-3.5 bg-rose-50 dark:bg-rose-950 text-rose-500 rounded-2xl">
+                  <i data-lucide="message-square" class="w-6 h-6"></i>
+                </div>
+              </div>
+            </div>
+
+            <!-- Performance Storage Note -->
+            <div class="p-6 bg-indigo-50 dark:bg-indigo-950/40 rounded-3xl border border-indigo-100 dark:border-indigo-900 flex items-center gap-4 animate-fade-in">
+              <div class="p-3 bg-indigo-600 text-white rounded-xl">
+                <i data-lucide="database" class="w-6 h-6"></i>
+              </div>
+              <div>
+                <h3 class="font-extrabold text-sm text-indigo-900 dark:text-indigo-200">High-Performance IndexedDB Storage Enabled</h3>
+                <p class="text-xs text-indigo-700/85 dark:text-indigo-300/85 mt-0.5">Your platform is running with specialized high-volume IndexedDB. Support is active for 2,00,000+ catalog inventory nodes with offline cache backups.</p>
+              </div>
+            </div>
+
+            <!-- Activity block -->
+            <div class="bg-white dark:bg-gray-900 p-6 rounded-3xl border border-gray-200 dark:border-gray-800 animate-fade-in">
+              <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">Live Activity Streams</h3>
+              <div class="text-sm space-y-3">
+                ${state.orders.length > 0 ? `
+                  <div class="flex items-start gap-3 border-b border-gray-100 dark:border-gray-800 pb-3">
+                    <span class="w-2.5 h-2.5 bg-green-500 rounded-full mt-1.5 shrink-0"></span>
+                    <div>
+                      <p class="font-bold text-gray-900 dark:text-white">System Dispatch Confirmed</p>
+                      <p class="text-xs text-gray-500">Order ${state.orders[0].id} processed successfully via COD terminal.</p>
+                    </div>
+                  </div>
+                ` : '<p class="text-xs text-gray-500 italic">No activity detected yet. Waiting for first event.</p>'}
+              </div>
             </div>
           `;
         } else if (tab === 'products') {
@@ -2210,8 +2546,11 @@
               <div class="p-6 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center bg-gray-50 dark:bg-gray-950/20">
                 <div>
                   <h3 class="font-bold text-lg text-gray-900 dark:text-white">Active Product Inventory</h3>
-                  <p class="text-xs text-gray-500">Edit the HTML file defaultProducts array directly to save changes permanently.</p>
+                  <p class="text-xs text-gray-500">Deploy luxury items with comprehensive details, benefits, descriptions, and alternate images.</p>
                 </div>
+                <button onclick="window.openProductModalForAdd()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-4 py-2.5 rounded-xl text-xs flex items-center gap-2 transition-colors">
+                  <i data-lucide="plus" class="w-4 h-4"></i> Add Footwear Asset
+                </button>
               </div>
               <div class="overflow-x-auto">
                 <table class="w-full text-left border-collapse">
@@ -2221,6 +2560,7 @@
                       <th class="p-4 font-semibold">Category</th>
                       <th class="p-4 font-semibold">Retail Price</th>
                       <th class="p-4 font-semibold">Status</th>
+                      <th class="p-4 font-semibold">Operations</th>
                     </tr>
                   </thead>
                   <tbody class="text-sm divide-y divide-gray-100 dark:divide-gray-800">
@@ -2242,6 +2582,13 @@
                               : 'bg-rose-100 text-rose-700 dark:bg-rose-950/30 dark:text-rose-400'
                           }">${p.inStock ? 'In Stock' : 'Out of stock'}</span>
                         </td>
+                        <td class="p-4">
+                          <div class="flex items-center gap-3">
+                            <button onclick="window.openProductModalForEdit(${p.id})" class="text-indigo-500 hover:text-indigo-700 transition-colors p-1" title="Edit"><i data-lucide="edit-3" class="w-4 h-4"></i></button>
+                            <button onclick="window.handleAdminToggleStock(${p.id})" class="text-yellow-500 hover:text-yellow-600 transition-colors p-1" title="Toggle Stock"><i data-lucide="package" class="w-4 h-4"></i></button>
+                            <button onclick="window.handleAdminDeleteProduct(${p.id})" class="text-rose-500 hover:text-rose-700 transition-colors p-1" title="Delete"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
+                          </div>
+                        </td>
                       </tr>
                     `).join('') : `
                       <tr><td colspan="5" class="p-8 text-center text-gray-500 text-sm italic">Catalogue empty. Add products to populate.</td></tr>
@@ -2249,10 +2596,498 @@
                   </tbody>
                 </table>
               </div>
+
+              ${totalPages > 1 ? `
+                <div class="flex justify-between items-center p-4 border-t border-gray-100 dark:border-gray-850 bg-gray-50 dark:bg-gray-950/20">
+                  <button onclick="window.changeAdminPage(${state.adminProductsPage - 1})" ${state.adminProductsPage === 1 ? 'disabled' : ''} class="px-3 py-1 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-xs rounded-xl font-bold disabled:opacity-40">Prev</button>
+                  <span class="text-xs font-semibold">Showing page ${state.adminProductsPage} of ${totalPages} (${totalProds} items)</span>
+                  <button onclick="window.changeAdminPage(${state.adminProductsPage + 1})" ${state.adminProductsPage === totalPages ? 'disabled' : ''} class="px-3 py-1 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-xs rounded-xl font-bold disabled:opacity-40">Next</button>
+                </div>
+              ` : ''}
+            </div>
+          `;
+        } else if (tab === 'categories') {
+          panel.innerHTML = `
+            <div class="bg-white dark:bg-gray-900 rounded-3xl border border-gray-200 dark:border-gray-800 overflow-hidden shadow-sm animate-fade-in">
+              <div class="p-6 border-b border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-gray-950/20">
+                <h3 class="font-bold text-lg text-gray-900 dark:text-white">Manage Store Keywords & Categories</h3>
+                <p class="text-xs text-gray-500 mt-1">Add or remove distinct footwear categories like 'Sneakers' or 'Running'. Changes instantly reflect in main shop filters.</p>
+              </div>
+              <div class="p-6 space-y-6">
+                <div class="flex gap-2 max-w-sm">
+                  <input type="text" id="new-category-input" placeholder="e.g. Formal, High Tops" class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:ring-1 focus:ring-indigo-500 outline-none text-xs dark:text-white font-bold">
+                  <button onclick="window.handleAdminAddCategory()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-4 py-2 rounded-xl text-xs transition-colors shrink-0">Add Tag</button>
+                </div>
+                
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 animate-fade-in">
+                  ${state.categories.map((cat, idx) => `
+                    <div class="flex justify-between items-center bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 px-4 py-3 rounded-2xl">
+                      <span class="font-bold text-sm text-gray-900 dark:text-white">${cat}</span>
+                      <button onclick="window.handleAdminDeleteCategory(${idx})" class="text-rose-500 hover:bg-rose-100 dark:hover:bg-rose-900/40 p-1.5 rounded-lg transition-colors">
+                        <i data-lucide="trash-2" class="w-4 h-4"></i>
+                      </button>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            </div>
+          `;
+        } else if (tab === 'comments') {
+          panel.innerHTML = `
+            <div class="bg-white dark:bg-gray-900 rounded-3xl border border-gray-200 dark:border-gray-800 overflow-hidden shadow-sm animate-fade-in">
+              <div class="p-6 border-b border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-gray-950/20">
+                <h3 class="font-bold text-lg text-gray-900 dark:text-white">Active Comments & Reviews Panel</h3>
+                <p class="text-xs text-gray-500 mt-1">Manage, edit, author or delete customer comments for every individual product to ensure high reselling confidence.</p>
+              </div>
+              <div class="p-6 space-y-6">
+                ${state.products.map(p => {
+                  const comments = p.reviewsList || [];
+                  return `
+                    <div class="bg-gray-50 dark:bg-gray-950/40 border border-gray-200 dark:border-gray-800 p-6 rounded-2xl space-y-4 animate-fade-in">
+                      <div class="flex justify-between items-center border-b border-gray-200 dark:border-gray-800 pb-3">
+                        <div class="flex items-center gap-3">
+                          <img src="${p.image}" onerror="this.src='https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80'" class="w-10 h-10 rounded-lg border border-gray-200 dark:border-gray-700 object-cover">
+                          <div>
+                            <h4 class="font-extrabold text-sm text-gray-900 dark:text-white">${p.name}</h4>
+                            <p class="text-[10px] text-indigo-500 font-bold uppercase tracking-wider">${comments.length} Total comments</p>
+                          </div>
+                        </div>
+                        <button onclick="window.handleAdminAddCommentPrompt('${p.id}')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-3 py-1.5 rounded-lg text-xs transition-colors flex items-center gap-1 shadow-sm">
+                          <i data-lucide="plus-circle" class="w-3.5 h-3.5"></i> Insert Review
+                        </button>
+                      </div>
+
+                      ${comments.length > 0 ? `
+                        <div class="space-y-3 pl-2">
+                          ${comments.map(c => `
+                            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-white dark:bg-[#0c0c0e] border border-gray-200 dark:border-gray-800 p-4 rounded-xl gap-3 animate-fade-in">
+                              <div class="flex-grow space-y-1">
+                                <p class="text-xs font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                                  ${c.author}
+                                  <span class="text-[10px] text-yellow-400 font-semibold">★★★★★</span>
+                                </p>
+                                <p class="text-xs text-gray-600 dark:text-gray-400 italic">"${c.comment}"</p>
+                              </div>
+                              <div class="flex items-center gap-2 shrink-0">
+                                <button onclick="window.handleAdminEditComment('${p.id}', '${c.id}')" class="text-indigo-500 hover:underline text-xs font-bold px-3 py-1.5 bg-indigo-50 dark:bg-indigo-950/30 rounded-lg border border-indigo-100 dark:border-indigo-900 transition-colors">Edit</button>
+                                <button onclick="window.handleAdminDeleteComment('${p.id}', '${c.id}')" class="text-rose-500 hover:underline text-xs font-bold px-3 py-1.5 bg-rose-50 dark:bg-rose-950/30 rounded-lg border border-rose-100 dark:border-rose-900 transition-colors">Delete</button>
+                              </div>
+                            </div>
+                          `).join('')}
+                        </div>
+                      ` : `
+                        <p class="text-xs text-gray-400 italic pl-2 py-2">No reviews/comments exist for this footwear model.</p>
+                      `}
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+          `;
+        } else if (tab === 'orders') {
+          panel.innerHTML = `
+            <div class="bg-white dark:bg-gray-900 rounded-3xl border border-gray-200 dark:border-gray-800 overflow-hidden shadow-sm animate-fade-in">
+              <div class="p-6 border-b border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-gray-950/20">
+                <h3 class="font-bold text-lg text-gray-900 dark:text-white">Active Orders</h3>
+              </div>
+              <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                  <thead>
+                    <tr class="bg-gray-50 dark:bg-gray-950 text-xs text-gray-500 uppercase tracking-widest border-y border-gray-200 dark:border-gray-800">
+                      <th class="p-4 font-semibold">Reference ID</th>
+                      <th class="p-4 font-semibold">Shipping Coordinates</th>
+                      <th class="p-4 font-semibold">Total / Payment</th>
+                      <th class="p-4 font-semibold">Status / Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody class="text-sm divide-y divide-gray-100 dark:divide-gray-800">
+                    ${state.orders.length > 0 ? state.orders.map(ord => {
+                      const shippingText = ord.shippingInfo 
+                        ? `${ord.shippingInfo.address}, ${ord.shippingInfo.city}, ${ord.shippingInfo.state} - ${ord.shippingInfo.pincode}<br><span class="text-indigo-500 font-bold mt-1 inline-block">📞 Phone: ${ord.shippingInfo.phone}</span>`
+                        : '<span class="text-gray-400 italic">No detailed address provided</span>';
+
+                      return `
+                      <tr class="hover:bg-gray-50/30 dark:hover:bg-gray-950/20 transition-colors">
+                        <td class="p-4 font-bold text-indigo-500">${ord.id}</td>
+                        <td class="p-4">
+                          <p class="font-bold text-gray-900 dark:text-white mb-1">${ord.customer} <span class="text-[10px] text-gray-400 bg-gray-100 dark:bg-gray-800 px-2 py-0.5 rounded-full ml-1">${ord.customerEmail}</span></p>
+                          <p class="text-xs text-gray-500 leading-tight">${shippingText}</p>
+                        </td>
+                        <td class="p-4">
+                          <p class="font-black text-gray-900 dark:text-white">${formatINR(ord.amount)}</p>
+                          <p class="text-[10px] text-gray-500 uppercase tracking-wider font-bold mt-1">${ord.payment}</p>
+                        </td>
+                        <td class="p-4">
+                          <select onchange="window.updateOrderStatus('${ord.id}', this.value)" class="text-xs bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 px-2 py-1.5 rounded font-bold text-gray-900 dark:text-white focus:ring-1 focus:ring-indigo-500 mb-2 block w-full outline-none">
+                            <option value="Pending" ${ord.status === 'Pending' ? 'selected' : ''}>Pending</option>
+                            <option value="Processing" ${ord.status === 'Processing' ? 'selected' : ''}>Processing</option>
+                            <option value="Delivered" ${ord.status === 'Delivered' ? 'selected' : ''}>Delivered</option>
+                          </select>
+                          <button onclick="window.deleteAdminOrder('${ord.id}')" class="text-xs font-bold text-rose-500 hover:text-rose-600 hover:underline flex items-center gap-1 w-full justify-center bg-rose-50 dark:bg-rose-950/30 border border-rose-100 dark:border-rose-900 py-1.5 rounded transition-colors">
+                             <i data-lucide="trash-2" class="w-3.5 h-3.5"></i> Delete Data
+                           </button>
+                        </td>
+                      </tr>
+                    `}).join('') : `
+                      <tr>
+                        <td colspan="4" class="text-center py-10 text-gray-500 text-sm italic bg-gray-50 dark:bg-gray-950/10">No active orders exist in the system.<br>New customer checkouts will appear securely here.</td>
+                      </tr>
+                    `}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          `;
+        } else if (tab === 'coupons') {
+          // ADDED REMOVAL ACTION METHOD IN ADMIN TABLE
+          panel.innerHTML = `
+            <div class="bg-white dark:bg-gray-900 rounded-3xl border border-gray-200 dark:border-gray-800 overflow-hidden shadow-sm animate-fade-in">
+              <div class="p-6 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center bg-gray-50 dark:bg-gray-950/20">
+                <h3 class="font-bold text-lg text-gray-900 dark:text-white">Active Coupons</h3>
+                <button onclick="window.handleAdminAddCoupon()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-4 py-2 rounded-xl text-xs flex items-center gap-2 shadow-sm">
+                  <i data-lucide="plus" class="w-4 h-4"></i> Add Coupon
+                </button>
+              </div>
+              <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                  <thead>
+                    <tr class="bg-gray-50 dark:bg-gray-950 text-xs text-gray-500 uppercase tracking-widest border-y border-gray-200 dark:border-gray-800">
+                      <th class="p-4 font-semibold">Promo Code</th>
+                      <th class="p-4 font-semibold">Discount Configuration</th>
+                      <th class="p-4 font-semibold">Rules Description</th>
+                      <th class="p-4 font-semibold">Operations</th>
+                    </tr>
+                  </thead>
+                  <tbody class="text-sm divide-y divide-gray-100 dark:divide-gray-800">
+                    ${state.coupons.map((c, idx) => `
+                      <tr class="hover:bg-gray-50/30 dark:hover:bg-gray-950/20 transition-colors animate-fade-in">
+                        <td class="p-4 font-bold text-indigo-500">${c.code}</td>
+                        <td class="p-4 font-bold text-gray-900 dark:text-white">${c.type === 'percent' ? `${c.value}% Off` : `Flat ${formatINR(c.value)} Off`}</td>
+                        <td class="p-4 text-gray-500 text-xs font-semibold">${c.description}</td>
+                        <td class="p-4">
+                          <button onclick="window.handleAdminDeleteCoupon(${idx})" class="text-rose-500 hover:text-rose-600 hover:underline flex items-center gap-1.5 bg-rose-50 dark:bg-rose-950/30 border border-rose-100 dark:border-rose-900 px-3 py-1.5 rounded-lg transition-colors font-bold text-xs shadow-sm">
+                            <i data-lucide="trash-2" class="w-3.5 h-3.5"></i> Remove Code
+                          </button>
+                        </td>
+                      </tr>
+                    `).join('')}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          `;
+        } else if (tab === 'settings') {
+          panel.innerHTML = `
+            <div class="bg-white dark:bg-gray-900 rounded-3xl border border-gray-200 dark:border-gray-800 overflow-hidden shadow-sm animate-fade-in">
+              <div class="p-6 border-b border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-gray-950/20">
+                <h3 class="font-bold text-lg text-gray-900 dark:text-white">Store Configuration</h3>
+                <p class="text-xs text-gray-500 mt-1">Manage global system variables like support routing.</p>
+              </div>
+              <div class="p-6 space-y-6 animate-fade-in">
+                <div class="max-w-md bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 p-6 rounded-2xl">
+                  <label class="block font-bold mb-1 text-sm text-gray-900 dark:text-white">WhatsApp Support Number</label>
+                  <p class="text-xs text-gray-500 mb-4">Include country code (e.g., 91 for India) without '+' symbol. This automatically links the floating chat button.</p>
+                  <div class="flex gap-2">
+                    <input type="text" id="admin-whatsapp-number" value="${state.storeSettings.whatsappNumber || ''}" placeholder="e.g. 919876543210" class="w-full px-4 py-2.5 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl focus:ring-1 focus:ring-indigo-500 outline-none text-sm dark:text-white shadow-sm font-semibold">
+                    <button onclick="window.handleAdminSaveSettings()" class="bg-green-500 hover:bg-green-600 text-white font-bold px-5 py-2.5 rounded-xl text-xs transition-colors shrink-0 shadow">Save Number</button>
+                  </div>
+                </div>
+              </div>
             </div>
           `;
         }
         lucide.createIcons();
+      };
+
+      window.changeAdminPage = function(targetPage) {
+        state.adminProductsPage = targetPage;
+        window.setAdminTab('products');
+      };
+
+      window.deleteAdminOrder = async function(id) {
+        const confirmed = await customConfirm('Delete Order', `Delete this order ${id} completely from system?`);
+        if (confirmed) {
+          const idx = state.orders.findIndex(o => o.id === id);
+          if (idx !== -1) {
+            state.orders.splice(idx, 1);
+            saveOrders(); 
+            notify(`Order ${id} removed off system database.`, 'success');
+            window.setAdminTab('orders'); 
+          }
+        }
+      };
+
+      window.handleAdminToggleStock = function(id) {
+        const product = state.products.find(p => String(p.id) === String(id));
+        if (product) {
+          product.inStock = !product.inStock;
+          saveProducts();
+          notify(`Toggled stock state for ${product.name}.`, 'success');
+          window.setAdminTab('products');
+        }
+      };
+
+      window.handleAdminDeleteProduct = async function(id) {
+        const confirmed = await customConfirm('Delete Product', 'Warning: Permanently delete this product from database? This cannot be undone.');
+        if (confirmed) {
+          const productIdx = state.products.findIndex(p => String(p.id) === String(id));
+          if (productIdx !== -1) {
+            const name = state.products[productIdx].name;
+            state.products.splice(productIdx, 1);
+            saveProducts();
+            notify(`Removed ${name} from shop catalog completely.`, 'success');
+            window.setAdminTab('products');
+          }
+        }
+      };
+
+      window.updateOrderStatus = function(id, val) {
+        const order = state.orders.find(o => o.id === id);
+        if (order) {
+          order.status = val;
+          saveOrders(); 
+          notify(`Updated state of order ${id} to ${val}.`, 'success');
+        }
+      };
+
+      window.handleAdminSaveSettings = function() {
+        const input = document.getElementById('admin-whatsapp-number');
+        const num = input.value.trim().replace(/[^0-9]/g, ''); 
+        if(num) {
+            state.storeSettings.whatsappNumber = num;
+            saveStoreSettings();
+            notify('WhatsApp support number updated successfully.', 'success');
+            const waBtn = document.getElementById('whatsapp-floating-btn');
+            if (waBtn) waBtn.href = `https://wa.me/${num}`;
+        } else {
+            notify('Please enter a valid numeric phone number.', 'error');
+        }
+      };
+
+      window.handleAdminAddCategory = function() {
+        const input = document.getElementById('new-category-input');
+        const val = input.value.trim();
+        if(val && !state.categories.includes(val)) {
+            state.categories.push(val);
+            saveCategories();
+            notify(`Category '${val}' registered successfully.`, 'success');
+            window.setAdminTab('categories');
+        } else {
+            notify(`Category invalid or already exists.`, 'error');
+        }
+      };
+
+      window.handleAdminDeleteCategory = async function(index) {
+        const confirmed = await customConfirm('Delete Category', `Are you sure you want to remove keyword tag '${state.categories[index]}'?`);
+        if (confirmed) {
+            state.categories.splice(index, 1);
+            saveCategories();
+            notify('Category keyword permanently removed.', 'success');
+            window.setAdminTab('categories');
+        }
+      };
+
+      window.openProductModalForAdd = function() {
+        document.getElementById('modal-title').innerText = "Add New Premium Footwear Asset";
+        document.getElementById('modal-product-id').value = "";
+        document.getElementById('product-modal-form').reset();
+        
+        const catDrop = document.getElementById('modal-category');
+        catDrop.innerHTML = state.categories.map(c => `<option value="${c}">${c}</option>`).join('');
+
+        document.getElementById('product-admin-modal').classList.remove('hidden');
+        lucide.createIcons();
+      };
+
+      window.openProductModalForEdit = function(productId) {
+        const p = state.products.find(item => String(item.id) === String(productId));
+        if (!p) return;
+
+        document.getElementById('modal-title').innerText = `Edit: ${p.name}`;
+        document.getElementById('modal-product-id').value = p.id;
+        document.getElementById('modal-name').value = p.name;
+        document.getElementById('modal-brand').value = p.brand;
+        document.getElementById('modal-price').value = p.price;
+        document.getElementById('modal-original-price').value = p.originalPrice || '';
+        
+        const catDrop = document.getElementById('modal-category');
+        catDrop.innerHTML = state.categories.map(c => `<option value="${c}" ${c === p.category ? 'selected' : ''}>${c}</option>`).join('');
+
+        document.getElementById('modal-sizes').value = (p.sizes && Array.isArray(p.sizes)) ? p.sizes.join(', ') : 'Standard';
+        document.getElementById('modal-colors').value = (p.colors && Array.isArray(p.colors)) ? p.colors.join(', ') : 'Default Color';
+        
+        document.getElementById('modal-image').value = p.image;
+        document.getElementById('modal-image2').value = p.image2 || '';
+        document.getElementById('modal-image3').value = p.image3 || '';
+        document.getElementById('modal-description').value = p.description || '';
+        document.getElementById('modal-benefits').value = p.benefits || '';
+        document.getElementById('modal-instock').checked = p.inStock;
+        document.getElementById('modal-new').checked = p.isNew;
+
+        document.getElementById('product-admin-modal').classList.remove('hidden');
+        lucide.createIcons();
+      };
+
+      window.closeProductModal = function() {
+        document.getElementById('product-admin-modal').classList.add('hidden');
+      };
+
+      window.handleProductModalSubmit = function(e) {
+        e.preventDefault();
+
+        const idVal = document.getElementById('modal-product-id').value;
+        const name = document.getElementById('modal-name').value.trim();
+        const brand = document.getElementById('modal-brand').value.trim();
+        const price = parseInt(document.getElementById('modal-price').value);
+        const originalPrice = parseInt(document.getElementById('modal-original-price').value) || (price + 2000);
+        const category = document.getElementById('modal-category').value;
+        
+        const sizesRaw = document.getElementById('modal-sizes').value;
+        const colorsRaw = document.getElementById('modal-colors').value;
+
+        const image = document.getElementById('modal-image').value.trim();
+        const image2 = document.getElementById('modal-image2').value.trim();
+        const image3 = document.getElementById('modal-image3').value.trim();
+        const description = document.getElementById('modal-description').value.trim();
+        const benefits = document.getElementById('modal-benefits').value.trim();
+        const inStock = document.getElementById('modal-instock').checked;
+        const isNew = document.getElementById('modal-new').checked;
+
+        let sizes = sizesRaw.split(',').map(s => s.trim()).filter(s => s !== '');
+        if(sizes.length === 0) sizes = ['Standard'];
+        
+        let colors = colorsRaw.split(',').map(c => c.trim()).filter(c => c !== '');
+        if(colors.length === 0) colors = ['Default Color'];
+
+        if (idVal) {
+          const prodIndex = state.products.findIndex(p => String(p.id) === String(idVal));
+          if (prodIndex !== -1) {
+            state.products[prodIndex] = {
+              ...state.products[prodIndex],
+              name, brand, price, originalPrice, category, sizes, colors, image, image2, image3, description, benefits, inStock, isNew
+            };
+            notify('Footwear coordinates updated successfully!', 'success');
+          }
+        } else {
+          const newId = String(Date.now());
+          state.products.unshift({
+            id: newId,
+            name, brand, price, originalPrice, category, sizes, colors, image, image2, image3, description, benefits,
+            rating: 4.8, reviewsList: [], isNew, inStock,
+            specs: { Upper: 'Engineered performance mesh', Midsole: 'Prestige lightfoam core', Outsole: 'Traction grip compound' }
+          });
+          notify(`New asset "${name}" registered into catalog successfully!`, 'success');
+        }
+
+        saveProducts();
+        window.closeProductModal();
+        window.setAdminTab('products');
+      };
+
+      window.handleAdminAddCommentPrompt = async function(productId) {
+        const response = await customPrompt(
+          'Insert Verified Review',
+          'Add a premium customer review to immediately boost checkout trust scores.',
+          [
+            { id: 'author', label: 'Reviewer Display Name', placeholder: 'e.g., Rohan Sharma', value: '' },
+            { id: 'comment', label: 'Review Feedback Comment', placeholder: 'e.g., Outstanding carbon fiber responsiveness!', value: '' }
+          ]
+        );
+
+        if (response && response.author && response.comment) {
+          const p = state.products.find(item => String(item.id) === String(productId));
+          if (p) {
+            if (!p.reviewsList) p.reviewsList = [];
+            p.reviewsList.unshift({
+              id: Date.now(),
+              author: response.author.trim(),
+              rating: 5,
+              comment: response.comment.trim()
+            });
+            saveProducts();
+            notify('Comment injected successfully.', 'success');
+            window.setAdminTab('comments');
+          }
+        }
+      };
+
+      window.handleAdminEditComment = async function(productId, commentId) {
+        const p = state.products.find(item => String(item.id) === String(productId));
+        if (!p) return;
+        const c = p.reviewsList.find(item => String(item.id) === String(commentId));
+        if (!c) return;
+
+        const response = await customPrompt(
+          'Edit Verified Review',
+          'Make modifications to this user review.',
+          [
+            { id: 'author', label: 'Reviewer Name', value: c.author },
+            { id: 'comment', label: 'Review Comment text', value: c.comment }
+          ]
+        );
+
+        if (response && response.author && response.comment) {
+          c.author = response.author.trim();
+          c.comment = response.comment.trim();
+          saveProducts();
+          notify('Comment updated.', 'success');
+          window.setAdminTab('comments');
+        }
+      };
+
+      window.handleAdminDeleteComment = async function(productId, commentId) {
+        const confirmed = await customConfirm('Delete Comment', 'Are you sure you want to delete this comment review from this product file?');
+        if (confirmed) {
+          const p = state.products.find(item => String(item.id) === String(productId));
+          if (p) {
+            p.reviewsList = p.reviewsList.filter(c => String(c.id) !== String(commentId));
+            saveProducts();
+            notify('Comment review deleted cleanly.', 'success');
+            window.setAdminTab('comments');
+          }
+        }
+      };
+
+      // FUNCTION IMPLEMENTATION: REMOVE PROMO COUPONS
+      window.handleAdminDeleteCoupon = async function(idx) {
+        const coupon = state.coupons[idx];
+        if (!coupon) return;
+
+        const confirmed = await customConfirm(
+          'Remove Promo Coupon', 
+          `Are you sure you want to permanently delete coupon code "${coupon.code}" from your store database?`
+        );
+
+        if (confirmed) {
+          state.coupons.splice(idx, 1);
+          saveCoupons();
+          notify(`Promo coupon code ${coupon.code} removed successfully.`, 'success');
+          window.setAdminTab('coupons');
+        }
+      };
+
+      window.handleAdminAddCoupon = async function() {
+        const response = await customPrompt(
+          'Create Promotion Coupon',
+          'Deploy a new discount coupon rate to boost conversion.',
+          [
+            { id: 'code', label: 'Promo Code (Uppercase)', placeholder: 'e.g. SNEAKERHEAD', value: '' },
+            { id: 'value', label: 'Percentage Value Off', placeholder: 'e.g. 25', value: '25' }
+          ]
+        );
+
+        if (response && response.code && response.value) {
+          const discountVal = parseInt(response.value);
+          state.coupons.push({
+            code: response.code.trim().toUpperCase(),
+            type: 'percent',
+            value: discountVal,
+            description: `${discountVal}% off storewide`
+          });
+          saveCoupons();
+          notify(`Promo coupon code ${response.code.toUpperCase()} initialized successfully!`, 'success');
+          window.setAdminTab('coupons');
+        }
       };
 
       window.exitAdminTerminal = function() {
@@ -2267,9 +3102,10 @@
     }
   </script>
 
+  <!-- ==================== INITIALIZATION & CORE START ==================== -->
   <script>
     window.addEventListener('DOMContentLoaded', () => {
-      // The initUserSession handles the actual bootup sequence now
+      navigate('home'); 
     });
   </script>
 </body>
