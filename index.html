@@ -35,6 +35,39 @@
         .product-img { width: 100%; height: 100%; object-fit: contain; transition: transform 0.4s ease; }
         .group:hover .product-img { transform: scale(1.04); }
         .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        /* Loading shimmer effect */
+        .shimmer {
+            background: linear-gradient(90deg, #1a1a1e 25%, #2a2a2e 50%, #1a1a1e 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        .product-card-skeleton {
+            aspect-ratio: 1/1;
+            border-radius: 16px;
+            background: #141416;
+        }
+        .product-card-skeleton .img-skeleton {
+            width: 100%;
+            height: 70%;
+            background: #1e1e22;
+            border-radius: 12px 12px 0 0;
+        }
+        .product-card-skeleton .text-skeleton {
+            padding: 16px;
+        }
+        .product-card-skeleton .text-skeleton div {
+            height: 12px;
+            background: #1e1e22;
+            border-radius: 6px;
+            margin-bottom: 8px;
+        }
+        .product-card-skeleton .text-skeleton div:last-child {
+            width: 60%;
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between overflow-x-hidden">
@@ -91,6 +124,7 @@
 
         <!-- HOME -->
         <div id="home" class="page active space-y-10">
+            <!-- Hero Banner -->
             <div class="relative rounded-3xl overflow-hidden border border-darkBorder bg-gradient-to-r from-neutral-950 via-darkCard to-neutral-900 p-8 sm:p-12 md:p-16 flex flex-col justify-center min-h-[340px] glow-shadow-primary">
                 <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(139,92,246,0.15),transparent_50%)]"></div>
                 <div class="relative z-10 max-w-xl space-y-4">
@@ -108,6 +142,8 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Search & Filter -->
             <div class="flex flex-col sm:flex-row gap-4 items-center justify-between bg-darkCard/50 p-4 rounded-2xl border border-darkBorder backdrop-blur-md">
                 <div class="relative w-full sm:max-w-md">
                     <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-neutral-500"></i>
@@ -122,8 +158,11 @@
                     </select>
                 </div>
             </div>
+
+            <!-- Product Grid -->
             <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="col-span-full py-16 text-center">
+                <!-- Skeleton cards will be shown initially, replaced by JS -->
+                <div class="col-span-full py-16 text-center" id="loadingMessage">
                     <i class="fa-solid fa-circle-notch fa-spin text-4xl text-brand-500 mb-4"></i>
                     <p class="text-neutral-400">Loading catalog...</p>
                 </div>
@@ -196,25 +235,38 @@
             </div>
         </div>
 
-        <!-- ====== CHECKOUT – ADDRESS FORM ====== -->
+        <!-- CHECKOUT – ADDRESS FORM -->
         <div id="buy-checkout" class="page max-w-2xl mx-auto">
             <div class="bg-darkCard border border-darkBorder rounded-2xl overflow-hidden p-6 sm:p-8 space-y-6">
                 <div class="space-y-1">
                     <span class="text-xs font-extrabold text-brand-500 uppercase tracking-widest">Step 1: Shipping Info</span>
                     <h2 class="text-2xl font-extrabold text-white">Fulfillment Address</h2>
-                    <p class="text-neutral-400 text-xs">Enter your details below.</p>
+                    <p class="text-neutral-400 text-xs">Enter your details below (Indian address & phone).</p>
                 </div>
                 <div class="h-[1px] bg-darkBorder"></div>
                 <form id="addressForm" class="space-y-4">
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div><label class="block text-xs font-bold text-neutral-400 uppercase tracking-wider mb-1">Recipient Full Name</label><input type="text" id="checkoutName" required placeholder="E.g. Jane Doe" class="w-full bg-black border border-darkBorder focus:border-brand-500 text-white rounded-xl py-3 px-4 text-xs outline-none transition-all"></div>
-                        <div><label class="block text-xs font-bold text-neutral-400 uppercase tracking-wider mb-1">Contact Phone</label><input type="tel" id="checkoutPhone" required placeholder="E.g. +1 555-0100" class="w-full bg-black border border-darkBorder focus:border-brand-500 text-white rounded-xl py-3 px-4 text-xs outline-none transition-all"></div>
+                        <div>
+                            <label class="block text-xs font-bold text-neutral-400 uppercase tracking-wider mb-1">Recipient Full Name</label>
+                            <input type="text" id="checkoutName" required placeholder="E.g. Rahul Sharma" class="w-full bg-black border border-darkBorder focus:border-brand-500 text-white rounded-xl py-3 px-4 text-xs outline-none transition-all">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-neutral-400 uppercase tracking-wider mb-1">Mobile Number (10 digits)</label>
+                            <input type="tel" id="checkoutPhone" required placeholder="9876543210" pattern="[0-9]{10}" title="Enter a valid 10-digit Indian mobile number" class="w-full bg-black border border-darkBorder focus:border-brand-500 text-white rounded-xl py-3 px-4 text-xs outline-none transition-all">
+                            <p class="text-[10px] text-neutral-500 mt-1">Enter 10-digit Indian mobile number (without +91).</p>
+                        </div>
                     </div>
-                    <div><label class="block text-xs font-bold text-neutral-400 uppercase tracking-wider mb-1">Detailed Shipping Address</label><textarea id="checkoutAddress" required rows="3" placeholder="Apartment, Street Name, City, State/Province" class="w-full bg-black border border-darkBorder focus:border-brand-500 text-white rounded-xl py-3 px-4 text-xs outline-none transition-all"></textarea></div>
-                    <div><label class="block text-xs font-bold text-neutral-400 uppercase tracking-wider mb-1">Area Pincode / ZIP Code</label><input type="text" id="checkoutPincode" required placeholder="6-digit area pincode" class="w-full bg-black border border-darkBorder focus:border-brand-500 text-white rounded-xl py-3 px-4 text-xs outline-none transition-all"></div>
+                    <div>
+                        <label class="block text-xs font-bold text-neutral-400 uppercase tracking-wider mb-1">Detailed Shipping Address</label>
+                        <textarea id="checkoutAddress" required rows="3" placeholder="House No., Street, Locality, City, State" class="w-full bg-black border border-darkBorder focus:border-brand-500 text-white rounded-xl py-3 px-4 text-xs outline-none transition-all"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-neutral-400 uppercase tracking-wider mb-1">Pincode</label>
+                        <input type="text" id="checkoutPincode" required placeholder="110001" pattern="[0-9]{6}" title="Enter a valid 6-digit Indian pincode" class="w-full bg-black border border-darkBorder focus:border-brand-500 text-white rounded-xl py-3 px-4 text-xs outline-none transition-all">
+                    </div>
                     <div class="bg-black/40 border border-darkBorder p-4 rounded-xl flex items-center gap-3">
                         <i class="fa-solid fa-truck-ramp-box text-brand-500 text-lg"></i>
-                        <p class="text-xs text-neutral-400 leading-normal">Guaranteed standard delivery within 9 days.</p>
+                        <p class="text-xs text-neutral-400 leading-normal">Guaranteed standard delivery within 9 days across India.</p>
                     </div>
                     <button type="submit" class="w-full py-4 bg-brand-600 hover:bg-brand-500 text-white font-extrabold text-sm uppercase tracking-wider rounded-xl transition-all shadow-lg shadow-brand-500/10 transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
                         <i class="fa-solid fa-arrow-right"></i> Review Order
@@ -223,7 +275,7 @@
             </div>
         </div>
 
-        <!-- ====== ORDER SUMMARY ====== -->
+        <!-- ORDER SUMMARY -->
         <div id="order-summary" class="page max-w-3xl mx-auto">
             <div class="bg-darkCard border border-darkBorder rounded-2xl overflow-hidden p-6 sm:p-8 space-y-6">
                 <div class="space-y-1">
@@ -232,29 +284,20 @@
                     <p class="text-neutral-400 text-xs">Please verify your order before placing it.</p>
                 </div>
                 <div class="h-[1px] bg-darkBorder"></div>
-
-                <!-- Items -->
                 <div>
                     <h3 class="text-sm font-bold text-white mb-3">Items</h3>
                     <div id="summaryItems" class="space-y-2"></div>
                 </div>
-
                 <div class="h-[1px] bg-darkBorder"></div>
-
-                <!-- Shipping -->
                 <div>
                     <h3 class="text-sm font-bold text-white mb-2">Shipping Details</h3>
                     <div id="summaryShipping" class="text-xs text-neutral-400 space-y-1"></div>
                 </div>
-
                 <div class="h-[1px] bg-darkBorder"></div>
-
-                <!-- Total -->
                 <div class="flex justify-between items-center">
                     <span class="text-sm font-bold text-white">Total</span>
                     <span id="summaryTotal" class="text-2xl font-extrabold text-emerald-400">₹0.00</span>
                 </div>
-
                 <div class="flex flex-col sm:flex-row gap-4 pt-4">
                     <button onclick="goBackToAddress()" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-neutral-900 hover:bg-neutral-800 border border-darkBorder text-white font-bold text-sm transition-all">
                         <i class="fa-solid fa-chevron-left mr-2"></i> Back
@@ -279,8 +322,12 @@
                 </div>
                 <div class="h-[1px] bg-darkBorder"></div>
                 <div class="flex flex-col sm:flex-row gap-3 justify-center">
-                    <a href="#orders" class="px-5 py-3 rounded-xl bg-neutral-900 hover:bg-neutral-800 border border-darkBorder text-xs font-bold transition-all"><i class="fa-solid fa-list-check mr-1.5"></i> My Purchases</a>
-                    <a href="#home" class="px-5 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-white text-xs font-bold transition-all shadow-lg shadow-brand-500/15">Continue Shopping <i class="fa-solid fa-chevron-right ml-1"></i></a>
+                    <button onclick="goToOrders()" class="px-5 py-3 rounded-xl bg-neutral-900 hover:bg-neutral-800 border border-darkBorder text-xs font-bold transition-all">
+                        <i class="fa-solid fa-list-check mr-1.5"></i> My Purchases
+                    </button>
+                    <button onclick="goToHome()" class="px-5 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-white text-xs font-bold transition-all shadow-lg shadow-brand-500/15">
+                        Continue Shopping <i class="fa-solid fa-chevron-right ml-1"></i>
+                    </button>
                 </div>
             </div>
         </div>
@@ -351,7 +398,7 @@
                 <i class="fa-solid fa-screwdriver-wrench text-5xl text-brand-500"></i>
                 <h2 class="text-2xl font-extrabold text-white">Admin Panel</h2>
                 <p class="text-neutral-400 text-sm">Manage products, orders, and customer inquiries.</p>
-                <a href="wessss.html" target="_blank" class="inline-block px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold transition-all shadow-lg shadow-brand-500/20">Open Admin Dashboard <i class="fa-solid fa-arrow-up-right-from-square ml-2"></i></a>
+                <a href="change.html" target="_blank" class="inline-block px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold transition-all shadow-lg shadow-brand-500/20">Open Admin Dashboard <i class="fa-solid fa-arrow-up-right-from-square ml-2"></i></a>
             </div>
         </div>
 
@@ -391,7 +438,6 @@
         import { getAuth, signInAnonymously, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
         import { getDatabase, ref, push, set, update, remove, onValue, get } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-        // ====== FIREBASE CONFIG (same as admin) ======
         const firebaseConfig = {
             apiKey: "AIzaSyCxV9FES5STcUT7F1EaazcXj4O9BxFpTP0",
             authDomain: "ecommerce-91d16.firebaseapp.com",
@@ -414,8 +460,6 @@
         let activeProductDetail = null;
         let activeProductDetailImgIndex = 0;
         let isAuthSignUpMode = false;
-
-        // ====== PENDING ORDER (for summary) ======
         let pendingOrder = null;
 
         // ====== TOAST ======
@@ -434,6 +478,27 @@
             container.className = 'fixed bottom-6 right-6 z-[120] space-y-3 pointer-events-none';
             document.body.appendChild(container);
             return container;
+        }
+
+        // ====== CACHE HELPERS ======
+        const CACHE_KEY = 'vibestore_products';
+        const CACHE_EXPIRY = 30 * 60 * 1000; // 30 minutes
+
+        function getCachedProducts() {
+            try {
+                const raw = localStorage.getItem(CACHE_KEY);
+                if (!raw) return null;
+                const data = JSON.parse(raw);
+                if (Date.now() - data.timestamp > CACHE_EXPIRY) return null;
+                return data.products;
+            } catch { return null; }
+        }
+
+        function setCachedProducts(products) {
+            try {
+                const data = { products, timestamp: Date.now() };
+                localStorage.setItem(CACHE_KEY, JSON.stringify(data));
+            } catch {}
         }
 
         // ====== DEFAULT SEED ======
@@ -522,18 +587,35 @@
         }
         window.addEventListener('hashchange', processActiveRoute);
 
-        // ====== PRODUCTS LISTENER ======
+        // ====== PRODUCTS LISTENER (with cache) ======
         function startCatalogSync() {
+            // First, try to render from cache
+            const cached = getCachedProducts();
+            if (cached && cached.length > 0) {
+                products = cached;
+                renderCatalogProductsGrid();
+                // Remove loading message
+                document.getElementById('loadingMessage')?.remove();
+            }
+
+            // Then listen to Firebase for fresh data
             const productsRef = ref(db, 'products');
             onValue(productsRef, (snapshot) => {
-                products = [];
+                const freshProducts = [];
                 snapshot.forEach(child => {
-                    products.push({ id: child.key, ...child.val() });
+                    freshProducts.push({ id: child.key, ...child.val() });
                 });
-                if (products.length === 0) {
+
+                if (freshProducts.length === 0) {
                     seedDefaultProducts();
                 } else {
+                    products = freshProducts;
+                    // Cache it
+                    setCachedProducts(products);
+                    // Render (if not already rendered or if data changed)
                     renderCatalogProductsGrid();
+                    // Remove loading message if still present
+                    document.getElementById('loadingMessage')?.remove();
                 }
             }, (error) => {
                 console.error("Database sync fault:", error);
@@ -677,6 +759,8 @@
                 document.getElementById('reviewForm').classList.add('hidden');
                 activeProductDetail.reviews = updatedReviews;
                 renderDetailsReviews();
+                // Refresh cache
+                setCachedProducts(products);
             } catch (err) {
                 console.error(err);
                 showToast("Failed to save review.", "error");
@@ -701,8 +785,20 @@
             const address = document.getElementById('checkoutAddress').value.trim();
             const pincode = document.getElementById('checkoutPincode').value.trim();
 
-            if (pincode.length < 5 || isNaN(pincode)) {
-                showToast("Invalid pincode. Please enter a valid ZIP / Pincode.", "error");
+            const phoneRegex = /^[6-9]\d{9}$/;
+            if (!phoneRegex.test(phone)) {
+                showToast("Please enter a valid 10-digit Indian mobile number (e.g., 9876543210).", "error");
+                return;
+            }
+
+            const pincodeRegex = /^[1-9][0-9]{5}$/;
+            if (!pincodeRegex.test(pincode)) {
+                showToast("Please enter a valid 6-digit Indian pincode (e.g., 110001).", "error");
+                return;
+            }
+
+            if (address.length < 10) {
+                showToast("Please enter a complete shipping address.", "error");
                 return;
             }
 
@@ -814,6 +910,13 @@
 
         window.goBackToAddress = function() {
             window.location.hash = '#buy-checkout';
+        };
+
+        window.goToOrders = function() {
+            window.location.hash = '#orders';
+        };
+        window.goToHome = function() {
+            window.location.hash = '#home';
         };
 
         // ====== CART ======
