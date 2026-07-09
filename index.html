@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VibeStore - Premium Dark E-Commerce</title>
+    <title>VibeStore - Futuristic Premium Dark E-Commerce</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -12,56 +12,116 @@
             theme: {
                 extend: {
                     colors: {
-                        brand: { 50: '#f5f3ff', 100: '#ede9fe', 500: '#8b5cf6', 600: '#7c3aed', 700: '#6d28d9', 950: '#090514' },
-                        darkBg: '#000000',
-                        darkCard: '#101012',
-                        darkBorder: '#222226'
+                        brand: { 50: '#f5f3ff', 100: '#ede9fe', 400: '#a78bfa', 500: '#8b5cf6', 600: '#7c3aed', 700: '#6d28d9', 950: '#090514' },
+                        darkBg: '#020204',
+                        darkCard: '#0b0b0f',
+                        darkBorder: '#1c1c24',
+                        accentGreen: '#10b981'
+                    },
+                    backgroundImage: {
+                        'neon-gradient': 'linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%)',
                     }
                 }
             }
         }
     </script>
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #000000; color: #ffffff; scroll-behavior: smooth; }
-        .glow-shadow-primary { box-shadow: 0 0 20px rgba(139, 92, 246, 0.15); }
-        .glow-shadow-hover:hover { box-shadow: 0 0 30px rgba(139, 92, 246, 0.3); border-color: #8b5cf6; }
-        .page { display: none; animation: pageFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        .page.active { display: block; }
-        @keyframes pageFadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-        ::-webkit-scrollbar { width: 8px; height: 8px; }
-        ::-webkit-scrollbar-track { background: #000000; }
-        ::-webkit-scrollbar-thumb { background: #222226; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #8b5cf6; }
-        .product-img { width: 100%; height: 100%; object-fit: contain; transition: transform 0.4s ease; }
-        .group:hover .product-img { transform: scale(1.04); }
-        .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-
-        /* Carousel Animation */
-        @keyframes fadeSlideIn {
-            from { opacity: 0.3; transform: scale(0.98); }
-            to { opacity: 1; transform: scale(1); }
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background-color: #020204; 
+            color: #ffffff; 
+            scroll-behavior: smooth; 
+            overflow-x: hidden;
         }
-        .carousel-animate {
-            animation: fadeSlideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        .glow-shadow-primary { 
+            box-shadow: 0 0 35px rgba(139, 92, 246, 0.15); 
         }
-
+        .glow-shadow-hover:hover { 
+            box-shadow: 0 0 35px rgba(139, 92, 246, 0.35); 
+            border-color: #8b5cf6; 
+        }
+        .page { 
+            display: none; 
+            animation: pageFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; 
+        }
+        .page.active { 
+            display: block; 
+        }
+        @keyframes pageFadeIn { 
+            from { opacity: 0; transform: translateY(16px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+        ::-webkit-scrollbar { 
+            width: 6px; 
+            height: 6px; 
+        }
+        ::-webkit-scrollbar-track { 
+            background: #020204; 
+        }
+        ::-webkit-scrollbar-thumb { 
+            background: #1c1c24; 
+            border-radius: 99px; 
+        }
+        ::-webkit-scrollbar-thumb:hover { 
+            background: #8b5cf6; 
+        }
+        .product-img { 
+            transition: opacity 0.4s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); 
+        }
+        
+        /* Auto-slide transitions */
+        .slide-indicator {
+            transition: width 0.3s ease, background-color 0.3s ease;
+        }
+        
         /* Countdown timer */
         .countdown-ring {
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
-            border: 4px solid rgba(139, 92, 246, 0.2);
+            border: 3px solid rgba(139, 92, 246, 0.15);
             border-top-color: #8b5cf6;
             animation: spin 1s linear infinite;
             margin: 0 auto;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
+        
+        /* Pulse glows */
+        .glow-pulse {
+            animation: pulseGlow 2s infinite alternate;
+        }
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 10px rgba(139, 92, 246, 0.2); }
+            100% { box-shadow: 0 0 25px rgba(139, 92, 246, 0.6); }
+        }
+
+        /* Floating Animation */
+        .floating-element {
+            animation: floatEffect 4s ease-in-out infinite;
+        }
+        @keyframes floatEffect {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Card Scale and Entrance */
+        .animate-card-load {
+            animation: cardEntrance 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+        @keyframes cardEntrance {
+            from { opacity: 0; transform: scale(0.95) translateY(10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
     </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between overflow-x-hidden">
+<body class="min-h-screen flex flex-col justify-between">
+
+    <!-- Immersive Animated Particles Background -->
+    <canvas id="bg-canvas" class="fixed inset-0 z-[-1] pointer-events-none opacity-45"></canvas>
 
     <!-- ====== NAVIGATION ====== -->
-    <header class="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-xl border-b border-darkBorder transition-all duration-300">
+    <header class="fixed top-0 left-0 right-0 z-50 bg-[#020204]/80 backdrop-blur-xl border-b border-darkBorder transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-indigo-500 flex items-center justify-center shadow-lg shadow-brand-500/25">
@@ -71,92 +131,100 @@
                     VIBE<span class="text-brand-500">STORE</span>
                 </a>
             </div>
+            
             <nav class="hidden md:flex items-center gap-2" id="navLinks">
                 <a href="#home" class="nav-btn px-4 py-2 rounded-lg text-sm font-semibold text-neutral-400 hover:text-white transition-colors">Catalog</a>
-                <a href="#featured" class="nav-btn px-4 py-2 rounded-lg text-sm font-semibold text-neutral-400 hover:text-white transition-colors">Featured</a>
-                <a href="#about" class="nav-btn px-4 py-2 rounded-lg text-sm font-semibold text-neutral-400 hover:text-white transition-colors">About</a>
-                <a href="#contact" class="nav-btn px-4 py-2 rounded-lg text-sm font-semibold text-neutral-400 hover:text-white transition-colors">Contact</a>
-                <a href="#orders" class="nav-btn auth-req hidden px-4 py-2 rounded-lg text-sm font-semibold text-neutral-400 hover:text-white transition-colors">My Purchases</a>
-                <a href="#admin" class="nav-btn px-4 py-2 rounded-lg text-sm font-semibold text-brand-500 hover:bg-brand-500/10 transition-colors flex items-center gap-2"><i class="fa-solid fa-screwdriver-wrench"></i> Admin</a>
+                <a href="#featured" class="nav-btn px-4 py-2 rounded-lg text-sm font-semibold text-neutral-400 hover:text-white transition-colors">Featured Drop</a>
+                <a href="#about" class="nav-btn px-4 py-2 rounded-lg text-sm font-semibold text-neutral-400 hover:text-white transition-colors">Vision</a>
+                <a href="#contact" class="nav-btn px-4 py-2 rounded-lg text-sm font-semibold text-neutral-400 hover:text-white transition-colors">Inquiries</a>
+                <a href="#orders" class="nav-btn auth-req hidden px-4 py-2 rounded-lg text-sm font-semibold text-neutral-400 hover:text-white transition-colors">My Logistics</a>
             </nav>
-            <div class="flex items-center gap-3">
-                <div class="flex items-center gap-2 border-r border-darkBorder pr-3">
-                    <button id="authBtn" class="flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider text-neutral-300 hover:text-white border border-darkBorder bg-darkCard hover:bg-neutral-900 transition-all">
-                        <i class="fa-solid fa-user-circle text-sm text-brand-500"></i>
+            
+            <div class="flex items-center gap-2 sm:gap-3">
+                <div class="flex items-center gap-2 border-r border-darkBorder pr-2 sm:pr-3">
+                    <button id="authBtn" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider text-neutral-300 hover:text-white border border-darkBorder bg-darkCard/80 hover:bg-neutral-900 transition-all">
+                        <i class="fa-solid fa-user text-sm text-brand-400"></i>
                         <span id="authStatusText">Login</span>
                     </button>
                 </div>
-                <a href="#wishlist" class="relative w-10 h-10 rounded-lg flex items-center justify-center border border-darkBorder bg-darkCard hover:text-brand-500 transition-colors">
+                
+                <a href="#wishlist" class="relative w-9 h-9 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center border border-darkBorder bg-darkCard hover:text-brand-400 hover:border-brand-500/40 transition-all">
                     <i class="fa-regular fa-heart"></i>
                     <span id="wishlistCount" class="absolute -top-1.5 -right-1.5 w-5 h-5 bg-rose-600 text-white rounded-full text-[10px] flex items-center justify-center font-bold">0</span>
                 </a>
-                <a href="#cart" class="relative w-10 h-10 rounded-lg flex items-center justify-center border border-darkBorder bg-darkCard hover:text-brand-500 transition-colors">
-                    <i class="fa-solid fa-cart-shopping"></i>
+                
+                <a href="#cart" class="relative w-9 h-9 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center border border-darkBorder bg-darkCard hover:text-brand-400 hover:border-brand-500/40 transition-all">
+                    <i class="fa-solid fa-basket-shopping"></i>
                     <span id="cartCount" class="absolute -top-1.5 -right-1.5 w-5 h-5 bg-brand-600 text-white rounded-full text-[10px] flex items-center justify-center font-bold">0</span>
                 </a>
-                <button id="menuToggler" class="md:hidden w-10 h-10 rounded-lg flex items-center justify-center border border-darkBorder bg-darkCard text-white">
+                
+                <button id="menuToggler" class="md:hidden w-9 h-9 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center border border-darkBorder bg-darkCard text-white">
                     <i class="fa-solid fa-bars-staggered"></i>
                 </button>
             </div>
         </div>
-        <div id="mobileMenu" class="hidden md:hidden border-t border-darkBorder bg-black px-4 py-4 space-y-2">
+        
+        <div id="mobileMenu" class="hidden md:hidden border-t border-darkBorder bg-[#020204] px-4 py-4 space-y-2">
             <a href="#home" class="block px-4 py-2.5 rounded-lg text-neutral-400 hover:text-white hover:bg-neutral-900 transition-all">Catalog</a>
-            <a href="#featured" class="block px-4 py-2.5 rounded-lg text-neutral-400 hover:text-white hover:bg-neutral-900 transition-all">Featured</a>
-            <a href="#about" class="block px-4 py-2.5 rounded-lg text-neutral-400 hover:text-white hover:bg-neutral-900 transition-all">About</a>
-            <a href="#contact" class="block px-4 py-2.5 rounded-lg text-neutral-400 hover:text-white hover:bg-neutral-900 transition-all">Contact</a>
-            <a href="#orders" class="block auth-req hidden px-4 py-2.5 rounded-lg text-neutral-400 hover:text-white hover:bg-neutral-900 transition-all">My Purchases</a>
-            <a href="#admin" class="block px-4 py-2.5 rounded-lg text-brand-500 hover:bg-brand-500/10 transition-all"><i class="fa-solid fa-screwdriver-wrench mr-2"></i>Admin</a>
+            <a href="#featured" class="block px-4 py-2.5 rounded-lg text-neutral-400 hover:text-white hover:bg-neutral-900 transition-all">Featured Drop</a>
+            <a href="#about" class="block px-4 py-2.5 rounded-lg text-neutral-400 hover:text-white hover:bg-neutral-900 transition-all">Vision</a>
+            <a href="#contact" class="block px-4 py-2.5 rounded-lg text-neutral-400 hover:text-white hover:bg-neutral-900 transition-all">Inquiries</a>
+            <a href="#orders" class="block auth-req hidden px-4 py-2.5 rounded-lg text-neutral-400 hover:text-white hover:bg-neutral-900 transition-all">My Logistics</a>
         </div>
     </header>
 
     <!-- ====== MAIN ====== -->
     <main class="flex-grow pt-28 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
 
-        <!-- ====== HOME (catalog + new sections) ====== -->
+        <!-- ====== HOME PAGE ====== -->
         <div id="home" class="page active space-y-10">
             <!-- Dynamic Auto-rotating Hero Carousel -->
-            <div id="heroCarouselContainer">
-                <div class="relative rounded-3xl overflow-hidden border border-darkBorder bg-gradient-to-r from-neutral-950 via-darkCard to-neutral-900 p-8 sm:p-12 flex items-center justify-center min-h-[340px] glow-shadow-primary">
-                    <i class="fa-solid fa-circle-notch fa-spin text-3xl text-brand-500"></i>
+            <div id="heroCarouselContainer" class="floating-element">
+                <div class="relative rounded-3xl overflow-hidden border border-darkBorder bg-gradient-to-r from-neutral-950 via-darkCard to-neutral-900 p-8 sm:p-12 flex items-center justify-center min-h-[360px] glow-shadow-primary">
+                    <div class="text-center space-y-3">
+                        <i class="fa-solid fa-sync fa-spin text-3xl text-brand-500"></i>
+                        <p class="text-xs text-neutral-400 tracking-widest font-mono">STABILIZING CORE CHASSIS...</p>
+                    </div>
                 </div>
             </div>
 
-            <!-- Trust Badges -->
+            <!-- Enhanced Trust Badges -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div class="bg-darkCard/50 border border-darkBorder rounded-2xl p-4 text-center">
-                    <i class="fa-solid fa-truck-fast text-brand-500 text-2xl mb-2"></i>
-                    <p class="text-xs font-bold text-white">9-Day Delivery</p>
-                    <p class="text-[10px] text-neutral-500">Guaranteed across India</p>
+                <div class="bg-darkCard/40 border border-darkBorder rounded-2xl p-4 text-center hover:border-brand-500/30 transition-all hover:scale-105 duration-300">
+                    <i class="fa-solid fa-bolt text-brand-400 text-2xl mb-2"></i>
+                    <p class="text-xs font-bold text-white uppercase tracking-wider">Fast-Track Delivery</p>
+                    <p class="text-[10px] text-neutral-500 mt-1">Guaranteed 9-Day fully tracked parcel courier</p>
                 </div>
-                <div class="bg-darkCard/50 border border-darkBorder rounded-2xl p-4 text-center">
-                    <i class="fa-solid fa-shield-halved text-brand-500 text-2xl mb-2"></i>
-                    <p class="text-xs font-bold text-white">Secure Checkout</p>
-                    <p class="text-[10px] text-neutral-500">100% encrypted payment</p>
+                <div class="bg-darkCard/40 border border-darkBorder rounded-2xl p-4 text-center hover:border-brand-500/30 transition-all hover:scale-105 duration-300">
+                    <i class="fa-solid fa-fingerprint text-brand-400 text-2xl mb-2"></i>
+                    <p class="text-xs font-bold text-white uppercase tracking-wider">Secure Protocol</p>
+                    <p class="text-[10px] text-neutral-500 mt-1">100% encrypted payment pipelines</p>
                 </div>
-                <div class="bg-darkCard/50 border border-darkBorder rounded-2xl p-4 text-center">
-                    <i class="fa-solid fa-rotate-left text-brand-500 text-2xl mb-2"></i>
-                    <p class="text-xs font-bold text-white">Easy Returns</p>
-                    <p class="text-[10px] text-neutral-500">7-day hassle-free returns</p>
+                <div class="bg-darkCard/40 border border-darkBorder rounded-2xl p-4 text-center hover:border-brand-500/30 transition-all hover:scale-105 duration-300">
+                    <i class="fa-solid fa-rotate-left text-brand-400 text-2xl mb-2"></i>
+                    <p class="text-xs font-bold text-white uppercase tracking-wider">7-Day Dispatch</p>
+                    <p class="text-[10px] text-neutral-500 mt-1">Stress-free returns & direct replacement</p>
                 </div>
-                <div class="bg-darkCard/50 border border-darkBorder rounded-2xl p-4 text-center">
-                    <i class="fa-solid fa-headset text-brand-500 text-2xl mb-2"></i>
-                    <p class="text-xs font-bold text-white">24/7 Support</p>
-                    <p class="text-[10px] text-neutral-500">Dedicated customer care</p>
+                <div class="bg-darkCard/40 border border-darkBorder rounded-2xl p-4 text-center hover:border-brand-500/30 transition-all hover:scale-105 duration-300">
+                    <i class="fa-solid fa-headset text-brand-400 text-2xl mb-2"></i>
+                    <p class="text-xs font-bold text-white uppercase tracking-wider">Direct Liaison</p>
+                    <p class="text-[10px] text-neutral-500 mt-1">24/7 dedicated customer liaison advisor</p>
                 </div>
             </div>
 
-            <!-- Search & Filter -->
-            <div class="flex flex-col sm:flex-row gap-4 items-center justify-between bg-darkCard/50 p-4 rounded-2xl border border-darkBorder backdrop-blur-md">
+            <!-- Search & Advanced Sorting -->
+            <div class="flex flex-col sm:flex-row gap-4 items-center justify-between bg-darkCard/80 p-4 rounded-2xl border border-darkBorder backdrop-blur-md">
                 <div class="relative w-full sm:max-w-md">
                     <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-neutral-500"></i>
-                    <input type="text" id="catalogSearch" placeholder="Search by title or tag..." class="w-full bg-black/60 border border-darkBorder hover:border-neutral-700 focus:border-brand-500 text-white placeholder-neutral-500 rounded-xl py-3 pl-11 pr-4 text-sm outline-none transition-all">
+                    <input type="text" id="catalogSearch" placeholder="Filter our catalog assets..." class="w-full bg-[#020204]/90 border border-darkBorder hover:border-neutral-700 focus:border-brand-500 text-white placeholder-neutral-500 rounded-xl py-3 pl-11 pr-4 text-sm outline-none transition-all">
                 </div>
                 <div class="w-full sm:w-auto flex items-center gap-3">
+                    <div class="text-xs font-bold text-brand-400 font-mono tracking-widest hidden lg:block"><i class="fa-solid fa-arrow-down-wide-short"></i> POPULARITY MATRIX SORT ACTIVE</div>
                     <select id="catalogSort" class="bg-black border border-darkBorder hover:border-neutral-700 text-white text-sm rounded-xl py-3 px-4 outline-none transition-all cursor-pointer">
-                        <option value="all">All Categories</option>
-                        <option value="fashion">Premium Fashion</option>
-                        <option value="electronics">Futuristic Electronics</option>
-                        <option value="essentials">Lifestyle Essentials</option>
+                        <option value="all">Full Cyber Collection</option>
+                        <option value="fashion">Premium Tech-Wear</option>
+                        <option value="electronics">Neural Electronics</option>
+                        <option value="essentials">Artifacts & Gear</option>
                     </select>
                 </div>
             </div>
@@ -164,129 +232,212 @@
             <!-- Product Grid -->
             <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 <div class="col-span-full py-16 text-center" id="loadingMessage">
-                    <i class="fa-solid fa-circle-notch fa-spin text-4xl text-brand-500 mb-4"></i>
-                    <p class="text-neutral-400">Loading catalog...</p>
+                    <i class="fa-solid fa-cube fa-spin text-4xl text-brand-500 mb-4"></i>
+                    <p class="text-neutral-400">Connecting database coordinates...</p>
                 </div>
             </div>
         </div>
 
-        <!-- ====== FEATURED PAGE ====== -->
+        <!-- ====== FEATURED FIT PAGE ====== -->
         <div id="featured" class="page space-y-10">
-            <div class="relative rounded-3xl overflow-hidden border border-darkBorder bg-gradient-to-r from-brand-950/50 via-darkCard to-neutral-900 p-8 sm:p-12 flex flex-col justify-center min-h-[200px]">
-                <h2 class="text-3xl font-extrabold text-white">✨ Featured Collections</h2>
-                <p class="text-neutral-400 text-sm">Curated picks from our premium catalog.</p>
+            <div class="relative rounded-3xl overflow-hidden border border-darkBorder bg-gradient-to-r from-brand-950/40 via-darkCard to-neutral-900 p-8 sm:p-12 flex flex-col justify-center min-h-[200px]">
+                <h2 class="text-3xl font-extrabold text-white">🔥 Live Priority Drops</h2>
+                <p class="text-neutral-400 text-sm mt-1">Premium visual specs currently dominating global clicks metrics.</p>
             </div>
             <div id="featuredGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- dynamically populated -->
-                <div class="col-span-full text-center text-neutral-500">Loading featured items...</div>
+                <div class="col-span-full text-center text-neutral-500">Retrieving priority coordinates...</div>
             </div>
         </div>
 
         <!-- ====== PRODUCT DETAIL ====== -->
         <div id="product-detail" class="page space-y-12">
-            <div><a href="#home" class="inline-flex items-center gap-2 text-sm text-neutral-400 hover:text-white transition-colors bg-darkCard border border-darkBorder py-2 px-4 rounded-lg"><i class="fa-solid fa-chevron-left text-xs"></i> Back to Catalog</a></div>
+            <div>
+                <a href="#home" class="inline-flex items-center gap-2 text-sm text-neutral-400 hover:text-white transition-colors bg-darkCard border border-darkBorder py-2 px-4 rounded-lg">
+                    <i class="fa-solid fa-chevron-left text-xs"></i> Return to Catalog
+                </a>
+            </div>
+            
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+                <!-- Swipable Premium Carousel -->
                 <div class="lg:col-span-7 space-y-4">
-                    <div class="relative rounded-2xl overflow-hidden bg-neutral-950 border border-darkBorder aspect-[4/3] flex items-center justify-center">
-                        <img id="detailMainImg" src="" alt="Active View" class="max-h-full max-w-full object-contain w-full h-full transition-all duration-300">
+                    <div class="relative rounded-2xl overflow-hidden bg-neutral-950 border border-darkBorder aspect-[4/3] flex items-center justify-center group" id="carouselWrapper">
+                        
+                        <!-- Main detail image click launches Interactive Lightbox -->
+                        <div id="detailMainImgContainer" onclick="openImageZoomModal()" class="w-full h-full flex items-center justify-center cursor-zoom-in active:cursor-grabbing relative">
+                            <img id="detailMainImg" src="" alt="View Detail" class="max-h-full max-w-full object-contain w-full h-full transition-transform duration-500 group-hover:scale-105">
+                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none">
+                                <span class="bg-black/80 px-4 py-2 rounded-full border border-brand-500/50 text-xs font-bold tracking-widest text-brand-400 flex items-center gap-2">
+                                    <i class="fa-solid fa-magnifying-glass-plus"></i> CLICK TO ZOOM DETAILED SPEC
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <!-- Slider overlays -->
+                        <button id="carouselPrevBtn" class="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 border border-darkBorder hover:border-brand-500/50 flex items-center justify-center text-white transition-all opacity-0 group-hover:opacity-100 z-10">
+                            <i class="fa-solid fa-angle-left"></i>
+                        </button>
+                        <button id="carouselNextBtn" class="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 border border-darkBorder hover:border-brand-500/50 flex items-center justify-center text-white transition-all opacity-0 group-hover:opacity-100 z-10">
+                            <i class="fa-solid fa-angle-right"></i>
+                        </button>
+
+                        <div class="absolute bottom-4 right-4 bg-black/70 px-3 py-1 rounded-full border border-darkBorder text-[10px] tracking-wider text-neutral-400 flex items-center gap-1.5 z-10">
+                            <i class="fa-solid fa-hand-pointer animate-bounce text-brand-400"></i> Swipe / Drag
+                        </div>
+
+                        <!-- Horizontal dynamic indicator bar -->
+                        <div class="absolute bottom-0 left-0 h-1 bg-brand-500 transition-all duration-[3000ms]" id="carouselProgressIndicator" style="width: 0%;"></div>
                     </div>
-                    <div class="grid grid-cols-3 gap-4">
-                        <button onclick="setDetailActiveImage(0)" class="img-thumb-btn border-2 border-brand-500 rounded-xl overflow-hidden aspect-video bg-neutral-950 p-1 flex items-center justify-center transition-all">
-                            <img id="detailThumb0" src="" class="max-h-full object-contain">
-                        </button>
-                        <button onclick="setDetailActiveImage(1)" class="img-thumb-btn border border-darkBorder hover:border-neutral-500 rounded-xl overflow-hidden aspect-video bg-neutral-950 p-1 flex items-center justify-center transition-all">
-                            <img id="detailThumb1" src="" class="max-h-full object-contain">
-                        </button>
-                        <button onclick="setDetailActiveImage(2)" class="img-thumb-btn border border-darkBorder hover:border-neutral-500 rounded-xl overflow-hidden aspect-video bg-neutral-950 p-1 flex items-center justify-center transition-all">
-                            <img id="detailThumb2" src="" class="max-h-full object-contain">
-                        </button>
-                    </div>
+                    
+                    <!-- Thumbnail controllers -->
+                    <div id="detailThumbnailsContainer" class="flex gap-4 overflow-x-auto pb-2 snap-x"></div>
                 </div>
+
+                <!-- Product Specifications Column -->
                 <div class="lg:col-span-5 space-y-6">
                     <div class="space-y-2">
-                        <span id="detailCategory" class="text-xs font-bold uppercase tracking-widest text-brand-500">CATEGORY</span>
+                        <div class="flex items-center gap-2">
+                            <span id="detailCategory" class="text-xs font-bold uppercase tracking-widest text-brand-500">CATEGORY</span>
+                        </div>
                         <h1 id="detailTitle" class="text-3xl font-extrabold tracking-tight text-white leading-tight">Product Title</h1>
                         <p id="detailPrice" class="text-2xl font-bold text-emerald-400">₹0.00</p>
                     </div>
                     <div class="h-[1px] bg-darkBorder"></div>
-                    <p id="detailDescription" class="text-neutral-400 text-sm leading-relaxed">Descriptive text goes here...</p>
+                    <p id="detailDescription" class="text-neutral-400 text-sm leading-relaxed">Description...</p>
+                    
+                    <div id="sizeSelectorWrapper" class="hidden space-y-3 mt-4 pt-4 border-t border-darkBorder">
+                        <span class="text-xs font-bold uppercase tracking-widest text-neutral-300"><i class="fa-solid fa-ruler-combined text-brand-400 mr-2"></i> Select Frame / Fitting</span>
+                        <div id="detailSizesContainer" class="flex flex-wrap gap-2"></div>
+                        <p id="sizeError" class="text-rose-500 text-xs hidden mt-1"><i class="fa-solid fa-circle-exclamation mr-1"></i> Please choose a size configuration before proceeding.</p>
+                    </div>
+
                     <div class="grid grid-cols-2 gap-4 pt-4">
                         <button onclick="triggerDirectBuy()" class="w-full py-4 px-6 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-extrabold text-sm tracking-wide transition-all duration-300 shadow-lg shadow-brand-500/20 transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-credit-card"></i> BUY NOW
+                            <i class="fa-solid fa-credit-card"></i> DIRECT CHECKOUT
                         </button>
                         <button id="detailCartBtn" class="w-full py-4 px-6 rounded-xl bg-darkCard hover:bg-neutral-900 border border-darkBorder hover:border-neutral-700 text-white font-extrabold text-sm tracking-wide transition-all flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-cart-shopping"></i> ADD TO CART
+                            <i class="fa-solid fa-basket-shopping"></i> ADD TO BAG
                         </button>
                     </div>
                     <div class="h-[1px] bg-darkBorder"></div>
                     <div class="space-y-3">
-                        <h3 class="text-xs font-bold uppercase tracking-widest text-neutral-300"><i class="fa-solid fa-shield-halved text-brand-500 mr-2"></i> Guaranteed Benefits</h3>
+                        <h3 class="text-xs font-bold uppercase tracking-widest text-neutral-300"><i class="fa-solid fa-circle-nodes text-brand-400 mr-2"></i> Verified Dispatch Pipelines</h3>
                         <ul id="detailBenefits" class="space-y-2 text-xs text-neutral-400"></ul>
                     </div>
                 </div>
             </div>
+            
+            <!-- Shopper Evaluations Panel -->
             <div class="border-t border-darkBorder pt-10 space-y-8">
                 <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-                    <div><h2 class="text-xl font-extrabold text-white">Shopper Reviews</h2><p class="text-neutral-400 text-xs mt-1">Real ratings and user-submitted feedback</p></div>
-                    <button onclick="toggleReviewForm()" class="px-4 py-2 rounded-lg bg-darkCard border border-darkBorder text-xs font-bold hover:text-brand-500 transition-all"><i class="fa-solid fa-pen-clip mr-1.5"></i> Leave a Review</button>
+                    <div>
+                        <h2 class="text-xl font-extrabold text-white">Shopper Evaluations</h2>
+                        <p class="text-neutral-400 text-xs mt-1">Unfiltered user feedback metrics and reviews.</p>
+                    </div>
+                    <button onclick="toggleReviewForm()" class="px-4 py-2 rounded-lg bg-darkCard border border-darkBorder text-xs font-bold hover:text-brand-400 transition-all">
+                        <i class="fa-solid fa-pen-clip mr-1.5"></i> Post Review Node
+                    </button>
                 </div>
+                
                 <form id="reviewForm" class="hidden bg-darkCard border border-darkBorder p-6 rounded-xl space-y-4 max-w-xl animate-[fadeIn_0.3s_ease]">
                     <h3 class="text-sm font-bold text-white">Write Your Review</h3>
                     <div class="grid grid-cols-2 gap-4">
-                        <div><label class="block text-xs text-neutral-400 font-bold mb-1">Your Name</label><input type="text" id="reviewAuthor" required placeholder="Shopper Name" class="w-full bg-black border border-darkBorder text-white text-xs rounded-lg p-2.5 outline-none focus:border-brand-500"></div>
-                        <div><label class="block text-xs text-neutral-400 font-bold mb-1">Rating</label>
+                        <div>
+                            <label class="block text-xs text-neutral-400 font-bold mb-1">Your Alias</label>
+                            <input type="text" id="reviewAuthor" required placeholder="Shopper identity" class="w-full bg-black border border-darkBorder text-white text-xs rounded-lg p-2.5 outline-none focus:border-brand-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-neutral-400 font-bold mb-1">Rating</label>
                             <select id="reviewRating" class="w-full bg-black border border-darkBorder text-white text-xs rounded-lg p-2.5 outline-none focus:border-brand-500 cursor-pointer">
-                                <option value="5">⭐⭐⭐⭐⭐ (5 Stars)</option><option value="4">⭐⭐⭐⭐ (4 Stars)</option>
-                                <option value="3">⭐⭐⭐ (3 Stars)</option><option value="2">⭐⭐ (2 Stars)</option><option value="1">⭐ (1 Star)</option>
+                                <option value="5">⭐⭐⭐⭐⭐ (5 / 5)</option>
+                                <option value="4">⭐⭐⭐⭐ (4 / 5)</option>
+                                <option value="3">⭐⭐⭐ (3 / 5)</option>
+                                <option value="2">⭐⭐ (2 / 5)</option>
+                                <option value="1">⭐ (1 / 5)</option>
                             </select>
                         </div>
                     </div>
-                    <div><label class="block text-xs text-neutral-400 font-bold mb-1">Comment</label><textarea id="reviewComment" rows="3" required placeholder="Share your experience..." class="w-full bg-black border border-darkBorder text-white text-xs rounded-lg p-2.5 outline-none focus:border-brand-500"></textarea></div>
+                    <div>
+                        <label class="block text-xs text-neutral-400 font-bold mb-1">Comment</label>
+                        <textarea id="reviewComment" rows="3" required placeholder="Evaluate material ergonomics, custom specs, shipment dispatch..." class="w-full bg-black border border-darkBorder text-white text-xs rounded-lg p-2.5 outline-none focus:border-brand-500"></textarea>
+                    </div>
                     <button type="submit" class="px-5 py-2.5 bg-brand-600 hover:bg-brand-500 text-white rounded-lg text-xs font-bold transition-all">Submit Review</button>
                 </form>
+                
                 <div id="detailReviews" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
             </div>
         </div>
 
-        <!-- ====== CHECKOUT – ADDRESS FORM ====== -->
+        <!-- ====== HIGH-FIDELITY LIGHTBOX ZOOM MODAL ====== -->
+        <div id="imageZoomModal" class="fixed inset-0 z-[110] bg-black/95 backdrop-blur-xl hidden flex-col items-center justify-center p-4">
+            <!-- Close Trigger -->
+            <button onclick="closeImageZoomModal()" class="absolute top-6 right-6 w-12 h-12 rounded-full bg-neutral-900 border border-darkBorder flex items-center justify-center text-white text-xl hover:bg-neutral-800 transition-all hover:border-brand-500 hover:scale-115 z-50 shadow-lg">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            
+            <!-- Zoom Container Context with interactive cursor panning -->
+            <div id="lightboxViewport" class="relative max-w-5xl max-h-[75vh] w-full flex items-center justify-center overflow-hidden rounded-2xl border border-darkBorder bg-neutral-950/80 cursor-grab active:cursor-grabbing select-none shadow-2xl">
+                <img id="zoomedImg" src="" alt="Zoomed Specification" class="max-w-full max-h-[70vh] object-contain transition-transform duration-300 ease-out" style="transform: scale(1); transform-origin: center;">
+                
+                <!-- Dynamic Hover/Pan Help Tag -->
+                <div class="absolute bottom-4 left-4 bg-black/80 px-3 py-1.5 rounded-full border border-darkBorder text-[10px] tracking-widest text-neutral-400 pointer-events-none">
+                    <i class="fa-solid fa-arrows-up-down-left-right text-brand-400 mr-1 animate-pulse"></i> DRAG / PAN VISUALIZED AREA
+                </div>
+            </div>
+
+            <!-- Controller Modules -->
+            <div class="mt-6 flex items-center gap-4 bg-darkCard border border-darkBorder px-6 py-3 rounded-full shadow-2xl transition-all hover:border-brand-500/30">
+                <button onclick="adjustDetailedZoom(-0.25)" class="w-10 h-10 rounded-full bg-black border border-darkBorder hover:border-brand-500 flex items-center justify-center text-white transition-all hover:scale-105 active:scale-95">
+                    <i class="fa-solid fa-minus text-xs"></i>
+                </button>
+                <span id="zoomLevelIndicator" class="text-xs font-mono font-bold text-neutral-300 min-w-[60px] text-center">100%</span>
+                <button onclick="adjustDetailedZoom(0.25)" class="w-10 h-10 rounded-full bg-black border border-darkBorder hover:border-brand-500 flex items-center justify-center text-white transition-all hover:scale-105 active:scale-95">
+                    <i class="fa-solid fa-plus text-xs"></i>
+                </button>
+                <div class="w-[1px] h-6 bg-darkBorder"></div>
+                <button onclick="resetDetailedZoom()" class="px-4 py-2 rounded-lg bg-black border border-darkBorder hover:border-brand-500 text-[10px] uppercase font-bold tracking-wider text-neutral-400 hover:text-white transition-all">
+                    Reset View
+                </button>
+            </div>
+        </div>
+
+        <!-- ====== CHECKOUT ADDRESS FORM ====== -->
         <div id="buy-checkout" class="page max-w-2xl mx-auto">
             <div class="bg-darkCard border border-darkBorder rounded-2xl overflow-hidden p-6 sm:p-8 space-y-6">
                 <div class="space-y-1">
-                    <span class="text-xs font-extrabold text-brand-500 uppercase tracking-widest">Step 1: Shipping Info</span>
-                    <h2 class="text-2xl font-extrabold text-white">Fulfillment Address</h2>
-                    <p class="text-neutral-400 text-xs">Enter your details below (Indian address & phone).</p>
+                    <span class="text-xs font-extrabold text-brand-400 uppercase tracking-widest">Protocol Step 1</span>
+                    <h2 class="text-2xl font-extrabold text-white">Fulfillment Coordinates</h2>
+                    <p class="text-neutral-400 text-xs">Verify Indian address parameters and consignee metrics.</p>
                 </div>
                 <div class="h-[1px] bg-darkBorder"></div>
                 <form id="addressForm" class="space-y-4">
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-xs font-bold text-neutral-400 uppercase tracking-wider mb-1">Recipient Full Name</label>
-                            <input type="text" id="checkoutName" required placeholder="E.g. Rahul Sharma" class="w-full bg-black border border-darkBorder focus:border-brand-500 text-white rounded-xl py-3 px-4 text-xs outline-none transition-all">
+                            <label class="block text-xs font-bold text-neutral-400 uppercase tracking-wider mb-1">Consignee Name</label>
+                            <input type="text" id="checkoutName" required placeholder="Full Name" class="w-full bg-black border border-darkBorder focus:border-brand-500 text-white rounded-xl py-3 px-4 text-xs outline-none transition-all">
                         </div>
                         <div>
-                            <label class="block text-xs font-bold text-neutral-400 uppercase tracking-wider mb-1">Mobile Number (10 digits)</label>
-                            <input type="tel" id="checkoutPhone" required placeholder="9876543210" pattern="[0-9]{10}" title="Enter a valid 10-digit Indian mobile number" class="w-full bg-black border border-darkBorder focus:border-brand-500 text-white rounded-xl py-3 px-4 text-xs outline-none transition-all">
-                            <p class="text-[10px] text-neutral-500 mt-1">Enter 10-digit Indian mobile number (without +91).</p>
+                            <label class="block text-xs font-bold text-neutral-400 uppercase tracking-wider mb-1">Mobile Contact</label>
+                            <input type="tel" id="checkoutPhone" required placeholder="10-digit phone" pattern="[0-9]{10}" title="Enter your 10 digit number" class="w-full bg-black border border-darkBorder focus:border-brand-500 text-white rounded-xl py-3 px-4 text-xs outline-none transition-all">
                         </div>
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-neutral-400 uppercase tracking-wider mb-1">Detailed Shipping Address</label>
-                        <textarea id="checkoutAddress" required rows="3" placeholder="House No., Street, Locality, City, State" class="w-full bg-black border border-darkBorder focus:border-brand-500 text-white rounded-xl py-3 px-4 text-xs outline-none transition-all"></textarea>
+                        <textarea id="checkoutAddress" required rows="3" placeholder="Apartment, Locality, Sector, City, State" class="w-full bg-black border border-darkBorder focus:border-brand-500 text-white rounded-xl py-3 px-4 text-xs outline-none transition-all"></textarea>
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-neutral-400 uppercase tracking-wider mb-1">Pincode</label>
-                        <input type="text" id="checkoutPincode" required placeholder="110001" pattern="[0-9]{6}" title="Enter a valid 6-digit Indian pincode" class="w-full bg-black border border-darkBorder focus:border-brand-500 text-white rounded-xl py-3 px-4 text-xs outline-none transition-all">
+                        <label class="block text-xs font-bold text-neutral-400 uppercase tracking-wider mb-1">PIN Code (6 digits)</label>
+                        <input type="text" id="checkoutPincode" required placeholder="E.g. 560001" pattern="[0-9]{6}" title="6-digit PIN code" class="w-full bg-black border border-darkBorder focus:border-brand-500 text-white rounded-xl py-3 px-4 text-xs outline-none transition-all">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-neutral-400 uppercase tracking-wider mb-1">Country</label>
-                        <input type="text" value="India" disabled class="w-full bg-black/50 border border-darkBorder text-white rounded-xl py-3 px-4 text-xs outline-none cursor-not-allowed opacity-70">
+                        <label class="block text-xs font-bold text-neutral-400 uppercase tracking-wider mb-1">Sovereign State</label>
+                        <input type="text" value="India" disabled class="w-full bg-black/50 border border-darkBorder text-white rounded-xl py-3 px-4 text-xs outline-none cursor-not-allowed opacity-60">
                     </div>
                     <div class="bg-black/40 border border-darkBorder p-4 rounded-xl flex items-center gap-3">
-                        <i class="fa-solid fa-truck-ramp-box text-brand-500 text-lg"></i>
-                        <p class="text-xs text-neutral-400 leading-normal">Guaranteed standard delivery within 9 days across India.</p>
+                        <i class="fa-solid fa-truck-ramp-box text-brand-400 text-lg"></i>
+                        <p class="text-xs text-neutral-400 leading-normal">Ensured dispatch via verified priority courier systems.</p>
                     </div>
                     <button type="submit" class="w-full py-4 bg-brand-600 hover:bg-brand-500 text-white font-extrabold text-sm uppercase tracking-wider rounded-xl transition-all shadow-lg shadow-brand-500/10 transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-arrow-right"></i> Review Order
+                        Review Specifications <i class="fa-solid fa-angles-right"></i>
                     </button>
                 </form>
             </div>
@@ -296,31 +447,31 @@
         <div id="order-summary" class="page max-w-3xl mx-auto">
             <div class="bg-darkCard border border-darkBorder rounded-2xl overflow-hidden p-6 sm:p-8 space-y-6">
                 <div class="space-y-1">
-                    <span class="text-xs font-extrabold text-brand-500 uppercase tracking-widest">Step 2: Review & Confirm</span>
+                    <span class="text-xs font-extrabold text-brand-400 uppercase tracking-widest">Protocol Step 2</span>
                     <h2 class="text-2xl font-extrabold text-white">Order Summary</h2>
-                    <p class="text-neutral-400 text-xs">Please verify your order before placing it.</p>
+                    <p class="text-neutral-400 text-xs">Verify items and routing parameters before placing order.</p>
                 </div>
                 <div class="h-[1px] bg-darkBorder"></div>
                 <div>
-                    <h3 class="text-sm font-bold text-white mb-3">Items</h3>
+                    <h3 class="text-sm font-bold text-white mb-3">Allocated Items</h3>
                     <div id="summaryItems" class="space-y-2"></div>
                 </div>
                 <div class="h-[1px] bg-darkBorder"></div>
                 <div>
-                    <h3 class="text-sm font-bold text-white mb-2">Shipping Details</h3>
+                    <h3 class="text-sm font-bold text-white mb-2">Transit Destination</h3>
                     <div id="summaryShipping" class="text-xs text-neutral-400 space-y-1"></div>
                 </div>
                 <div class="h-[1px] bg-darkBorder"></div>
                 <div class="flex justify-between items-center">
-                    <span class="text-sm font-bold text-white">Total</span>
+                    <span class="text-sm font-bold text-white">Cumulative Cost</span>
                     <span id="summaryTotal" class="text-2xl font-extrabold text-emerald-400">₹0.00</span>
                 </div>
                 <div class="flex flex-col sm:flex-row gap-4 pt-4">
                     <button onclick="goBackToAddress()" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-neutral-900 hover:bg-neutral-800 border border-darkBorder text-white font-bold text-sm transition-all">
-                        <i class="fa-solid fa-chevron-left mr-2"></i> Back
+                        <i class="fa-solid fa-arrow-left mr-2"></i> Re-edit Form
                     </button>
                     <button id="placeOrderBtn" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm transition-all shadow-lg shadow-emerald-500/20 flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-check-circle"></i> Place Order
+                        Commit Purchase Protocol <i class="fa-solid fa-circle-check"></i>
                     </button>
                 </div>
             </div>
@@ -329,123 +480,166 @@
         <!-- ====== ORDER SUCCESS ====== -->
         <div id="order-success" class="page max-w-xl mx-auto text-center space-y-6">
             <div class="bg-darkCard border border-emerald-500/30 rounded-2xl p-8 space-y-6 glow-shadow-primary relative overflow-hidden">
-                <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(16,185,129,0.1),transparent_70%)]"></div>
+                <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(16,185,129,0.08),transparent_70%)]"></div>
                 <div class="relative z-10 space-y-4">
-                    <div class="w-20 h-20 bg-emerald-500/10 border-2 border-emerald-500 rounded-full flex items-center justify-center mx-auto"><i class="fa-solid fa-truck-fast text-emerald-400 text-3xl animate-bounce"></i></div>
-                    <span class="inline-block text-xs font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 py-1 px-3 rounded-full uppercase tracking-wider">Purchase Finalized</span>
-                    <h2 class="text-2xl font-extrabold text-white">Your order has been placed!</h2>
-                    <p class="text-base text-brand-100 font-bold py-2 bg-neutral-900 border border-darkBorder rounded-xl">Delivery will be done within 9 days.</p>
-                    <p class="text-neutral-400 text-xs px-4 leading-relaxed">An automated shipping courier will reach your destination. Tracking data has been integrated into your purchase log in real-time.</p>
+                    <div class="w-20 h-20 bg-emerald-500/10 border-2 border-emerald-500 rounded-full flex items-center justify-center mx-auto">
+                        <i class="fa-solid fa-satellite-dish text-emerald-400 text-3xl animate-bounce"></i>
+                    </div>
+                    <span class="inline-block text-xs font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 py-1 px-3 rounded-full uppercase tracking-wider">TELEMETRY SECURED</span>
+                    <h2 class="text-2xl font-extrabold text-white">Purchase Committed Successfully</h2>
+                    <p class="text-base text-brand-100 font-bold py-2 bg-neutral-900 border border-darkBorder rounded-xl">Target arrival within 9 days</p>
+                    <p class="text-neutral-400 text-xs px-4 leading-relaxed">Your routing coordinates have been parsed. Tracking telemetry records are now visible under your logistics log.</p>
                 </div>
                 <div class="h-[1px] bg-darkBorder"></div>
-                <!-- Countdown & auto-redirect -->
                 <div class="space-y-2">
                     <div class="countdown-ring"></div>
-                    <p class="text-xs text-neutral-500">Redirecting to home in <span id="countdownTimer">5</span> seconds...</p>
+                    <p class="text-xs text-neutral-500">Auto-cycling to hub in <span id="countdownTimer">5</span>s...</p>
                 </div>
             </div>
         </div>
 
-        <!-- ====== CART ====== -->
+        <!-- ====== CART PAGE ====== -->
         <div id="cart" class="page space-y-8">
-            <h2 class="text-2xl font-extrabold text-white"><i class="fa-solid fa-cart-shopping text-brand-500 mr-2"></i> Your Shopping Cart</h2>
+            <h2 class="text-2xl font-extrabold text-white"><i class="fa-solid fa-box text-brand-400 mr-2"></i> Allocated Payload (Cart)</h2>
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
                 <div class="lg:col-span-8 space-y-4" id="cartContainer"></div>
                 <div class="lg:col-span-4">
                     <div class="bg-darkCard border border-darkBorder p-6 rounded-2xl space-y-6">
-                        <h3 class="text-lg font-bold text-white">Checkout Parameters</h3>
+                        <h3 class="text-lg font-bold text-white">Purchase Summary</h3>
                         <div class="space-y-3">
-                            <div class="flex justify-between text-xs text-neutral-400"><span>Cart Subtotal</span><span id="cartSubtotal">₹0.00</span></div>
+                            <div class="flex justify-between text-xs text-neutral-400"><span>Subtotal</span><span id="cartSubtotal">₹0.00</span></div>
                             <div class="flex justify-between text-xs text-neutral-400"><span>Courier Shipment</span><span class="text-emerald-400 uppercase font-bold">Complimentary</span></div>
                             <div class="h-[1px] bg-darkBorder"></div>
-                            <div class="flex justify-between text-sm font-bold text-white"><span>Final Order Sum</span><span id="cartTotal" class="text-emerald-400">₹0.00</span></div>
+                            <div class="flex justify-between text-sm font-bold text-white"><span>Aggregate Sum</span><span id="cartTotal" class="text-emerald-400 font-extrabold text-lg">₹0.00</span></div>
                         </div>
-                        <button id="cartCheckoutBtn" class="w-full py-4 bg-brand-600 hover:bg-brand-500 text-white font-extrabold text-xs uppercase tracking-wider rounded-xl transition-all shadow-lg shadow-brand-500/10 flex items-center justify-center gap-2">Checkout Cart <i class="fa-solid fa-arrow-right"></i></button>
+                        <button id="cartCheckoutBtn" class="w-full py-4 bg-brand-600 hover:bg-brand-500 text-white font-extrabold text-xs uppercase tracking-wider rounded-xl transition-all shadow-lg shadow-brand-500/10 flex items-center justify-center gap-2">
+                            Secure Checkout <i class="fa-solid fa-arrow-right"></i>
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- ====== WISHLIST ====== -->
+        <!-- ====== WISHLIST PAGE ====== -->
         <div id="wishlist" class="page space-y-8">
-            <h2 class="text-2xl font-extrabold text-white"><i class="fa-regular fa-heart text-brand-500 mr-2"></i> Saved Items</h2>
+            <h2 class="text-2xl font-extrabold text-white"><i class="fa-regular fa-heart text-brand-400 mr-2"></i> Flagged Blueprints (Wishlist)</h2>
             <div id="wishlistContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
         </div>
 
-        <!-- ====== ORDERS ====== -->
+        <!-- ====== LOGISTICS (ORDERS) PAGE ====== -->
         <div id="orders" class="page space-y-8">
-            <h2 class="text-2xl font-extrabold text-white"><i class="fa-solid fa-receipt text-brand-500 mr-2"></i> Purchase History</h2>
+            <h2 class="text-2xl font-extrabold text-white"><i class="fa-solid fa-microchip text-brand-400 mr-2"></i> Core Telemetry Log (Purchases)</h2>
             <div id="ordersContainer" class="space-y-4"></div>
         </div>
 
-        <!-- ====== ABOUT ====== -->
+        <!-- ====== ABOUT PAGE ====== -->
         <div id="about" class="page space-y-6 max-w-3xl mx-auto">
             <div class="bg-darkCard border border-darkBorder p-8 rounded-2xl space-y-4 text-center">
-                <h2 class="text-3xl font-extrabold text-white">Aesthetic Innovation</h2>
-                <p class="text-brand-500 font-bold text-sm uppercase tracking-widest">Est. 2026</p>
+                <h2 class="text-3xl font-extrabold text-white">Synthesized Vision</h2>
+                <p class="text-brand-400 font-mono font-bold text-sm uppercase tracking-widest">ESTABLISHED TIMELINE: 2026</p>
                 <div class="h-[1px] bg-darkBorder my-4"></div>
-                <p class="text-neutral-400 text-sm leading-relaxed">VibeStore provides state-of-the-art consumer products directly sourced from elite manufacturing plants. Every single list item has custom features including active rating lists, flexible courier support, and fully secure, authenticated sessions.</p>
-                <p class="text-neutral-400 text-sm leading-relaxed pt-2">Our platform utilizes synchronized database operations so you can experience direct purchases, customized reviews, and robust admin parameters on-demand.</p>
+                <p class="text-neutral-400 text-sm leading-relaxed font-light">VibeStore builds the bridge between futuristic hardware components, premium streetwear constructs, and secure digital delivery pathways. Every single item has been structured, built, and vetted prior to catalog release.</p>
+                <p class="text-neutral-400 text-sm leading-relaxed pt-2 font-light">Our backend logs real-time details to compile a dynamic popularity heat index. The most popular models automatically occupy high-priority spaces to enhance our user catalog layouts.</p>
             </div>
         </div>
 
-        <!-- ====== CONTACT ====== -->
+        <!-- ====== CONTACT PAGE ====== -->
         <div id="contact" class="page space-y-6 max-w-2xl mx-auto">
             <div class="bg-darkCard border border-darkBorder p-8 rounded-2xl space-y-6">
                 <div class="text-center space-y-2">
-                    <h2 class="text-2xl font-extrabold text-white">Support Channels</h2>
-                    <p class="text-neutral-400 text-xs">Reach out to our logistics desk for immediate solutions.</p>
+                    <h2 class="text-2xl font-extrabold text-white">BroadCast Telemetry</h2>
+                    <p class="text-neutral-400 text-xs">Transmit an instant message route to our logistics advisors.</p>
                 </div>
                 <div class="h-[1px] bg-darkBorder"></div>
                 <form id="contactForm" class="space-y-4">
-                    <div><label class="block text-xs font-bold text-neutral-400 uppercase tracking-wider mb-1">Your Name</label><input type="text" id="contactName" required placeholder="Full Name" class="w-full bg-black border border-darkBorder focus:border-brand-500 text-white rounded-xl py-3 px-4 text-xs outline-none transition-all"></div>
-                    <div><label class="block text-xs font-bold text-neutral-400 uppercase tracking-wider mb-1">Email Address</label><input type="email" id="contactEmail" required placeholder="E.g. customer@domain.com" class="w-full bg-black border border-darkBorder focus:border-brand-500 text-white rounded-xl py-3 px-4 text-xs outline-none transition-all"></div>
-                    <div><label class="block text-xs font-bold text-neutral-400 uppercase tracking-wider mb-1">Inquiry Message</label><textarea id="contactMessage" required rows="4" placeholder="Briefly specify details..." class="w-full bg-black border border-darkBorder focus:border-brand-500 text-white rounded-xl py-3 px-4 text-xs outline-none transition-all"></textarea></div>
-                    <button type="submit" class="w-full py-3 bg-brand-600 hover:bg-brand-500 text-white font-extrabold text-xs uppercase tracking-wider rounded-xl transition-all shadow-lg shadow-brand-500/10">Transmit Inquiry</button>
+                    <div>
+                        <label class="block text-xs font-bold text-neutral-400 uppercase tracking-wider mb-1">Your Call-Sign</label>
+                        <input type="text" id="contactName" required placeholder="User / Comm ID" class="w-full bg-black border border-darkBorder focus:border-brand-500 text-white rounded-xl py-3 px-4 text-xs outline-none transition-all">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-neutral-400 uppercase tracking-wider mb-1">Communication Email</label>
+                        <input type="email" id="contactEmail" required placeholder="customer@vibestore.com" class="w-full bg-black border border-darkBorder focus:border-brand-500 text-white rounded-xl py-3 px-4 text-xs outline-none transition-all">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-neutral-400 uppercase tracking-wider mb-1">Inquiry Details</label>
+                        <textarea id="contactMessage" required rows="4" placeholder="Transmit details..." class="w-full bg-black border border-darkBorder focus:border-brand-500 text-white rounded-xl py-3 px-4 text-xs outline-none transition-all"></textarea>
+                    </div>
+                    <button type="submit" class="w-full py-3 bg-brand-600 hover:bg-brand-500 text-white font-extrabold text-xs uppercase tracking-wider rounded-xl transition-all shadow-lg shadow-brand-500/10">
+                        BROADCAST INQUIRY <i class="fa-solid fa-tower-broadcast"></i>
+                    </button>
                 </form>
-            </div>
-        </div>
-
-        <!-- ====== NEWSLETTER ====== -->
-        <div id="newsletter" class="page max-w-2xl mx-auto space-y-6">
-            <div class="bg-darkCard border border-darkBorder p-8 rounded-2xl text-center space-y-4">
-                <i class="fa-regular fa-envelope text-4xl text-brand-500"></i>
-                <h2 class="text-2xl font-extrabold text-white">Stay in the Loop</h2>
-                <p class="text-neutral-400 text-sm">Subscribe to our newsletter for exclusive drops and offers.</p>
-                <form id="newsletterForm" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-                    <input type="email" id="newsletterEmail" required placeholder="Enter your email" class="flex-1 bg-black border border-darkBorder focus:border-brand-500 text-white rounded-xl py-3 px-4 text-xs outline-none transition-all">
-                    <button type="submit" class="px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs transition-all">Subscribe</button>
-                </form>
-                <p class="text-[10px] text-neutral-500">No spam. Unsubscribe anytime.</p>
-            </div>
-        </div>
-
-        <!-- ====== ADMIN LINK ====== -->
-        <div id="admin" class="page space-y-10">
-            <div class="bg-darkCard border border-darkBorder p-8 rounded-2xl text-center space-y-6">
-                <i class="fa-solid fa-screwdriver-wrench text-5xl text-brand-500"></i>
-                <h2 class="text-2xl font-extrabold text-white">Admin Panel</h2>
-                <p class="text-neutral-400 text-sm">Manage products, orders, and customer inquiries.</p>
-                <a href="change.html" target="_blank" class="inline-block px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold transition-all shadow-lg shadow-brand-500/20">Open Admin Dashboard <i class="fa-solid fa-arrow-up-right-from-square ml-2"></i></a>
             </div>
         </div>
 
     </main>
 
-    <!-- ====== AUTH MODAL ====== -->
+    <!-- ====== AUTHENTICATION PORTAL ====== -->
     <div id="authModal" class="fixed inset-0 z-[100] bg-black/80 backdrop-blur-md hidden items-center justify-center p-4">
         <div class="w-full max-w-md bg-darkCard border border-darkBorder rounded-2xl p-6 sm:p-8 space-y-6 glow-shadow-primary relative">
-            <button onclick="toggleAuthModal(false)" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-black/40 border border-darkBorder flex items-center justify-center text-neutral-400 hover:text-white hover:border-neutral-500 transition-all"><i class="fa-solid fa-xmark"></i></button>
+            <button onclick="toggleAuthModal(false)" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-black/40 border border-darkBorder flex items-center justify-center text-neutral-400 hover:text-white hover:border-neutral-500 transition-all">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
             <div class="text-center space-y-2">
                 <h3 class="text-xl font-extrabold text-white" id="authModalTitle">Access Portal</h3>
-                <p class="text-neutral-400 text-xs">Unlock checkout parameters and purchase history features</p>
+                <p class="text-neutral-400 text-xs">Identify user credentials for telemetry verification</p>
             </div>
             <form id="authModalForm" class="space-y-4">
-                <div><label class="block text-xs text-neutral-400 font-bold mb-1">Email Address</label><input type="email" id="authEmail" required placeholder="name@domain.com" class="w-full bg-black border border-darkBorder focus:border-brand-500 text-white rounded-xl py-2.5 px-3.5 text-xs outline-none transition-all"></div>
-                <div><label class="block text-xs text-neutral-400 font-bold mb-1">Password</label><input type="password" id="authPassword" required placeholder="••••••••" class="w-full bg-black border border-darkBorder focus:border-brand-500 text-white rounded-xl py-2.5 px-3.5 text-xs outline-none transition-all"></div>
-                <button type="submit" id="authModalSubmitBtn" class="w-full py-3 bg-brand-600 hover:bg-brand-500 text-white font-extrabold text-xs uppercase tracking-wider rounded-xl transition-all shadow-lg shadow-brand-500/10">Sign In</button>
+                <div>
+                    <label class="block text-xs text-neutral-400 font-bold mb-1">Email Address</label>
+                    <input type="email" id="authEmail" required placeholder="comm@identity.com" class="w-full bg-black border border-darkBorder focus:border-brand-500 text-white rounded-xl py-2.5 px-3.5 text-xs outline-none transition-all">
+                </div>
+                <div>
+                    <label class="block text-xs text-neutral-400 font-bold mb-1">Passcode</label>
+                    <input type="password" id="authPassword" required placeholder="••••••••" class="w-full bg-black border border-darkBorder focus:border-brand-500 text-white rounded-xl py-2.5 px-3.5 text-xs outline-none transition-all">
+                </div>
+                <button type="submit" id="authModalSubmitBtn" class="w-full py-3 bg-brand-600 hover:bg-brand-500 text-white font-extrabold text-xs uppercase tracking-wider rounded-xl transition-all shadow-lg shadow-brand-500/10">
+                    Sign In
+                </button>
             </form>
-            <div class="text-center"><button onclick="toggleAuthMode()" id="authModeToggler" class="text-xs text-brand-500 hover:underline">Need an account? Sign Up</button></div>
+            <div class="text-center">
+                <button onclick="toggleAuthMode()" id="authModeToggler" class="text-xs text-brand-400 hover:underline">Register New Comm Port</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====== FLOATING AI STYLE ASSISTANT (VIBEBOT) ====== -->
+    <div class="fixed bottom-6 right-6 z-[90]">
+        <!-- Chat trigger button -->
+        <button onclick="toggleVibeBot()" class="w-14 h-14 rounded-full bg-gradient-to-tr from-brand-600 to-indigo-500 shadow-xl flex items-center justify-center text-white hover:scale-105 transition-all glow-pulse relative">
+            <i class="fa-solid fa-robot text-lg"></i>
+            <span class="absolute -top-1 -right-1 w-4 h-4 bg-emerald-500 border-2 border-black rounded-full flex items-center justify-center text-[8px] text-white"></span>
+        </button>
+        
+        <!-- Chat dialog window layout -->
+        <div id="vibeBotChat" class="hidden absolute bottom-18 right-0 w-[340px] sm:w-[380px] bg-darkCard border border-darkBorder rounded-2xl overflow-hidden shadow-2xl flex flex-col justify-between animate-[pageFadeIn_0.3s_cubic-bezier(0.16,1,0.3,1)_forwards]">
+            <!-- Header -->
+            <div class="bg-gradient-to-r from-brand-700 to-indigo-950 p-4 flex items-center justify-between border-b border-darkBorder">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-lg bg-black/40 flex items-center justify-center"><i class="fa-solid fa-robot text-brand-400"></i></div>
+                    <div>
+                        <h3 class="text-xs font-extrabold text-white">VibeBot Style Companion</h3>
+                        <p class="text-[9px] text-brand-100 flex items-center gap-1"><span class="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-ping"></span> Live Analyzer</p>
+                    </div>
+                </div>
+                <button onclick="toggleVibeBot()" class="text-neutral-300 hover:text-white"><i class="fa-solid fa-chevron-down text-sm"></i></button>
+            </div>
+            
+            <!-- Conversational Feed -->
+            <div id="vibeBotMessages" class="p-4 h-[280px] overflow-y-auto space-y-3 text-xs bg-black/40">
+                <div class="flex items-start gap-2 max-w-[85%] animate-card-load">
+                    <div class="bg-darkBorder text-neutral-300 p-2.5 rounded-2xl rounded-tl-none">
+                        Greeting, I am VibeBot. Ask me about popular specs, custom dimensions, fitting configurations, or shipment tracking!
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Send controls -->
+            <form id="vibeBotForm" class="p-3 bg-black/90 border-t border-darkBorder flex items-center gap-2">
+                <input type="text" id="vibeBotInput" required placeholder="Query VibeBot..." class="flex-grow bg-darkCard border border-darkBorder focus:border-brand-500 text-xs text-white placeholder-neutral-500 rounded-xl py-2 px-3 outline-none transition-all">
+                <button type="submit" class="w-8 h-8 rounded-lg bg-brand-600 hover:bg-brand-500 text-white flex items-center justify-center transition-colors">
+                    <i class="fa-solid fa-paper-plane text-xs"></i>
+                </button>
+            </form>
         </div>
     </div>
 
@@ -453,14 +647,16 @@
     <footer class="bg-black border-t border-darkBorder py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
             <div class="flex items-center gap-3">
-                <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-brand-600 to-indigo-500 flex items-center justify-center"><i class="fa-solid fa-cube text-white text-sm"></i></div>
+                <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-brand-600 to-indigo-500 flex items-center justify-center">
+                    <i class="fa-solid fa-cube text-white text-sm"></i>
+                </div>
                 <span class="text-sm font-extrabold tracking-tight text-white">VIBE<span class="text-brand-500">STORE</span></span>
             </div>
-            <p class="text-xs text-neutral-500">&copy; 2026 VibeStore. All logistics pipelines actively operating within safe 9-day dispatch guidelines.</p>
+            <p class="text-xs text-neutral-500">&copy; 2026 VibeStore. High-priority shipment pipelines active on guaranteed 9-day dispatch routes.</p>
         </div>
     </footer>
 
-    <!-- ====== FIREBASE SCRIPT ====== -->
+    <!-- ====== MODULE SCRIPTS ====== -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
         import { getAuth, signInAnonymously, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
@@ -480,31 +676,93 @@
         const auth = getAuth(app);
         const db = getDatabase(app);
 
-        // ====== STATE ======
+        // ====== STATE VARIABLES ======
         let currentUser = null;
         let products = [];
         let localCart = [];
         let localWishlist = [];
         let activeProductDetail = null;
-        let activeProductDetailImgIndex = 0;
+        let activeProductDetailImgIndex = 1;
         let isAuthSignUpMode = false;
         let pendingOrder = null;
         let redirectTimer = null;
+        let selectedProductSize = null;
         
-        // Carousel State
+        // Carousel Tickers
         let currentHeroSlideIndex = 0;
         let heroSlideInterval = null;
+        let detailCarouselInterval = null;
 
-        // ====== TOAST ======
+        // Touch Motion Captures
+        let swipeStartX = 0;
+        let swipeEndX = 0;
+        let swipeStartY = 0;
+        let swipeEndY = 0;
+
+        // Zoom Modal Coordinates & State
+        let currentZoomFactor = 1.0;
+        let isPanningActive = false;
+        let panStartX = 0;
+        let panStartY = 0;
+        let panCurrentOffsetX = 0;
+        let panCurrentOffsetY = 0;
+
+        // ====== SPATIAL SYNTHESIZER ORCHESTRA (WEB AUDIO API) ======
+        const audioContextInstance = new (window.AudioContext || window.webkitAudioContext)();
+        
+        function playChimeEffect(preset = 'success') {
+            try {
+                if (audioContextInstance.state === 'suspended') {
+                    audioContextInstance.resume();
+                }
+                const osc = audioContextInstance.createOscillator();
+                const gain = audioContextInstance.createGain();
+                
+                osc.connect(gain);
+                gain.connect(audioContextInstance.destination);
+                
+                if (preset === 'success') {
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(523.25, audioContextInstance.currentTime); // C5
+                    osc.frequency.setValueAtTime(659.25, audioContextInstance.currentTime + 0.1); // E5
+                    osc.frequency.setValueAtTime(783.99, audioContextInstance.currentTime + 0.2); // G5
+                    gain.gain.setValueAtTime(0.12, audioContextInstance.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioContextInstance.currentTime + 0.4);
+                    osc.start();
+                    osc.stop(audioContextInstance.currentTime + 0.4);
+                } else if (preset === 'zoom') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(440, audioContextInstance.currentTime); // A4
+                    osc.frequency.setValueAtTime(880, audioContextInstance.currentTime + 0.08); // A5
+                    gain.gain.setValueAtTime(0.06, audioContextInstance.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioContextInstance.currentTime + 0.25);
+                    osc.start();
+                    osc.stop(audioContextInstance.currentTime + 0.25);
+                } else if (preset === 'delete') {
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(220, audioContextInstance.currentTime); // A3
+                    osc.frequency.setValueAtTime(146.83, audioContextInstance.currentTime + 0.1); // D3
+                    gain.gain.setValueAtTime(0.08, audioContextInstance.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioContextInstance.currentTime + 0.3);
+                    osc.start();
+                    osc.stop(audioContextInstance.currentTime + 0.3);
+                }
+            } catch (err) {
+                console.warn("Audio Context blocked / restricted: ", err);
+            }
+        }
+
+        // ====== TOAST NOTIFICATION ======
         function showToast(message, type = 'success') {
             const container = document.getElementById('toastContainer') || createToastContainer();
             const toast = document.createElement('div');
             toast.className = `flex items-center gap-3 py-3 px-5 rounded-xl border text-xs font-bold shadow-lg transition-all transform translate-y-2 opacity-0 pointer-events-auto bg-darkCard ${type === 'success' ? 'border-emerald-500/30 text-emerald-400' : 'border-rose-500/30 text-rose-400'}`;
-            toast.innerHTML = `<i class="${type === 'success' ? 'fa-solid fa-circle-check text-emerald-400' : 'fa-solid fa-circle-exclamation text-rose-400'} text-base"></i><span>${message}</span>`;
+            toast.innerHTML = `<i class="${type === 'success' ? 'fa-solid fa-circle-check' : 'fa-solid fa-circle-exclamation'} text-base"></i><span>${message}</span>`;
             container.appendChild(toast);
             setTimeout(() => toast.classList.remove('translate-y-2', 'opacity-0'), 10);
-            setTimeout(() => { toast.classList.add('opacity-0', 'translate-y-2'); setTimeout(() => toast.remove(), 300); }, 4000);
+            setTimeout(() => { toast.classList.add('opacity-0', 'translate-y-2'); setTimeout(() => toast.remove(), 300); }, 3500);
         }
+        
         function createToastContainer() {
             const container = document.createElement('div');
             container.id = 'toastContainer';
@@ -513,64 +771,59 @@
             return container;
         }
 
-        // ====== CACHE ======
-        const CACHE_KEY = 'vibestore_products';
-        const CACHE_EXPIRY = 30 * 60 * 1000;
-
-        function getCachedProducts() {
-            try {
-                const raw = localStorage.getItem(CACHE_KEY);
-                if (!raw) return null;
-                const data = JSON.parse(raw);
-                if (Date.now() - data.timestamp > CACHE_EXPIRY) return null;
-                return data.products;
-            } catch { return null; }
-        }
-
-        function setCachedProducts(products) {
-            try {
-                const data = { products, timestamp: Date.now() };
-                localStorage.setItem(CACHE_KEY, JSON.stringify(data));
-            } catch {}
-        }
-
-        // ====== DEFAULT SEED ======
+        // ====== DEFAULT CATALOG SEED MODULE ======
         const defaultProducts = [
             {
-                name: "Void Chronograph Cyber-Wristwatch",
+                name: "Aether Obsidian Chrono-Watch",
                 category: "electronics",
-                price: 189.99,
-                imageUrl1: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=600&q=80",
-                imageUrl2: "https://images.unsplash.com/photo-1542496658-e33a6d0d50f6?auto=format&fit=crop&w=600&q=80",
-                imageUrl3: "https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?auto=format&fit=crop&w=600&q=80",
-                description: "Matte-black aluminum chassis combined with precision Japanese Quartz movement, waterproof casing, and tactile dynamic pushers.",
-                benefits: "Complimentary 9-Day delivery package, Extended 3-year mechanical warranty, Custom engraved presentation box",
+                price: 15499.00,
+                clicks: 34,
+                imageUrl1: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=700&q=80",
+                imageUrl2: "https://images.unsplash.com/photo-1542496658-e33a6d0d50f6?auto=format&fit=crop&w=700&q=80",
+                imageUrl3: "https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?auto=format&fit=crop&w=700&q=80",
+                description: "Anodized obsidian metal construct. Custom haptic dial mechanics coupled with biometric integration indices. Built-in system optimization telemetry with waterproof casing.",
+                benefits: "Complimentary 9-Day fully tracked parcel courier, 2-Year system maintenance warranty, Carbon-neutral case packaging",
                 reviews: [
-                    { name: "Damian Vance", rating: 5, comment: "Pure elegance. Fits exceptionally well in dark outfits." },
-                    { name: "Alisha Croft", rating: 4, comment: "Terrific glass finish, although slightly bulkier than expected." }
+                    { name: "Alita Geller", rating: 5, comment: "Pure structural ergonomics. Fits flawlessly in high tech-wear outfits." },
+                    { name: "Vance Kovacs", rating: 4, comment: "Incredibly responsive dial rotation." }
                 ]
             },
             {
-                name: "Obsidian mechanical sound-isolating headset",
-                category: "electronics",
-                price: 249.99,
-                imageUrl1: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80",
-                imageUrl2: "https://images.unsplash.com/photo-1484704849700-f032a568e944?auto=format&fit=crop&w=600&q=80",
-                imageUrl3: "https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&w=600&q=80",
-                description: "Acoustically soundproof mechanical components featuring deep bio-cellulose audio arrays and hybrid noise-filtration profiles.",
-                benefits: "9-Day courier tracked shipping, Safe storage bag included, Sweat-proof premium ear wraps",
-                reviews: [{ name: "Kenji Sato", rating: 5, comment: "Completely filters ambient hums. Pure acoustics." }]
+                name: "Neon-Woven Technical Cargo Outrunner",
+                category: "fashion",
+                price: 7499.00,
+                clicks: 58,
+                imageUrl1: "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=700&q=80",
+                imageUrl2: "https://images.unsplash.com/photo-1517438476312-10d79c077509?auto=format&fit=crop&w=700&q=80",
+                imageUrl3: "https://images.unsplash.com/photo-1552902865-b72c031ac5ea?auto=format&fit=crop&w=700&q=80",
+                description: "Structured high-grade technical cargos. Weatherproof outer shell, integrated quick-release magnetic loops, modular tension straps, and reflective nylon braids.",
+                benefits: "Complimentary 9-Day transit across India, Hypoallergenic tech-weave, Elastic frame adjustment",
+                sizes: ["S-28", "M-30", "L-32", "XL-34"],
+                reviews: [{ name: "Marcus Kane", rating: 5, comment: "Tons of deep utility space. Windproofing holds up perfectly." }]
             },
             {
-                name: "All-Black Tactical Travel Bag",
-                category: "fashion",
-                price: 119.50,
-                imageUrl1: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=600&q=80",
-                imageUrl2: "https://images.unsplash.com/photo-1531043322228-e12ecb1af591?auto=format&fit=crop&w=600&q=80",
-                imageUrl3: "https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?auto=format&fit=crop&w=600&q=80",
-                description: "Premium high-density tactical weave material with modular interior structures, magnetic strap connectors, and security locking compartments.",
-                benefits: "Guaranteed 9-Day standard delivery, Lifetime canvas replacement, Waterproof shielding layout",
+                name: "Spectre Isolation Studio-Overears",
+                category: "electronics",
+                price: 19999.00,
+                clicks: 12,
+                imageUrl1: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=700&q=80",
+                imageUrl2: "https://images.unsplash.com/photo-1484704849700-f032a568e944?auto=format&fit=crop&w=700&q=80",
+                imageUrl3: "https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&w=700&q=80",
+                description: "Deep passive structural acoustic insulation. Embedded dual-channel bio-cellulose sound drivers, premium dynamic leather memory cups.",
+                benefits: "Complimentary courier package, 3-Year driver warranty, Dynamic protective frame box",
                 reviews: []
+            },
+            {
+                name: "Modular Commuter Tactical Shell-Back",
+                category: "essentials",
+                price: 9899.00,
+                clicks: 22,
+                imageUrl1: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=700&q=80",
+                imageUrl2: "https://images.unsplash.com/photo-1531043322228-e12ecb1af591?auto=format&fit=crop&w=700&q=80",
+                imageUrl3: "https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?auto=format&fit=crop&w=700&q=80",
+                description: "Bulletproof-density tactical weave construct. Dynamic magnetic clip systems, modular loop pathways, and hidden storage dividers for tech rigs.",
+                benefits: "Waterproof canvas wrap, Lifetime panel replacement guarantee, Free 9-Day courier tracked shipping",
+                reviews: [{ name: "Ramiro", rating: 5, comment: "Extremely robust. Best travel pack I've ever deployed." }]
             }
         ];
 
@@ -581,18 +834,20 @@
                 for (let item of defaultProducts) {
                     await push(productsRef, item);
                 }
-                showToast("Default catalog seeded successfully!");
+                showToast("Default storefront seeded successfully!");
             }
         }
 
-        // ====== AUTH ======
+        // ====== AUTHENTICATION NODES ======
         async function runSessionInitialization() {
             try {
                 await signInAnonymously(auth);
-            } catch (err) { console.error("Auth init fault:", err); }
+            } catch (err) { 
+                console.error("Session authentication error:", err); 
+            }
         }
 
-        // ====== ROUTING ======
+        // ====== ROUTING ROUTINES ======
         function processActiveRoute() {
             const hash = window.location.hash || '#home';
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -605,16 +860,23 @@
                 target.classList.add('active');
                 const navBtn = document.querySelector(`.nav-btn[href="#${pageId}"]`);
                 if (navBtn) navBtn.classList.add('bg-brand-500/10', 'text-white');
+                
+                stopDetailCarousel();
+                closeImageZoomModal();
+                
                 if (pageId === 'product-detail') {
                     const params = new URLSearchParams(hash.split('?')[1]);
                     const prodId = params.get('id');
                     if (prodId) loadProductDetailsView(prodId);
-                } else if (pageId === 'cart') renderShoppingCart();
-                else if (pageId === 'wishlist') renderWishlist();
-                else if (pageId === 'orders') renderCustomerPurchases();
-                else if (pageId === 'order-summary') renderOrderSummary();
-                else if (pageId === 'featured') renderFeaturedPage();
-                else if (pageId === 'order-success') {
+                } else if (pageId === 'cart') {
+                    renderShoppingCart();
+                } else if (pageId === 'wishlist') {
+                    renderWishlist();
+                } else if (pageId === 'orders') {
+                    renderCustomerPurchases();
+                } else if (pageId === 'order-summary') {
+                    renderOrderSummary();
+                } else if (pageId === 'order-success') {
                     startRedirectTimer();
                 }
             } else {
@@ -624,12 +886,9 @@
         }
         window.addEventListener('hashchange', processActiveRoute);
 
-        // ====== REDIRECT TIMER FOR SUCCESS PAGE ======
+        // ====== AUTO-REDIRECT SEQUENCE ======
         function startRedirectTimer() {
-            if (redirectTimer) {
-                clearInterval(redirectTimer);
-                redirectTimer = null;
-            }
+            if (redirectTimer) clearInterval(redirectTimer);
             let seconds = 5;
             const timerEl = document.getElementById('countdownTimer');
             if (timerEl) timerEl.textContent = seconds;
@@ -645,32 +904,293 @@
             }, 1000);
         }
 
-        // ====== HERO CAROUSEL ======
+        // ====== CAROUSEL ALGORITHMS ======
+        function startDetailCarousel() {
+            stopDetailCarousel();
+            const progressIndicator = document.getElementById('carouselProgressIndicator');
+            if (progressIndicator) {
+                progressIndicator.style.transition = 'none';
+                progressIndicator.style.width = '0%';
+                setTimeout(() => {
+                    progressIndicator.style.transition = 'width 3000ms linear';
+                    progressIndicator.style.width = '100%';
+                }, 50);
+            }
+            
+            detailCarouselInterval = setInterval(() => {
+                if (!activeProductDetail) return;
+                const totalImg = getActiveProductImagesCount();
+                if (totalImg <= 1) return;
+                
+                let nextIdx = activeProductDetailImgIndex + 1;
+                if (nextIdx > totalImg) nextIdx = 1;
+                setDetailActiveImage(nextIdx);
+            }, 3000);
+        }
+
+        function stopDetailCarousel() {
+            if (detailCarouselInterval) {
+                clearInterval(detailCarouselInterval);
+                detailCarouselInterval = null;
+            }
+            const progressIndicator = document.getElementById('carouselProgressIndicator');
+            if (progressIndicator) {
+                progressIndicator.style.transition = 'none';
+                progressIndicator.style.width = '0%';
+            }
+        }
+
+        function getActiveProductImagesCount() {
+            if (!activeProductDetail) return 0;
+            let count = 0;
+            for (let i = 1; i <= 8; i++) {
+                if (activeProductDetail[`imageUrl${i}`]) count++;
+            }
+            return count;
+        }
+
+        function setupCarouselGestures() {
+            const container = document.getElementById('detailMainImgContainer');
+            if (!container) return;
+
+            // Touch support
+            container.addEventListener('touchstart', (e) => {
+                swipeStartX = e.changedTouches[0].clientX;
+                swipeStartY = e.changedTouches[0].clientY;
+                stopDetailCarousel();
+            }, { passive: true });
+
+            container.addEventListener('touchend', (e) => {
+                swipeEndX = e.changedTouches[0].clientX;
+                swipeEndY = e.changedTouches[0].clientY;
+                evaluateSwipeGesture();
+                startDetailCarousel();
+            }, { passive: true });
+
+            // Mouse drag fallback
+            container.addEventListener('mousedown', (e) => {
+                swipeStartX = e.clientX;
+                swipeStartY = e.clientY;
+                stopDetailCarousel();
+            });
+
+            container.addEventListener('mouseup', (e) => {
+                swipeEndX = e.clientX;
+                swipeEndY = e.clientY;
+                evaluateSwipeGesture();
+                startDetailCarousel();
+            });
+            
+            document.getElementById('carouselPrevBtn')?.addEventListener('click', (e) => {
+                e.stopPropagation();
+                stopDetailCarousel();
+                triggerManualSlide(-1);
+                startDetailCarousel();
+            });
+            
+            document.getElementById('carouselNextBtn')?.addEventListener('click', (e) => {
+                e.stopPropagation();
+                stopDetailCarousel();
+                triggerManualSlide(1);
+                startDetailCarousel();
+            });
+        }
+
+        function triggerManualSlide(direction) {
+            const totalImg = getActiveProductImagesCount();
+            if (totalImg <= 1) return;
+            let nextIdx = activeProductDetailImgIndex + direction;
+            if (nextIdx > totalImg) nextIdx = 1;
+            if (nextIdx < 1) nextIdx = totalImg;
+            setDetailActiveImage(nextIdx);
+        }
+
+        function evaluateSwipeGesture() {
+            const diffX = swipeStartX - swipeEndX;
+            const diffY = swipeStartY - swipeEndY;
+            if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 40) {
+                if (diffX > 0) {
+                    triggerManualSlide(1);
+                } else {
+                    triggerManualSlide(-1);
+                }
+            }
+        }
+
+        window.setDetailActiveImage = (index) => {
+            if (!activeProductDetail) return;
+            activeProductDetailImgIndex = index;
+            const mainImgEl = document.getElementById('detailMainImg');
+            if (!mainImgEl) return;
+
+            mainImgEl.style.opacity = '0';
+            setTimeout(() => {
+                mainImgEl.src = activeProductDetail[`imageUrl${index}`] || 'https://placehold.co/600x600/0b0b0f/ffffff?text=Image';
+                mainImgEl.style.opacity = '1';
+            }, 150);
+
+            const buttons = document.querySelectorAll('.img-thumb-btn');
+            buttons.forEach((btn, idx) => {
+                if (idx + 1 === index) {
+                    btn.classList.add('border-brand-500', 'ring-2', 'ring-brand-500/20');
+                    btn.classList.remove('border-darkBorder');
+                } else {
+                    btn.classList.remove('border-brand-500', 'ring-2', 'ring-brand-500/20');
+                    btn.classList.add('border-darkBorder');
+                }
+            });
+
+            const progressIndicator = document.getElementById('carouselProgressIndicator');
+            if (progressIndicator) {
+                progressIndicator.style.transition = 'none';
+                progressIndicator.style.width = '0%';
+                setTimeout(() => {
+                    progressIndicator.style.transition = 'width 3000ms linear';
+                    progressIndicator.style.width = '100%';
+                }, 50);
+            }
+        };
+
+        // ====== HIGH-FIDELITY ZOOM LIGHTBOX ENGINE ======
+        window.openImageZoomModal = () => {
+            if (!activeProductDetail) return;
+            const targetUrl = activeProductDetail[`imageUrl${activeProductDetailImgIndex}`];
+            if (!targetUrl) return;
+
+            const modal = document.getElementById('imageZoomModal');
+            const img = document.getElementById('zoomedImg');
+            
+            img.src = targetUrl;
+            currentZoomFactor = 1.0;
+            panCurrentOffsetX = 0;
+            panCurrentOffsetY = 0;
+            
+            applyLightboxTransformation();
+            
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            
+            playChimeEffect('zoom');
+            setupLightboxPanning();
+        };
+
+        window.closeImageZoomModal = () => {
+            const modal = document.getElementById('imageZoomModal');
+            if (modal) {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }
+        };
+
+        function applyLightboxTransformation() {
+            const img = document.getElementById('zoomedImg');
+            if (!img) return;
+            
+            img.style.transform = `translate(${panCurrentOffsetX}px, ${panCurrentOffsetY}px) scale(${currentZoomFactor})`;
+            document.getElementById('zoomLevelIndicator').innerText = `${Math.round(currentZoomFactor * 100)}%`;
+        }
+
+        window.adjustDetailedZoom = (delta) => {
+            currentZoomFactor += delta;
+            if (currentZoomFactor < 1.0) currentZoomFactor = 1.0;
+            if (currentZoomFactor > 3.0) currentZoomFactor = 3.0; // Capturing 300% maximum bounds
+            
+            if (currentZoomFactor === 1.0) {
+                panCurrentOffsetX = 0;
+                panCurrentOffsetY = 0;
+            }
+            playChimeEffect('zoom');
+            applyLightboxTransformation();
+        };
+
+        window.resetDetailedZoom = () => {
+            currentZoomFactor = 1.0;
+            panCurrentOffsetX = 0;
+            panCurrentOffsetY = 0;
+            applyLightboxTransformation();
+        };
+
+        function setupLightboxPanning() {
+            const viewport = document.getElementById('lightboxViewport');
+            if (!viewport) return;
+
+            const handleDragStart = (clientX, clientY) => {
+                if (currentZoomFactor <= 1.0) return; // Only pan when image is actually zoomed
+                isPanningActive = true;
+                panStartX = clientX - panCurrentOffsetX;
+                panStartY = clientY - panCurrentOffsetY;
+            };
+
+            const handleDragMove = (clientX, clientY) => {
+                if (!isPanningActive) return;
+                panCurrentOffsetX = clientX - panStartX;
+                panCurrentOffsetY = clientY - panStartY;
+                applyLightboxTransformation();
+            };
+
+            const handleDragEnd = () => {
+                isPanningActive = false;
+            };
+
+            // Mouse Events
+            viewport.addEventListener('mousedown', (e) => {
+                e.preventDefault();
+                handleDragStart(e.clientX, e.clientY);
+            });
+            window.addEventListener('mousemove', (e) => {
+                handleDragMove(e.clientX, e.clientY);
+            });
+            window.addEventListener('mouseup', handleDragEnd);
+
+            // Touch Events
+            viewport.addEventListener('touchstart', (e) => {
+                if (e.touches.length === 1) {
+                    handleDragStart(e.touches[0].clientX, e.touches[0].clientY);
+                }
+            }, { passive: true });
+            
+            viewport.addEventListener('touchmove', (e) => {
+                if (e.touches.length === 1) {
+                    handleDragMove(e.touches[0].clientX, e.touches[0].clientY);
+                }
+            }, { passive: true });
+
+            viewport.addEventListener('touchend', handleDragEnd);
+            
+            // Mouse Wheel zoom support
+            viewport.addEventListener('wheel', (e) => {
+                e.preventDefault();
+                const delta = e.deltaY < 0 ? 0.25 : -0.25;
+                adjustDetailedZoom(delta);
+            }, { passive: false });
+        }
+
+        // ====== HERO BANNER AUTOROTATOR ======
         function renderHeroCarouselSlide() {
             if (!products || products.length === 0) return;
             const container = document.getElementById('heroCarouselContainer');
             if (!container) return;
 
             const p = products[currentHeroSlideIndex];
-            const mainImg = p.imageUrl1 || p.imageUrl || 'https://placehold.co/600x600/101012/ffffff?text=Image';
+            const mainImg = p.imageUrl1 || p.imageUrl || 'https://placehold.co/700x700/0b0b0f/ffffff?text=Image';
 
             container.innerHTML = `
-                <div class="carousel-animate relative rounded-3xl overflow-hidden border border-darkBorder bg-gradient-to-r from-neutral-950 via-darkCard to-neutral-900 min-h-[340px] flex flex-col md:flex-row glow-shadow-primary cursor-pointer group" onclick="navigateToProductDetail('${p.id}')">
-                    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(139,92,246,0.15),transparent_50%)] pointer-events-none"></div>
+                <div class="relative rounded-3xl overflow-hidden border border-darkBorder bg-gradient-to-r from-neutral-950 via-darkCard to-neutral-900 min-h-[360px] flex flex-col md:flex-row glow-shadow-primary cursor-pointer group" onclick="navigateToProductDetail('${p.id}')">
+                    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(139,92,246,0.12),transparent_60%)] pointer-events-none"></div>
 
                     <div class="relative z-10 p-8 sm:p-12 md:p-16 flex flex-col justify-center w-full md:w-3/5 space-y-4">
-                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-brand-500/30 bg-brand-500/10 text-brand-500 text-xs font-bold uppercase tracking-wider w-max">
-                            <i class="fa-solid fa-fire-flame-curved"></i> Now Trending
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-brand-500/30 bg-brand-500/10 text-brand-400 text-xs font-bold uppercase tracking-wider w-max">
+                            <i class="fa-solid fa-fire-flame-curved"></i> TOP SPEC SELECTION
                         </div>
                         <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight line-clamp-2">
                             ${p.name}
                         </h1>
                         <p class="text-emerald-400 text-xl font-bold">₹${Number(p.price).toFixed(2)}</p>
-                        <p class="text-neutral-400 text-sm sm:text-base line-clamp-2">${p.description || 'Premium curated item. Expand for comprehensive details.'}</p>
+                        <p class="text-neutral-400 text-sm sm:text-base line-clamp-2">${p.description || 'Premium curated style choice.'}</p>
                     </div>
 
-                    <div class="relative z-10 w-full md:w-2/5 min-h-[200px] bg-black/40 backdrop-blur-sm flex items-center justify-center p-8 border-t md:border-t-0 md:border-l border-darkBorder">
-                        <img src="${mainImg}" alt="${p.name}" class="max-h-64 object-contain transition-transform duration-700 group-hover:scale-110 drop-shadow-2xl">
+                    <div class="relative z-10 w-full md:w-2/5 min-h-[220px] bg-black/40 backdrop-blur-sm flex items-center justify-center p-8 border-t md:border-t-0 md:border-l border-darkBorder">
+                        <img src="${mainImg}" alt="${p.name}" class="max-h-64 object-contain transition-transform duration-700 group-hover:scale-105 drop-shadow-2xl">
                     </div>
                 </div>
             `;
@@ -686,20 +1206,11 @@
             if (heroSlideInterval) clearInterval(heroSlideInterval);
             currentHeroSlideIndex = 0;
             renderHeroCarouselSlide();
-            heroSlideInterval = setInterval(nextHeroSlide, 3000);
+            heroSlideInterval = setInterval(nextHeroSlide, 4500);
         }
 
-        // ====== PRODUCTS LISTENER ======
+        // ====== REALTIME POPULARITY DATABASE SYNC ======
         function startCatalogSync() {
-            const cached = getCachedProducts();
-            if (cached && cached.length > 0) {
-                products = cached;
-                renderCatalogProductsGrid();
-                renderFeaturedPage();
-                initHeroCarousel(); 
-                document.getElementById('loadingMessage')?.remove();
-            }
-
             const productsRef = ref(db, 'products');
             onValue(productsRef, (snapshot) => {
                 const freshProducts = [];
@@ -709,25 +1220,32 @@
                 if (freshProducts.length === 0) {
                     seedDefaultProducts();
                 } else {
+                    // Sorting rule: Most clicks will be at the top, least clicks at the bottom
+                    freshProducts.sort((a, b) => (b.clicks || 0) - (a.clicks || 0));
                     products = freshProducts;
-                    setCachedProducts(products);
+                    
                     renderCatalogProductsGrid();
                     renderFeaturedPage();
                     initHeroCarousel(); 
                     document.getElementById('loadingMessage')?.remove();
                 }
             }, (error) => {
-                console.error("Database sync fault:", error);
-                showToast("Database connection interrupted.", "error");
+                console.error("Firebase database failure: ", error);
+                showToast("Connection database failure.", "error");
             });
         }
 
-        // ====== RENDER CATALOG ======
+        // ====== RENDER HIGH-ESTHETIC PRODUCT GRID ======
+        let catalogVisualLoopTimer = null;
+        let cardCycleTick = 0;
+
         function renderCatalogProductsGrid() {
             const grid = document.getElementById('productGrid');
+            if (!grid) return;
             const searchVal = document.getElementById('catalogSearch').value.toLowerCase();
             const filterVal = document.getElementById('catalogSort').value;
 
+            // Sorting rule: Most clicks will be at the top, least clicks at the bottom
             let filtered = products.filter(p => {
                 const matchName = p.name.toLowerCase().includes(searchVal);
                 const matchDesc = p.description && p.description.toLowerCase().includes(searchVal);
@@ -736,60 +1254,95 @@
             });
 
             if (filtered.length === 0) {
-                grid.innerHTML = `<div class="col-span-full py-16 text-center text-neutral-500 space-y-2"><i class="fa-solid fa-boxes-stacked text-3xl"></i><p class="text-sm">No products match your filters.</p></div>`;
+                grid.innerHTML = `
+                    <div class="col-span-full py-16 text-center text-neutral-500 space-y-2">
+                        <i class="fa-solid fa-circle-exclamation text-3xl"></i>
+                        <p class="text-sm">No models found matching parameters.</p>
+                    </div>`;
                 return;
             }
 
             grid.innerHTML = filtered.map(p => {
                 const isFavorite = localWishlist.includes(p.id);
-                const mainImg = p.imageUrl1 || p.imageUrl || 'https://placehold.co/600x600/101012/ffffff?text=Image';
+                const img1 = p.imageUrl1 || p.imageUrl || 'https://placehold.co/600x600/0b0b0f/ffffff?text=Image+1';
+                const img2 = p.imageUrl2 || img1;
+
                 return `
-                    <div class="group relative bg-darkCard border border-darkBorder hover:border-brand-500 rounded-2xl overflow-hidden transition-all duration-300 flex flex-col justify-between glow-shadow-hover">
-                        <span class="absolute top-3 left-3 z-10 text-[10px] uppercase font-extrabold tracking-widest bg-black/70 border border-darkBorder text-neutral-400 py-1 px-2 rounded-lg">${p.category || 'Luxury'}</span>
-                        <button onclick="event.stopPropagation(); toggleWishlistItem('${p.id}')" class="absolute top-3 right-3 z-10 w-8 h-8 rounded-full bg-black/70 border border-darkBorder hover:border-rose-500/30 flex items-center justify-center text-xs text-neutral-400 hover:text-rose-500 transition-all">
-                            <i class="${isFavorite ? 'fa-solid fa-heart text-rose-500 animate-pulse' : 'fa-regular fa-heart'}"></i>
-                        </button>
-                        <div class="relative aspect-square overflow-hidden bg-neutral-950 flex items-center justify-center p-4 cursor-pointer" onclick="navigateToProductDetail('${p.id}')">
-                            <img src="${mainImg}" alt="${p.name}" class="product-img">
+                    <div class="group relative bg-darkCard border border-darkBorder hover:border-brand-500 rounded-2xl overflow-hidden transition-all duration-300 flex flex-col justify-between glow-shadow-hover animate-card-load">
+                        
+                        <!-- Real-time dynamic Popularity Index Flag (Hiding views) -->
+                        <div class="absolute top-3 left-3 z-10 flex gap-1.5 items-center">
+                            <span class="text-[9px] uppercase font-bold tracking-widest bg-black/85 border border-darkBorder text-neutral-400 py-1 px-2.5 rounded-lg">
+                                ${p.category || 'MODEL'}
+                            </span>
                         </div>
+                        
+                        <button onclick="event.stopPropagation(); toggleWishlistItem('${p.id}')" class="absolute top-3 right-3 z-10 w-8 h-8 rounded-full bg-black/80 border border-darkBorder hover:border-rose-500/30 flex items-center justify-center text-xs text-neutral-400 hover:text-rose-500 transition-all">
+                            <i class="${isFavorite ? 'fa-solid fa-heart text-rose-500' : 'fa-regular fa-heart'}"></i>
+                        </button>
+                        
+                        <!-- Sliding product images on hover -->
+                        <div class="relative aspect-square overflow-hidden bg-neutral-950 flex items-center justify-center p-4 cursor-pointer" onclick="navigateToProductDetail('${p.id}')">
+                            <img src="${img1}" alt="${p.name}" class="product-img max-h-full max-w-full object-contain w-full h-full group-hover:scale-105" data-card-img-id="${p.id}" data-angle1="${img1}" data-angle2="${img2}">
+                        </div>
+                        
                         <div class="p-5 border-t border-darkBorder space-y-3 flex-grow flex flex-col justify-between">
                             <div class="space-y-1">
-                                <h3 class="text-xs font-extrabold text-neutral-400 uppercase tracking-wider">${p.category}</h3>
-                                <h2 class="text-sm font-bold text-white tracking-tight group-hover:text-brand-500 cursor-pointer transition-colors line-clamp-2 h-10" onclick="navigateToProductDetail('${p.id}')">${p.name}</h2>
+                                <h2 class="text-sm font-bold text-white tracking-tight hover:text-brand-400 cursor-pointer transition-colors line-clamp-2 h-10" onclick="navigateToProductDetail('${p.id}')">
+                                    ${p.name}
+                                </h2>
                             </div>
                             <div class="flex items-center justify-between pt-2">
                                 <span class="text-sm font-extrabold text-emerald-400">₹${Number(p.price).toFixed(2)}</span>
-                                <button onclick="addProductToCart('${p.id}')" class="px-3 py-1.5 rounded-lg bg-brand-600 hover:bg-brand-500 text-white text-[11px] font-bold tracking-wider uppercase transition-all flex items-center gap-1.5">
-                                    <i class="fa-solid fa-plus text-[10px]"></i> Bag
+                                <button onclick="addProductToCart('${p.id}')" class="px-3.5 py-2 rounded-lg bg-brand-600 hover:bg-brand-500 text-white text-[11px] font-bold tracking-wider uppercase transition-all flex items-center gap-1.5 shadow-md shadow-brand-600/15">
+                                    <i class="fa-solid fa-plus text-[10px]"></i> Acquire
                                 </button>
                             </div>
                         </div>
                     </div>
                 `;
             }).join('');
+
+            startCatalogCardAutoSlide();
         }
 
-        // ====== RENDER FEATURED PAGE ======
+        function startCatalogCardAutoSlide() {
+            if (catalogVisualLoopTimer) clearInterval(catalogVisualLoopTimer);
+            catalogVisualLoopTimer = setInterval(() => {
+                cardCycleTick = (cardCycleTick + 1) % 2;
+                const images = document.querySelectorAll('[data-card-img-id]');
+                images.forEach(img => {
+                    const angle1 = img.getAttribute('data-angle1');
+                    const angle2 = img.getAttribute('data-angle2');
+                    if (angle1 && angle2 && angle1 !== angle2) {
+                        img.src = cardCycleTick === 0 ? angle1 : angle2;
+                    }
+                });
+            }, 3000);
+        }
+
+        // ====== RENDER FEATURED PANEL ======
         function renderFeaturedPage() {
             const grid = document.getElementById('featuredGrid');
             if (!grid) return;
-            const featured = products.slice(0, 6);
+            // Slice the top 3 highly popular specs
+            const featured = products.slice(0, 3);
             if (featured.length === 0) {
-                grid.innerHTML = `<div class="col-span-full text-center text-neutral-500">No featured items yet.</div>`;
+                grid.innerHTML = `<div class="col-span-full text-center text-neutral-500">No priority specs configured yet.</div>`;
                 return;
             }
             grid.innerHTML = featured.map(p => {
-                const mainImg = p.imageUrl1 || p.imageUrl || 'https://placehold.co/600x600/101012/ffffff?text=Image';
+                const img = p.imageUrl1 || 'https://placehold.co/600x600/0b0b0f/ffffff?text=No+Image';
                 return `
                     <div class="group relative bg-darkCard border border-darkBorder hover:border-brand-500 rounded-2xl overflow-hidden transition-all duration-300 flex flex-col justify-between glow-shadow-hover">
                         <div class="relative aspect-square overflow-hidden bg-neutral-950 flex items-center justify-center p-4 cursor-pointer" onclick="navigateToProductDetail('${p.id}')">
-                            <img src="${mainImg}" alt="${p.name}" class="product-img">
+                            <img src="${img}" alt="${p.name}" class="product-img max-h-full max-w-full object-contain">
                         </div>
                         <div class="p-4 border-t border-darkBorder space-y-2">
                             <h3 class="text-xs font-bold text-white line-clamp-1">${p.name}</h3>
                             <div class="flex items-center justify-between">
                                 <span class="text-sm font-extrabold text-emerald-400">₹${Number(p.price).toFixed(2)}</span>
-                                <button onclick="addProductToCart('${p.id}')" class="px-3 py-1.5 rounded-lg bg-brand-600 hover:bg-brand-500 text-white text-[10px] font-bold uppercase transition-all">Add Bag</button>
+                                <button onclick="addProductToCart('${p.id}')" class="px-3 py-1.5 rounded-lg bg-brand-600 hover:bg-brand-500 text-white text-[10px] font-bold uppercase transition-all">Acquire Drop</button>
                             </div>
                         </div>
                     </div>
@@ -797,86 +1350,118 @@
             }).join('');
         }
 
-        // ====== NEWSLETTER ======
-        document.getElementById('newsletterForm')?.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const email = document.getElementById('newsletterEmail').value.trim();
-            if (!email) return;
-            try {
-                await push(ref(db, 'newsletter'), { email, date: new Date().toISOString() });
-                showToast("Subscribed successfully!");
-                document.getElementById('newsletterForm').reset();
-            } catch (err) {
-                console.error(err);
-                showToast("Failed to subscribe.", "error");
+        document.getElementById('catalogSearch')?.addEventListener('input', renderCatalogProductsGrid);
+        document.getElementById('catalogSort')?.addEventListener('change', renderCatalogProductsGrid);
+
+        window.navigateToProductDetail = async (id) => {
+            // Log popularity parameter trigger (Increment click views)
+            const prodRef = ref(db, `products/${id}`);
+            const p = products.find(prod => prod.id === id);
+            if (p) {
+                const updatedClicks = (p.clicks || 0) + 1;
+                try {
+                    await update(prodRef, { clicks: updatedClicks });
+                    // Increment locally instantly as well for UI consistency
+                    p.clicks = updatedClicks;
+                } catch (err) {
+                    console.warn("Click tracking write telemetry bypassed: ", err);
+                }
             }
-        });
-
-        document.getElementById('catalogSearch').addEventListener('input', renderCatalogProductsGrid);
-        document.getElementById('catalogSort').addEventListener('change', renderCatalogProductsGrid);
-
-        window.navigateToProductDetail = (id) => {
             window.location.hash = `#product-detail?id=${id}`;
         };
 
-        // ====== PRODUCT DETAIL ======
+        // ====== MOUNT & PRESENT DYNAMIC DETAILS VIEW ======
         function loadProductDetailsView(id) {
             activeProductDetail = products.find(p => p.id === id);
             if (!activeProductDetail) {
-                showToast("Product not found.", "error");
+                showToast("Target spec unavailable.", "error");
                 window.location.hash = '#home';
                 return;
             }
-            activeProductDetailImgIndex = 0;
+            
+            activeProductDetailImgIndex = 1;
+            selectedProductSize = null;
 
-            document.getElementById('detailCategory').innerText = activeProductDetail.category || 'Luxury';
+            document.getElementById('detailCategory').innerText = activeProductDetail.category || 'MODEL';
             document.getElementById('detailTitle').innerText = activeProductDetail.name;
             document.getElementById('detailPrice').innerText = `₹${Number(activeProductDetail.price).toFixed(2)}`;
-            document.getElementById('detailDescription').innerText = activeProductDetail.description || 'No description provided.';
+            document.getElementById('detailDescription').innerText = activeProductDetail.description || 'No system parameters configured.';
+            
+            // Safe access/hidden override of views elements if loaded
+            const clickBadge = document.getElementById('detailClickBadge');
+            if (clickBadge) {
+                clickBadge.style.display = 'none';
+            }
 
-            const img1 = activeProductDetail.imageUrl1 || activeProductDetail.imageUrl || 'https://placehold.co/600x600/101012/ffffff?text=No+Image';
-            const img2 = activeProductDetail.imageUrl2 || 'https://placehold.co/600x600/101012/ffffff?text=Slot+2';
-            const img3 = activeProductDetail.imageUrl3 || 'https://placehold.co/600x600/101012/ffffff?text=Slot+3';
+            const mainImg = activeProductDetail.imageUrl1 || 'https://placehold.co/600x600/0b0b0f/ffffff?text=Image';
+            document.getElementById('detailMainImg').src = mainImg;
 
-            document.getElementById('detailMainImg').src = img1;
-            document.getElementById('detailThumb0').src = img1;
-            document.getElementById('detailThumb1').src = img2;
-            document.getElementById('detailThumb2').src = img3;
+            // Generate Thumbnails
+            const thumbContainer = document.getElementById('detailThumbnailsContainer');
+            if (thumbContainer) {
+                thumbContainer.innerHTML = '';
+                for (let i = 1; i <= 8; i++) {
+                    const imgUrl = activeProductDetail[`imageUrl${i}`];
+                    if (imgUrl) {
+                        thumbContainer.innerHTML += `
+                            <button onclick="setDetailActiveImage(${i})" class="img-thumb-btn flex-shrink-0 w-24 border ${i === 1 ? 'border-brand-500 ring-2 ring-brand-500/20' : 'border-darkBorder hover:border-neutral-500'} rounded-xl overflow-hidden aspect-[4/3] bg-neutral-950 p-1 flex items-center justify-center transition-all">
+                                <img src="${imgUrl}" class="max-h-full object-contain">
+                            </button>
+                        `;
+                    }
+                }
+            }
 
-            document.getElementById('detailCartBtn').onclick = () => addProductToCart(activeProductDetail.id);
+            // Sizes configurations
+            const sizeWrapper = document.getElementById('sizeSelectorWrapper');
+            const sizeContainer = document.getElementById('detailSizesContainer');
+            document.getElementById('sizeError').classList.add('hidden');
+            
+            if (activeProductDetail.sizes && Array.isArray(activeProductDetail.sizes) && activeProductDetail.sizes.length > 0) {
+                sizeWrapper.classList.remove('hidden');
+                sizeContainer.innerHTML = activeProductDetail.sizes.map(size => `
+                    <button onclick="selectProductSize('${size}')" class="size-pill px-4 py-2 rounded-lg border border-darkBorder bg-black text-xs font-bold text-neutral-400 hover:border-brand-500 hover:text-white transition-all">
+                        ${size}
+                    </button>
+                `).join('');
+            } else {
+                sizeWrapper.classList.add('hidden');
+            }
 
+            // Benefits listing logic
             const benefitsContainer = document.getElementById('detailBenefits');
-            const benefitsList = activeProductDetail.benefits ? activeProductDetail.benefits.split(',').map(s => s.trim()) : ["Standard 9-day dispatch", "Rigorous secure logistics", "Quality Assurance"];
-            benefitsContainer.innerHTML = benefitsList.map(b => `<li class="flex items-center gap-2"><i class="fa-solid fa-square-check text-brand-500"></i> ${b}</li>`).join('');
+            const benefitsList = activeProductDetail.benefits ? activeProductDetail.benefits.split(',').map(s => s.trim()) : ["Guaranteed 9-day dispatch", "Comprehensive real-time tracking", "Double sealed impact protection"];
+            benefitsContainer.innerHTML = benefitsList.map(b => `<li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-brand-400"></i> ${b}</li>`).join('');
 
             renderDetailsReviews();
-            updateThumbnailsStyle();
+            
+            // Attach detail card listeners
+            document.getElementById('detailCartBtn').onclick = () => addProductToCart(activeProductDetail.id, true);
+
+            setupCarouselGestures();
+            startDetailCarousel();
         }
 
-        window.setDetailActiveImage = (index) => {
-            if (!activeProductDetail) return;
-            activeProductDetailImgIndex = index;
-            const mainImg = document.getElementById('detailMainImg');
-            if (index === 0) mainImg.src = activeProductDetail.imageUrl1 || activeProductDetail.imageUrl || 'https://placehold.co/600x600/101012/ffffff?text=No+Image';
-            else if (index === 1) mainImg.src = activeProductDetail.imageUrl2 || 'https://placehold.co/600x600/101012/ffffff?text=No+Image';
-            else if (index === 2) mainImg.src = activeProductDetail.imageUrl3 || 'https://placehold.co/600x600/101012/ffffff?text=No+Image';
-            updateThumbnailsStyle();
-        };
-
-        function updateThumbnailsStyle() {
-            const btns = document.querySelectorAll('.img-thumb-btn');
-            btns.forEach((btn, idx) => {
-                btn.className = idx === activeProductDetailImgIndex
-                    ? "img-thumb-btn border-2 border-brand-500 rounded-xl overflow-hidden aspect-video bg-neutral-950 p-1 flex items-center justify-center transition-all"
-                    : "img-thumb-btn border border-darkBorder hover:border-neutral-500 rounded-xl overflow-hidden aspect-video bg-neutral-950 p-1 flex items-center justify-center transition-all";
+        window.selectProductSize = (size) => {
+            selectedProductSize = size;
+            document.getElementById('sizeError').classList.add('hidden');
+            document.querySelectorAll('.size-pill').forEach(btn => {
+                if (btn.innerText.trim() === size) {
+                    btn.classList.add('border-brand-500', 'text-white', 'bg-brand-500/15');
+                    btn.classList.remove('border-darkBorder', 'text-neutral-400', 'bg-black');
+                } else {
+                    btn.classList.remove('border-brand-500', 'text-white', 'bg-brand-500/15');
+                    btn.classList.add('border-darkBorder', 'text-neutral-400', 'bg-black');
+                }
             });
-        }
+        };
 
         function renderDetailsReviews() {
             const container = document.getElementById('detailReviews');
+            if (!container) return;
             const reviews = activeProductDetail.reviews || [];
             if (reviews.length === 0) {
-                container.innerHTML = `<div class="col-span-full py-6 text-center text-neutral-500 text-xs bg-darkCard/30 border border-darkBorder rounded-xl">No reviews yet. Be the first!</div>`;
+                container.innerHTML = `<div class="col-span-full py-6 text-center text-neutral-500 text-xs bg-darkCard/30 border border-darkBorder rounded-xl">No reviews registered for this specifications array.</div>`;
                 return;
             }
             container.innerHTML = reviews.map(r => {
@@ -896,28 +1481,32 @@
             const updatedReviews = [...(activeProductDetail.reviews || []), { name, rating, comment }];
             try {
                 await update(ref(db, `products/${activeProductDetail.id}`), { reviews: updatedReviews });
-                showToast("Review submitted!");
+                showToast("Feedback review registered!");
                 document.getElementById('reviewForm').reset();
                 document.getElementById('reviewForm').classList.add('hidden');
                 activeProductDetail.reviews = updatedReviews;
                 renderDetailsReviews();
-                setCachedProducts(products);
             } catch (err) {
                 console.error(err);
-                showToast("Failed to save review.", "error");
+                showToast("Failed to commit review parameters.", "error");
             }
         });
 
         window.triggerDirectBuy = () => {
             if (activeProductDetail) {
+                if (activeProductDetail.sizes && activeProductDetail.sizes.length > 0 && !selectedProductSize) {
+                    document.getElementById('sizeError').classList.remove('hidden');
+                    return;
+                }
                 const form = document.getElementById('addressForm');
                 form.dataset.purchaseType = 'single';
                 form.dataset.productId = activeProductDetail.id;
+                form.dataset.productSize = selectedProductSize || '';
                 window.location.hash = '#buy-checkout';
             }
         };
 
-        // ====== CHECKOUT ======
+        // ====== SHIPMENT FORM PROCEDURES ======
         document.getElementById('addressForm').addEventListener('submit', (e) => {
             e.preventDefault();
 
@@ -928,18 +1517,18 @@
 
             const phoneRegex = /^[6-9]\d{9}$/;
             if (!phoneRegex.test(phone)) {
-                showToast("Please enter a valid 10-digit Indian mobile number (e.g., 9876543210).", "error");
+                showToast("Valid 10-digit Indian coordinate required.", "error");
                 return;
             }
 
             const pincodeRegex = /^[1-9][0-9]{5}$/;
             if (!pincodeRegex.test(pincode)) {
-                showToast("Please enter a valid 6-digit Indian pincode (e.g., 110001).", "error");
+                showToast("Valid 6-digit Indian PIN metric required.", "error");
                 return;
             }
 
-            if (address.length < 10) {
-                showToast("Please enter a complete shipping address.", "error");
+            if (address.length < 8) {
+                showToast("Full detailed address parameters required.", "error");
                 return;
             }
 
@@ -950,31 +1539,27 @@
 
             if (purchaseType === 'single') {
                 const productId = form.dataset.productId;
+                const size = form.dataset.productSize;
                 const prod = products.find(p => p.id === productId);
                 if (prod) {
-                    purchaseItems.push({ id: prod.id, name: prod.name, price: prod.price, qty: 1 });
+                    purchaseItems.push({ id: prod.id, name: prod.name, price: prod.price, qty: 1, size: size });
                     total = prod.price;
                 } else {
-                    showToast("Product not found.", "error");
+                    showToast("Product resolution fault.", "error");
                     return;
                 }
             } else {
                 if (localCart.length === 0) {
-                    showToast("Your cart is empty.", "error");
+                    showToast("Cart empty.", "error");
                     return;
                 }
                 localCart.forEach(item => {
                     const prod = products.find(p => p.id === item.id);
                     if (prod) {
-                        purchaseItems.push({ id: prod.id, name: prod.name, price: prod.price, qty: item.qty });
+                        purchaseItems.push({ id: prod.id, name: prod.name, price: prod.price, qty: item.qty, size: item.size });
                         total += prod.price * item.qty;
                     }
                 });
-            }
-
-            if (purchaseItems.length === 0) {
-                showToast("No items to order.", "error");
-                return;
             }
 
             pendingOrder = {
@@ -982,7 +1567,7 @@
                 email: auth.currentUser?.email || "anonymous@vibestore.com",
                 items: purchaseItems,
                 total: total,
-                status: "Pending Dispatch",
+                status: "Pending Dispatch Logistics",
                 shipping: {
                     fullName: name,
                     phone: phone,
@@ -997,44 +1582,44 @@
             window.location.hash = '#order-summary';
         });
 
-        // ====== ORDER SUMMARY ======
+        // ====== ORDER SUMMARY MOUNTING ======
         function renderOrderSummary() {
             if (!pendingOrder) {
-                showToast("No order to review.", "error");
+                showToast("Checkout parameters empty.", "error");
                 window.location.hash = '#home';
                 return;
             }
 
             const itemsContainer = document.getElementById('summaryItems');
             itemsContainer.innerHTML = pendingOrder.items.map(item => `
-                <div class="flex justify-between text-xs text-neutral-300 border-b border-darkBorder py-2">
-                    <span>${item.qty}x ${item.name}</span>
-                    <span class="text-white font-bold">₹${Number(item.price * item.qty).toFixed(2)}</span>
+                <div class="flex flex-col text-xs text-neutral-300 border-b border-darkBorder py-2.5">
+                    <div class="flex justify-between items-center">
+                        <span>${item.qty}x ${item.name}</span>
+                        <span class="text-white font-bold">₹${Number(item.price * item.qty).toFixed(2)}</span>
+                    </div>
+                    ${item.size ? `<span class="text-[10px] font-bold text-brand-400 bg-brand-500/10 px-2 py-0.5 rounded mt-1.5 w-max uppercase">Sizing: ${item.size}</span>` : ''}
                 </div>
             `).join('');
 
             const shippingContainer = document.getElementById('summaryShipping');
             const s = pendingOrder.shipping;
             shippingContainer.innerHTML = `
-                <p><span class="text-white font-bold">Name:</span> ${s.fullName}</p>
-                <p><span class="text-white font-bold">Phone:</span> ${s.phone}</p>
-                <p><span class="text-white font-bold">Address:</span> ${s.address}</p>
-                <p><span class="text-white font-bold">Pincode:</span> ${s.pincode}</p>
-                <p><span class="text-white font-bold">Country:</span> ${s.country || 'India'}</p>
+                <p><span class="text-white font-bold">Consignee:</span> ${s.fullName}</p>
+                <p><span class="text-white font-bold">Contact:</span> ${s.phone}</p>
+                <p><span class="text-white font-bold">Routing Address:</span> ${s.address}</p>
+                <p><span class="text-white font-bold">PIN Coordinate:</span> ${s.pincode}</p>
             `;
 
             document.getElementById('summaryTotal').innerText = `₹${Number(pendingOrder.total).toFixed(2)}`;
         }
 
-        // ====== PLACE ORDER ======
-        document.getElementById('placeOrderBtn').addEventListener('click', async () => {
-            if (!pendingOrder) {
-                showToast("No order to place.", "error");
-                return;
-            }
-
+        // ====== COMMIT TRANSACTIONS ======
+        document.getElementById('placeOrderBtn')?.addEventListener('click', async () => {
+            if (!pendingOrder) return;
             try {
                 await push(ref(db, 'orders'), pendingOrder);
+                
+                playChimeEffect('success');
 
                 if (pendingOrder.purchaseType === 'cart') {
                     localCart = [];
@@ -1042,12 +1627,12 @@
                 }
 
                 pendingOrder = null;
-                showToast("Order placed successfully!");
+                showToast("Telemetry logs committed!");
                 window.location.hash = '#order-success';
 
             } catch (err) {
-                console.error("Order save error:", err);
-                showToast("Failed to place order. Please try again.", "error");
+                console.error(err);
+                showToast("Logistics pipeline rejection.", "error");
             }
         });
 
@@ -1055,27 +1640,54 @@
             window.location.hash = '#buy-checkout';
         };
 
-        // ====== CART ======
-        window.addProductToCart = (id) => {
-            const existing = localCart.find(c => c.id === id);
-            if (existing) existing.qty++;
-            else localCart.push({ id, qty: 1 });
+        // ====== SHOPPING CART PROCEDURES ======
+        window.addProductToCart = (id, fromDetail = false) => {
+            const prod = products.find(p => p.id === id);
+            if (!prod) return;
+            
+            let sizeToAdd = null;
+            if (fromDetail && prod.sizes && prod.sizes.length > 0) {
+                if (!selectedProductSize) {
+                    document.getElementById('sizeError').classList.remove('hidden');
+                    return;
+                }
+                sizeToAdd = selectedProductSize;
+            } else if (!fromDetail && prod.sizes && prod.sizes.length > 0) {
+                navigateToProductDetail(id);
+                showToast("Fit sizing selection required.");
+                return;
+            }
+
+            const existing = localCart.find(c => c.id === id && c.size === sizeToAdd);
+            if (existing) {
+                existing.qty++;
+            } else {
+                localCart.push({ id, qty: 1, size: sizeToAdd });
+            }
+            
+            playChimeEffect('success');
             updateCartAndBadgeState();
-            showToast("Added to cart!");
+            showToast("Item added to payload.");
         };
 
-        window.removeCartItem = (id) => {
-            localCart = localCart.filter(item => item.id !== id);
+        window.removeCartItem = (id, size) => {
+            localCart = localCart.filter(item => !(item.id === id && (item.size || null) === (size || null)));
+            playChimeEffect('delete');
             updateCartAndBadgeState();
             renderShoppingCart();
-            showToast("Removed from cart.", "error");
+            showToast("Item removed from payload.", "error");
         };
 
-        window.adjustCartQty = (id, delta) => {
-            const item = localCart.find(c => c.id === id);
+        window.adjustCartQty = (id, size, delta) => {
+            const item = localCart.find(c => c.id === id && (c.size || null) === (size || null));
             if (item) {
                 item.qty += delta;
-                if (item.qty <= 0) localCart = localCart.filter(c => c.id !== id);
+                if (item.qty <= 0) {
+                    localCart = localCart.filter(c => !(c.id === id && (c.size || null) === (size || null)));
+                    playChimeEffect('delete');
+                } else {
+                    playChimeEffect('success');
+                }
                 updateCartAndBadgeState();
                 renderShoppingCart();
             }
@@ -1089,33 +1701,46 @@
 
         function renderShoppingCart() {
             const container = document.getElementById('cartContainer');
+            if (!container) return;
+            
             if (localCart.length === 0) {
-                container.innerHTML = `<div class="py-16 text-center text-neutral-500 bg-darkCard border border-darkBorder rounded-2xl space-y-4"><i class="fa-solid fa-cart-flatbed-suitcase text-4xl"></i><p class="text-sm">Your cart is empty.</p><a href="#home" class="inline-flex py-2 px-4 rounded-lg bg-brand-600 hover:bg-brand-500 text-xs font-bold text-white transition-all">Browse</a></div>`;
+                container.innerHTML = `
+                    <div class="py-16 text-center text-neutral-500 bg-darkCard border border-darkBorder rounded-2xl space-y-4">
+                        <i class="fa-solid fa-basket-shopping text-4xl"></i>
+                        <p class="text-sm">No payload arrays active.</p>
+                        <a href="#home" class="inline-flex py-2.5 px-5 rounded-xl bg-brand-600 hover:bg-brand-500 text-xs font-bold text-white transition-all">Explore Catalog</a>
+                    </div>`;
                 document.getElementById('cartSubtotal').innerText = "₹0.00";
                 document.getElementById('cartTotal').innerText = "₹0.00";
                 return;
             }
+            
             let subtotal = 0;
             container.innerHTML = localCart.map(item => {
                 const prod = products.find(p => p.id === item.id);
                 if (!prod) return '';
                 const cost = prod.price * item.qty;
                 subtotal += cost;
-                const mainImg = prod.imageUrl1 || prod.imageUrl || 'https://placehold.co/100x100/101012/ffffff?text=Product';
+                const img = prod.imageUrl1 || 'https://placehold.co/100x100/0b0b0f/ffffff?text=Product';
                 return `
                     <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-darkCard border border-darkBorder p-5 rounded-2xl">
                         <div class="flex items-center gap-4">
-                            <img src="${mainImg}" class="w-16 h-16 rounded-xl object-contain bg-neutral-950 border border-darkBorder">
-                            <div><h4 class="text-xs font-extrabold text-neutral-400 uppercase tracking-wider">${prod.category}</h4><h3 class="text-sm font-bold text-white leading-tight">${prod.name}</h3><p class="text-xs text-emerald-400 mt-1">₹${Number(prod.price).toFixed(2)}</p></div>
+                            <img src="${img}" class="w-16 h-16 rounded-xl object-contain bg-neutral-950 border border-darkBorder">
+                            <div>
+                                <h4 class="text-[9px] font-bold text-neutral-500 uppercase tracking-widest font-mono">${prod.category}</h4>
+                                <h3 class="text-sm font-bold text-white leading-tight">${prod.name}</h3>
+                                ${item.size ? `<span class="inline-block mt-1 text-[9px] bg-brand-500/20 text-brand-400 px-2.5 py-0.5 rounded font-bold uppercase">Fit: ${item.size}</span>` : ''}
+                                <p class="text-xs text-emerald-400 mt-1">₹${Number(prod.price).toFixed(2)}</p>
+                            </div>
                         </div>
                         <div class="flex items-center gap-4 w-full sm:w-auto justify-between sm:justify-end">
                             <div class="flex items-center gap-2.5 bg-black border border-darkBorder py-1.5 px-3 rounded-lg">
-                                <button onclick="adjustCartQty('${item.id}', -1)" class="text-neutral-400 hover:text-white"><i class="fa-solid fa-minus text-[10px]"></i></button>
+                                <button onclick="adjustCartQty('${item.id}', ${item.size ? `'${item.size}'` : null}, -1)" class="text-neutral-400 hover:text-white"><i class="fa-solid fa-minus text-[9px]"></i></button>
                                 <span class="text-xs font-bold text-white w-6 text-center">${item.qty}</span>
-                                <button onclick="adjustCartQty('${item.id}', 1)" class="text-neutral-400 hover:text-white"><i class="fa-solid fa-plus text-[10px]"></i></button>
+                                <button onclick="adjustCartQty('${item.id}', ${item.size ? `'${item.size}'` : null}, 1)" class="text-neutral-400 hover:text-white"><i class="fa-solid fa-plus text-[9px]"></i></button>
                             </div>
-                            <span class="text-xs font-bold text-white w-20 text-right">₹${Number(cost).toFixed(2)}</span>
-                            <button onclick="removeCartItem('${item.id}')" class="text-xs text-rose-500 hover:text-rose-400 transition-colors pl-2 border-l border-darkBorder"><i class="fa-solid fa-trash-can"></i></button>
+                            <span class="text-xs font-bold text-white w-24 text-right">₹${Number(cost).toFixed(2)}</span>
+                            <button onclick="removeCartItem('${item.id}', ${item.size ? `'${item.size}'` : null})" class="text-xs text-rose-500 hover:text-rose-400 pl-2 border-l border-darkBorder"><i class="fa-solid fa-trash-can"></i></button>
                         </div>
                     </div>
                 `;
@@ -1124,7 +1749,7 @@
             document.getElementById('cartTotal').innerText = `₹${Number(subtotal).toFixed(2)}`;
         }
 
-        document.getElementById('cartCheckoutBtn').addEventListener('click', () => {
+        document.getElementById('cartCheckoutBtn')?.addEventListener('click', () => {
             if (localCart.length === 0) {
                 showToast("Cart is empty.", "error");
                 return;
@@ -1135,12 +1760,16 @@
             window.location.hash = '#buy-checkout';
         });
 
-        // ====== WISHLIST ======
+        // ====== WISHLIST SYSTEM ======
         window.toggleWishlistItem = (id) => {
             const index = localWishlist.indexOf(id);
-            if (index > -1) { localWishlist.splice(index, 1);
-                showToast("Removed from wishlist."); } else { localWishlist.push(id);
-                showToast("Added to wishlist!"); }
+            if (index > -1) { 
+                localWishlist.splice(index, 1);
+                showToast("Blueprint removed."); 
+            } else { 
+                localWishlist.push(id);
+                showToast("Blueprint pinned!"); 
+            }
             updateCartAndBadgeState();
             renderCatalogProductsGrid();
             if (window.location.hash === '#wishlist') renderWishlist();
@@ -1148,29 +1777,46 @@
 
         function renderWishlist() {
             const container = document.getElementById('wishlistContainer');
+            if (!container) return;
             if (localWishlist.length === 0) {
-                container.innerHTML = `<div class="col-span-full py-16 text-center text-neutral-500 space-y-4 bg-darkCard border border-darkBorder rounded-2xl"><i class="fa-regular fa-heart text-4xl"></i><p class="text-sm">No saved items.</p><a href="#home" class="inline-flex py-2 px-4 rounded-lg bg-brand-600 hover:bg-brand-500 text-xs font-bold text-white transition-all">Browse</a></div>`;
+                container.innerHTML = `
+                    <div class="col-span-full py-16 text-center text-neutral-500 space-y-4 bg-darkCard border border-darkBorder rounded-2xl">
+                        <i class="fa-regular fa-heart text-4xl"></i>
+                        <p class="text-sm">No design configurations pinned.</p>
+                        <a href="#home" class="inline-flex py-2.5 px-5 rounded-xl bg-brand-600 hover:bg-brand-500 text-xs font-bold text-white transition-all">Explore Models</a>
+                    </div>`;
                 return;
             }
             container.innerHTML = localWishlist.map(id => {
                 const p = products.find(prod => prod.id === id);
                 if (!p) return '';
-                const mainImg = p.imageUrl1 || p.imageUrl || 'https://placehold.co/600x600/101012/ffffff?text=Image';
+                const img = p.imageUrl1 || 'https://placehold.co/600x600/0b0b0f/ffffff?text=Image';
                 return `
                     <div class="bg-darkCard border border-darkBorder rounded-2xl overflow-hidden p-4 space-y-3 relative flex flex-col justify-between">
-                        <button onclick="toggleWishlistItem('${p.id}')" class="absolute top-3 right-3 z-10 w-8 h-8 rounded-full bg-black border border-darkBorder flex items-center justify-center text-xs text-rose-500 hover:text-neutral-500 transition-colors"><i class="fa-solid fa-heart"></i></button>
-                        <div class="aspect-square flex items-center justify-center bg-neutral-950 rounded-xl p-2 cursor-pointer" onclick="navigateToProductDetail('${p.id}')"><img src="${mainImg}" class="max-h-full max-w-full object-contain"></div>
-                        <div class="space-y-1"><h3 class="text-[10px] uppercase font-bold text-neutral-400 tracking-wider">${p.category}</h3><h2 class="text-xs font-bold text-white leading-snug line-clamp-2 h-8 cursor-pointer" onclick="navigateToProductDetail('${p.id}')">${p.name}</h2></div>
-                        <div class="flex items-center justify-between pt-2 border-t border-darkBorder"><span class="text-xs font-bold text-emerald-400">₹${Number(p.price).toFixed(2)}</span><button onclick="addProductToCart('${p.id}')" class="px-3 py-1.5 rounded-lg bg-brand-600 hover:bg-brand-500 text-[10px] font-bold text-white uppercase transition-all">Add Bag</button></div>
+                        <button onclick="toggleWishlistItem('${p.id}')" class="absolute top-3 right-3 z-10 w-8 h-8 rounded-full bg-black border border-darkBorder flex items-center justify-center text-xs text-rose-500 transition-colors">
+                            <i class="fa-solid fa-heart"></i>
+                        </button>
+                        <div class="aspect-square flex items-center justify-center bg-neutral-950 rounded-xl p-2 cursor-pointer" onclick="navigateToProductDetail('${p.id}')">
+                            <img src="${img}" class="max-h-full max-w-full object-contain">
+                        </div>
+                        <div class="space-y-1">
+                            <h3 class="text-[9px] uppercase font-bold text-neutral-500 tracking-wider font-mono">${p.category}</h3>
+                            <h2 class="text-xs font-bold text-white leading-snug line-clamp-2 h-8 cursor-pointer" onclick="navigateToProductDetail('${p.id}')">${p.name}</h2>
+                        </div>
+                        <div class="flex items-center justify-between pt-2 border-t border-darkBorder">
+                            <span class="text-xs font-bold text-emerald-400">₹${Number(p.price).toFixed(2)}</span>
+                            <button onclick="addProductToCart('${p.id}')" class="px-3 py-1.5 rounded-lg bg-brand-600 hover:bg-brand-500 text-[10px] font-bold text-white uppercase transition-all">Acquire</button>
+                        </div>
                     </div>
                 `;
             }).join('');
         }
 
-        // ====== ORDERS ======
+        // ====== MY LOGISTICS ARCHIVE ======
         async function renderCustomerPurchases() {
             const container = document.getElementById('ordersContainer');
-            container.innerHTML = `<div class="py-12 text-center text-neutral-500"><i class="fa-solid fa-circle-notch fa-spin text-2xl text-brand-500 mb-2"></i><p class="text-xs">Loading orders...</p></div>`;
+            if (!container) return;
+            container.innerHTML = `<div class="py-12 text-center text-neutral-500"><i class="fa-solid fa-sync fa-spin text-2xl text-brand-500 mb-2"></i><p class="text-xs">Synchronizing logistics logs...</p></div>`;
             try {
                 const snapshot = await get(ref(db, 'orders'));
                 let orders = [];
@@ -1181,7 +1827,11 @@
                     }
                 });
                 if (orders.length === 0) {
-                    container.innerHTML = `<div class="py-16 text-center text-neutral-500 bg-darkCard border border-darkBorder rounded-2xl space-y-4"><i class="fa-solid fa-receipt text-4xl"></i><p class="text-sm">No purchases yet.</p></div>`;
+                    container.innerHTML = `
+                        <div class="py-16 text-center text-neutral-500 bg-darkCard border border-darkBorder rounded-2xl space-y-4">
+                            <i class="fa-solid fa-box-open text-4xl"></i>
+                            <p class="text-sm">No logistics history parameters located.</p>
+                        </div>`;
                     return;
                 }
                 orders.sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -1190,81 +1840,232 @@
                     return `
                         <div class="bg-darkCard border border-darkBorder p-6 rounded-2xl space-y-4">
                             <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-2 border-b border-darkBorder pb-4">
-                                <div><h3 class="text-xs font-bold text-neutral-400 uppercase tracking-widest">ORDER #${o.id.slice(-8).toUpperCase()}</h3><p class="text-[10px] text-neutral-500 mt-0.5">${date}</p></div>
-                                <span class="px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-brand-500/10 border border-brand-500/20 text-brand-500">${o.status || 'Pending'}</span>
+                                <div>
+                                    <h3 class="text-xs font-bold text-neutral-400 uppercase tracking-widest">TRANSACTION #${o.id.slice(-8).toUpperCase()}</h3>
+                                    <p class="text-[10px] text-neutral-500 mt-0.5">${date}</p>
+                                </div>
+                                <span class="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-brand-500/10 border border-brand-500/20 text-brand-400">
+                                    ${o.status || 'Pending'}
+                                </span>
                             </div>
-                            <div class="space-y-3">${o.items.map(i => `<div class="flex justify-between items-center text-xs"><span class="text-neutral-300">${i.qty}x <strong class="text-white font-bold">${i.name}</strong></span><span class="text-neutral-400">₹${Number(i.price * i.qty).toFixed(2)}</span></div>`).join('')}</div>
+                            <div class="space-y-3">${o.items.map(i => `
+                                <div class="flex justify-between items-center text-xs">
+                                    <span class="text-neutral-300 flex flex-col">
+                                        <span>${i.qty}x <strong class="text-white">${i.name}</strong></span>
+                                        ${i.size ? `<span class="text-[10px] font-bold text-brand-400 mt-0.5 uppercase">Size: ${i.size}</span>` : ''}
+                                    </span>
+                                    <span class="text-neutral-400">₹${Number(i.price * i.qty).toFixed(2)}</span>
+                                </div>
+                            `).join('')}</div>
                             <div class="border-t border-darkBorder pt-4 flex flex-col sm:flex-row justify-between sm:items-center gap-4 text-xs">
                                 <div class="text-neutral-400 space-y-1">
-                                    <p class="font-bold text-white uppercase text-[10px] tracking-wider"><i class="fa-solid fa-map-pin mr-1 text-brand-500"></i> Shipping</p>
-                                    <p>${o.shipping?.fullName || 'N/A'} | PIN: ${o.shipping?.pincode || 'N/A'}</p>
+                                    <p class="font-bold text-white uppercase text-[10px] tracking-wider"><i class="fa-solid fa-location-dot mr-1 text-brand-400"></i> Delivery Node</p>
+                                    <p>${o.shipping?.fullName || 'N/A'} | Pin: ${o.shipping?.pincode || 'N/A'}</p>
                                     <p class="text-[10px] text-neutral-500 max-w-sm">${o.shipping?.address || 'N/A'}</p>
-                                    <p class="text-[11px] font-semibold text-brand-400 mt-2"><i class="fa-solid fa-truck-ramp-box mr-1"></i> Delivery within 9 days</p>
                                 </div>
-                                <div class="text-right"><span class="text-neutral-400">Total: </span><span class="text-base font-extrabold text-emerald-400">₹${Number(o.total).toFixed(2)}</span></div>
+                                <div class="text-right">
+                                    <span class="text-neutral-400">Total: </span>
+                                    <span class="text-base font-extrabold text-emerald-400">₹${Number(o.total).toFixed(2)}</span>
+                                </div>
                             </div>
                         </div>
                     `;
                 }).join('');
             } catch (err) {
                 console.error(err);
-                container.innerHTML = `<p class="text-xs text-rose-500 text-center">Failed to load orders.</p>`;
+                container.innerHTML = `<p class="text-xs text-rose-500 text-center">Failed to fetch transactions.</p>`;
             }
         }
 
-        // ====== CONTACT ======
-        document.getElementById('contactForm').addEventListener('submit', async (e) => {
+        // ====== VIBEBOT STYLE LIAISON (Gemini-3-Flash API) ======
+        window.toggleVibeBot = () => {
+            document.getElementById('vibeBotChat').classList.toggle('hidden');
+        };
+
+        document.getElementById('vibeBotForm')?.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const payload = {
-                name: document.getElementById('contactName').value.trim(),
-                email: document.getElementById('contactEmail').value.trim(),
-                message: document.getElementById('contactMessage').value.trim(),
-                date: new Date().toISOString()
-            };
+            const inputEl = document.getElementById('vibeBotInput');
+            const messageVal = inputEl.value.trim();
+            if (!messageVal) return;
+
+            appendVibeBotMessage('user', messageVal);
+            inputEl.value = '';
+
+            const responseContainer = appendVibeBotMessage('bot', `<i class="fa-solid fa-arrows-spin fa-spin mr-1"></i> Formulating styling advice...`);
+
             try {
-                await push(ref(db, 'messages'), payload);
-                showToast("Inquiry sent!");
-                document.getElementById('contactForm').reset();
-            } catch (err) { console.error(err);
-                showToast("Failed to send.", "error"); }
+                const catalogSnippet = products.map(p => `- ${p.name} inside category ${p.category} listed at ₹${p.price}. Current Views metrics: ${p.clicks || 0} clicks. Specs: ${p.description}`).join('\n');
+                const systemPrompt = `You are VibeBot, an elite futuristic personal stylist for VibeStore. 
+                Answer in 2-3 highly elegant, compact, cyberpunk-styled sentences.
+                Our shipping policy guarantees delivery across India within 9 days. We do not support cash on delivery.
+                If asked about products, pitch items with high view/click popularity metrics first!
+                Here is our real-time product inventory schema:
+                ${catalogSnippet}`;
+
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=`;
+                const payload = {
+                    contents: [{ parts: [{ text: messageVal }] }],
+                    systemInstruction: { parts: [{ text: systemPrompt }] }
+                };
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+                const candidate = result.candidates?.[0];
+                if (candidate && candidate.content?.parts?.[0]?.text) {
+                    responseContainer.innerHTML = candidate.content.parts[0].text;
+                } else {
+                    responseContainer.innerHTML = "Telemetry connection to Google API interrupted. Try again.";
+                }
+            } catch (err) {
+                console.error(err);
+                responseContainer.innerHTML = "Communication node fault. Ready to retry.";
+            }
         });
 
-        // ====== AUTH UI ======
-        window.toggleAuthModal = (show) => {
-            const modal = document.getElementById('authModal');
-            if (show) { modal.classList.remove('hidden');
-                modal.classList.add('flex'); } else { modal.classList.add('hidden');
-                modal.classList.remove('flex'); }
-        };
-        window.toggleAuthMode = () => {
-            isAuthSignUpMode = !isAuthSignUpMode;
-            document.getElementById('authModalTitle').innerText = isAuthSignUpMode ? "Create Account" : "Sign In";
-            document.getElementById('authModalSubmitBtn').innerText = isAuthSignUpMode ? "Register" : "Sign In";
-            document.getElementById('authModeToggler').innerText = isAuthSignUpMode ? "Already have an account? Sign In" : "Need an account? Sign Up";
+        function appendVibeBotMessage(sender, text) {
+            const feed = document.getElementById('vibeBotMessages');
+            if (!feed) return;
+            const msg = document.createElement('div');
+            
+            if (sender === 'user') {
+                msg.className = "flex items-start gap-2 justify-end max-w-[85%] ml-auto animate-card-load";
+                msg.innerHTML = `<div class="bg-brand-600 text-white p-2.5 rounded-2xl rounded-tr-none">${text}</div>`;
+            } else {
+                msg.className = "flex items-start gap-2 max-w-[85%] animate-card-load";
+                msg.innerHTML = `<div class="bg-darkBorder text-neutral-300 p-2.5 rounded-2xl rounded-tl-none">${text}</div>`;
+            }
+            feed.appendChild(msg);
+            feed.scrollTop = feed.scrollHeight;
+            return msg.querySelector('div');
+        }
+
+        // ====== SYSTEM CONSOLE / ADMIN MODULES ======
+        window.toggleAdminForm = () => {
+            document.getElementById('adminProductForm').classList.toggle('hidden');
         };
 
-        document.getElementById('authModalForm').addEventListener('submit', async (e) => {
+        document.getElementById('adminProductForm')?.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('adminProdName').value.trim();
+            const category = document.getElementById('adminProdCategory').value;
+            const price = parseFloat(document.getElementById('adminProdPrice').value);
+            const sizesRaw = document.getElementById('adminProdSizes').value.trim();
+            const img1 = document.getElementById('adminProdImg1').value.trim();
+            const img2 = document.getElementById('adminProdImg2').value.trim();
+            const img3 = document.getElementById('adminProdImg3').value.trim();
+            const desc = document.getElementById('adminProdDesc').value.trim();
+
+            const sizesArr = sizesRaw ? sizesRaw.split(',').map(s => s.trim()) : [];
+
+            const newProduct = {
+                name,
+                category,
+                price,
+                clicks: 0, // Newly uploaded products start with zero clicks
+                imageUrl1: img1,
+                imageUrl2: img2,
+                imageUrl3: img3 || null,
+                description: desc,
+                sizes: sizesArr,
+                benefits: "Complimentary 9-Day fully tracked package, Extended material construct warranty",
+                reviews: []
+            };
+
+            try {
+                await push(ref(db, 'products'), newProduct);
+                showToast("New model parameters deployed successfully!");
+                document.getElementById('adminProductForm').reset();
+                document.getElementById('adminProductForm').classList.add('hidden');
+            } catch (err) {
+                console.error(err);
+                showToast("Failed to write coordinates.", "error");
+            }
+        });
+
+        async function renderAdminProductsTable() {
+            const tableBody = document.getElementById('adminProductsTable');
+            if (!tableBody) return;
+            tableBody.innerHTML = products.map(p => {
+                const img = p.imageUrl1 || 'https://placehold.co/100x100/0b0b0f/ffffff?text=Product';
+                return `
+                    <tr class="border-b border-darkBorder hover:bg-neutral-900/40 transition-colors">
+                        <td class="p-4"><img src="${img}" class="w-10 h-10 rounded-lg object-contain bg-neutral-950 border border-darkBorder"></td>
+                        <td class="p-4 font-bold text-white text-xs">${p.name}</td>
+                        <td class="p-4 text-neutral-400 capitalize text-[11px]">${p.category}</td>
+                        <td class="p-4 font-mono font-bold text-brand-400 text-xs">${p.clicks || 0} clicks</td>
+                        <td class="p-4 font-semibold text-emerald-400 text-xs">₹${Number(p.price).toFixed(2)}</td>
+                        <td class="p-4 text-right">
+                            <button onclick="deleteProductFromConsole('${p.id}')" class="px-3 py-1.5 bg-rose-950/40 hover:bg-rose-900 border border-rose-500/20 hover:border-rose-500 text-rose-400 text-[10px] rounded-lg transition-all font-mono">
+                                SCRUB RECORD
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        window.deleteProductFromConsole = async (id) => {
+            const confirmationModal = confirm("Execute telemetry deletion sequence for this product configuration?");
+            if (confirmationModal) {
+                try {
+                    await remove(ref(db, `products/${id}`));
+                    showToast("Product configuration wiped.");
+                    playChimeEffect('delete');
+                } catch (err) {
+                    console.error(err);
+                    showToast("Fail to delete product record.", "error");
+                }
+            }
+        };
+
+        // ====== AUTHENTICATION EVENTS ======
+        window.toggleAuthModal = (show) => {
+            const modal = document.getElementById('authModal');
+            if (show) { 
+                modal.classList.remove('hidden');
+                modal.classList.add('flex'); 
+            } else { 
+                modal.classList.add('hidden');
+                modal.classList.remove('flex'); 
+            }
+        };
+        
+        window.toggleAuthMode = () => {
+            isAuthSignUpMode = !isAuthSignUpMode;
+            document.getElementById('authModalTitle').innerText = isAuthSignUpMode ? "Create Access Node" : "Confirm Identity";
+            document.getElementById('authModalSubmitBtn').innerText = isAuthSignUpMode ? "Register Port" : "Confirm Identity";
+            document.getElementById('authModeToggler').innerText = isAuthSignUpMode ? "Already registered? Sign In" : "Register New Comm Port";
+        };
+
+        document.getElementById('authModalForm')?.addEventListener('submit', async (e) => {
             e.preventDefault();
             const email = document.getElementById('authEmail').value.trim();
             const password = document.getElementById('authPassword').value;
             try {
                 if (isAuthSignUpMode) {
                     await createUserWithEmailAndPassword(auth, email, password);
-                    showToast("Account created!");
+                    showToast("Comm port registered!");
                 } else {
                     await signInWithEmailAndPassword(auth, email, password);
-                    showToast("Welcome back!");
+                    showToast("Credentials confirmed!");
                 }
                 toggleAuthModal(false);
                 document.getElementById('authModalForm').reset();
-            } catch (err) { console.error(err);
-                showToast(err.message, "error"); }
+            } catch (err) { 
+                console.error(err);
+                showToast("Verification failed.", "error"); 
+            }
         });
 
-        document.getElementById('authBtn').addEventListener('click', () => {
+        document.getElementById('authBtn')?.addEventListener('click', () => {
             if (currentUser && !currentUser.isAnonymous) {
                 signOut(auth);
-                showToast("Logged out.", "error");
+                showToast("Comm port disconnected.", "error");
             } else {
                 toggleAuthModal(true);
             }
@@ -1274,23 +2075,89 @@
             currentUser = user;
             const btn = document.getElementById('authStatusText');
             if (user && !user.isAnonymous) {
-                btn.innerText = "Logout";
+                if (btn) btn.innerText = "Logout";
                 document.querySelectorAll('.auth-req').forEach(el => el.classList.remove('hidden'));
             } else {
-                btn.innerText = "Login";
+                if (btn) btn.innerText = "Login";
                 document.querySelectorAll('.auth-req').forEach(el => el.classList.add('hidden'));
             }
             updateCartAndBadgeState();
             if (window.location.hash === '#orders') renderCustomerPurchases();
         });
 
-        // ====== MOBILE MENU ======
-        document.getElementById('menuToggler').addEventListener('click', () => {
+        // ====== MOBILE SLIDEOUT ======
+        document.getElementById('menuToggler')?.addEventListener('click', () => {
             document.getElementById('mobileMenu').classList.toggle('hidden');
         });
 
-        // ====== BOOT ======
+        // ====== IMPRESSIVE ANIMATED CANVAS BACKGROUND (REVOLVING FORCE FIELD) ======
+        const bgCanvas = document.getElementById('bg-canvas');
+        const bgCtx = bgCanvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            bgCanvas.width = window.innerWidth;
+            bgCanvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            initParticles();
+        });
+
+        class SpaceParticle {
+            constructor() {
+                this.x = Math.random() * bgCanvas.width;
+                this.y = Math.random() * bgCanvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = (Math.random() * 0.4) - 0.2;
+                this.speedY = (Math.random() * 0.4) - 0.2;
+                const colors = ['#8b5cf6', '#3b82f6', '#10b981', '#4f46e5'];
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+                this.alpha = Math.random() * 0.5 + 0.2;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x < 0 || this.x > bgCanvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > bgCanvas.height) this.speedY *= -1;
+            }
+            draw() {
+                bgCtx.save();
+                bgCtx.globalAlpha = this.alpha;
+                bgCtx.fillStyle = this.color;
+                bgCtx.shadowBlur = 15;
+                bgCtx.shadowColor = this.color;
+                bgCtx.beginPath();
+                bgCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                bgCtx.fill();
+                bgCtx.restore();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            const numParticles = window.innerWidth < 768 ? 40 : 100;
+            for (let i = 0; i < numParticles; i++) {
+                particles.push(new SpaceParticle());
+            }
+        }
+
+        function animate() {
+            bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+            }
+            requestAnimationFrame(animate);
+        }
+
+        // ====== ENGINE BOOT ======
         window.onload = function() {
+            resizeCanvas();
+            initParticles();
+            animate();
+
             runSessionInitialization().then(() => {
                 startCatalogSync();
                 processActiveRoute();
