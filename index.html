@@ -231,10 +231,7 @@
 
             <!-- Product Grid -->
             <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="col-span-full py-16 text-center" id="loadingMessage">
-                    <i class="fa-solid fa-cube fa-spin text-4xl text-brand-500 mb-4"></i>
-                    <p class="text-neutral-400">Connecting database coordinates...</p>
-                </div>
+                <!-- Dynamically Populated -->
             </div>
         </div>
 
@@ -245,7 +242,7 @@
                 <p class="text-neutral-400 text-sm mt-1">Premium visual specs currently dominating global clicks metrics.</p>
             </div>
             <div id="featuredGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="col-span-full text-center text-neutral-500">Retrieving priority coordinates...</div>
+                <!-- Dynamically Populated -->
             </div>
         </div>
 
@@ -723,25 +720,25 @@
                 
                 if (preset === 'success') {
                     osc.type = 'triangle';
-                    osc.frequency.setValueAtTime(523.25, audioContextInstance.currentTime); // C5
-                    osc.frequency.setValueAtTime(659.25, audioContextInstance.currentTime + 0.1); // E5
-                    osc.frequency.setValueAtTime(783.99, audioContextInstance.currentTime + 0.2); // G5
+                    osc.frequency.setValueAtTime(523.25, audioContextInstance.currentTime);
+                    osc.frequency.setValueAtTime(659.25, audioContextInstance.currentTime + 0.1);
+                    osc.frequency.setValueAtTime(783.99, audioContextInstance.currentTime + 0.2);
                     gain.gain.setValueAtTime(0.12, audioContextInstance.currentTime);
                     gain.gain.exponentialRampToValueAtTime(0.01, audioContextInstance.currentTime + 0.4);
                     osc.start();
                     osc.stop(audioContextInstance.currentTime + 0.4);
                 } else if (preset === 'zoom') {
                     osc.type = 'sine';
-                    osc.frequency.setValueAtTime(440, audioContextInstance.currentTime); // A4
-                    osc.frequency.setValueAtTime(880, audioContextInstance.currentTime + 0.08); // A5
+                    osc.frequency.setValueAtTime(440, audioContextInstance.currentTime);
+                    osc.frequency.setValueAtTime(880, audioContextInstance.currentTime + 0.08);
                     gain.gain.setValueAtTime(0.06, audioContextInstance.currentTime);
                     gain.gain.exponentialRampToValueAtTime(0.01, audioContextInstance.currentTime + 0.25);
                     osc.start();
                     osc.stop(audioContextInstance.currentTime + 0.25);
                 } else if (preset === 'delete') {
                     osc.type = 'sawtooth';
-                    osc.frequency.setValueAtTime(220, audioContextInstance.currentTime); // A3
-                    osc.frequency.setValueAtTime(146.83, audioContextInstance.currentTime + 0.1); // D3
+                    osc.frequency.setValueAtTime(220, audioContextInstance.currentTime);
+                    osc.frequency.setValueAtTime(146.83, audioContextInstance.currentTime + 0.1);
                     gain.gain.setValueAtTime(0.08, audioContextInstance.currentTime);
                     gain.gain.exponentialRampToValueAtTime(0.01, audioContextInstance.currentTime + 0.3);
                     osc.start();
@@ -774,6 +771,7 @@
         // ====== DEFAULT CATALOG SEED MODULE ======
         const defaultProducts = [
             {
+                id: "seed_1",
                 name: "Aether Obsidian Chrono-Watch",
                 category: "electronics",
                 price: 15499.00,
@@ -789,6 +787,7 @@
                 ]
             },
             {
+                id: "seed_2",
                 name: "Neon-Woven Technical Cargo Outrunner",
                 category: "fashion",
                 price: 7499.00,
@@ -802,6 +801,7 @@
                 reviews: [{ name: "Marcus Kane", rating: 5, comment: "Tons of deep utility space. Windproofing holds up perfectly." }]
             },
             {
+                id: "seed_3",
                 name: "Spectre Isolation Studio-Overears",
                 category: "electronics",
                 price: 19999.00,
@@ -814,6 +814,7 @@
                 reviews: []
             },
             {
+                id: "seed_4",
                 name: "Modular Commuter Tactical Shell-Back",
                 category: "essentials",
                 price: 9899.00,
@@ -832,7 +833,8 @@
             const snapshot = await get(productsRef);
             if (!snapshot.exists()) {
                 for (let item of defaultProducts) {
-                    await push(productsRef, item);
+                    const { id, ...itemToPush } = item;
+                    await push(productsRef, itemToPush);
                 }
                 showToast("Default storefront seeded successfully!");
             }
@@ -1231,7 +1233,6 @@
                 }
             }, (error) => {
                 console.error("Firebase database failure: ", error);
-                showToast("Connection database failure.", "error");
             });
         }
 
@@ -2158,10 +2159,21 @@
             initParticles();
             animate();
 
+            // 1. INSTANT OPTIMISTIC UI: Do not wait for network/database requests.
+            products = [...defaultProducts];
+            document.getElementById('loadingMessage')?.remove();
+            renderCatalogProductsGrid();
+            renderFeaturedPage();
+            initHeroCarousel();
+            processActiveRoute();
+            updateCartAndBadgeState();
+
+            // 2. BACKGROUND TELEMETRY: Authenticate and pull real data without blocking user interactions.
             runSessionInitialization().then(() => {
                 startCatalogSync();
-                processActiveRoute();
-                updateCartAndBadgeState();
+            }).catch(err => {
+                console.warn("Session init failure, proceeding with background sync...");
+                startCatalogSync();
             });
         };
     </script>
